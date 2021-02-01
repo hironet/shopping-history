@@ -1,8 +1,5 @@
 <?php
 require_once('/var/www/config/my-sys/shopping_history/db_info.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/my-sys/shopping_history/models/categories.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/my-sys/shopping_history/models/shops.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/my-sys/shopping_history/models/orders.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/my-sys/shopping_history/models/shopping_history.php');
 
 $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
@@ -16,36 +13,8 @@ try {
   echo $e->getMessage();
 }
 
-$categories = new Categories($db);
-$category_names = array(
-  'PC',
-  'PC周辺機器',
-  'PCアクセサリ',
-  'スマホ',
-  'スマホ周辺機器',
-  'スマホアクセサリ',
-  '衣類',
-  '日用品'
-);
-foreach ($category_names as $cn) {
-  $categories->insert_category_name($cn);
-}
-
-$shops = new Shops($db);
-$shop_names = array(
-  'Amazon',
-  '楽天市場',
-  'Apple Store',
-  'ユニクロ',
-  '無印良品',
-  'メルカリ'
-);
-foreach ($shop_names as $sn) {
-  $shops->insert_shop_name($sn);
-}
-
-$orders = new ShoppingHistory($db);
-$shopping_histories = array(
+$sh = new ShoppingHistory($db);
+$datas = array(
   array('purchase_date' => '2020-11-15',
         'category_name' => 'スマホ',
         'product_name' => 'iPhone 12 mini',
@@ -72,7 +41,7 @@ $shopping_histories = array(
         'shop_name' => 'ユニクロ',
         'price' => 1000)
 );
-foreach ($shopping_histories as $sh) {
-  $orders->insert_shopping_history($sh);
+foreach ($datas as $data) {
+  $sh->insert_data($data);
 }
 ?>

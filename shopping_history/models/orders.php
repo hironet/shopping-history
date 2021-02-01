@@ -32,5 +32,32 @@ SQL;
       echo $e->getMessage();
     }
   }
+
+  public function insert_data($data) {
+    $sql = <<<SQL
+    INSERT INTO orders (purchase_date, category_id, product_name, shop_id, price)
+    VALUES (
+      ?,
+      (SELECT category_id FROM categories WHERE category_name = ?),
+      ?,
+      (SELECT shop_id FROM shops WHERE shop_name = ?),
+      ?
+    )
+SQL;
+
+    try {
+      $q = $this->db->prepare($sql);
+      if ($q->execute(array(
+        $data['purchase_date'], $data['category_name'],
+        $data['product_name'], $data['shop_name'], $data['price'])) === true) {
+        echo 'ordersテーブルへのINSERTが成功しました。<br>';
+      } else {
+        echo 'ordersテーブルへのINSERTが失敗しました。<br>';
+        exit(1);
+      }
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+    }
+  }
 }
 ?>

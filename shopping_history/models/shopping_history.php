@@ -5,9 +5,15 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/my-sys/shopping_history/models/orders
 
 class ShoppingHistory {
   private $db;
+  private $categories;
+  private $shops;
+  private $orders;
 
   function __construct($db) {
     $this->db = $db;
+    $this->categories = new Categories($db);
+    $this->shops = new Shops($db);
+    $this->orders = new Orders($db);
   }
 
   public function create_view() {
@@ -31,31 +37,10 @@ SQL;
     }
   }
 
-  public function insert_shopping_history($sh) {
-    $sql = <<<SQL
-    INSERT INTO orders (purchase_date, category_id, product_name, shop_id, price)
-    VALUES (
-      ?,
-      (SELECT category_id FROM categories WHERE category_name = ?),
-      ?,
-      (SELECT shop_id FROM shops WHERE shop_name = ?),
-      ?
-    )
-SQL;
-
-    try {
-      $q = $this->db->prepare($sql);
-      if ($q->execute(array(
-        $sh['purchase_date'], $sh['category_name'],
-        $sh['product_name'], $sh['shop_name'], $sh['price'])) === true) {
-          echo 'ordersテーブルへのINSERTが成功しました。<br>';
-      } else {
-        echo 'ordersテーブルへのINSERTが失敗しました。<br>';
-        exit(1);
-      }
-    } catch (PDOException $e) {
-      echo $e->getMessage();
-    }
+  public function insert_data($data) {
+    $this->categories->insert_data($data['category_name']);
+    $this->shops->insert_data($data['shop_name']);
+    $this->orders->insert_data($data);
   }
 
   public function get_all() {

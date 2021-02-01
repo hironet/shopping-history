@@ -27,12 +27,15 @@ SQL;
     }
   }
 
-  public function insert_category_name($category_name) {
-    $sql = 'INSERT INTO categories (category_name) VALUES (?)';
+  public function insert_data($data) {
+    $sql = <<<SQL
+    INSERT INTO categories (category_name)
+    SELECT ? FROM dual WHERE NOT EXISTS (SELECT * FROM categories WHERE category_name=?)
+SQL;
 
     try {
       $q = $this->db->prepare($sql);
-      if ($q->execute(array($category_name)) === true) {
+      if ($q->execute(array($data, $data)) === true) {
         echo 'categoriesテーブルへのINSERTが成功しました。<br>';
       } else {
         echo 'categoriesテーブルへのINSERTが失敗しました。<br>';
