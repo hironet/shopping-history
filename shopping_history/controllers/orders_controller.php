@@ -14,7 +14,7 @@ try {
 }
 
 $sh = new ShoppingHistory($db);
-$rows = $sh->get_all();
+$rows = $sh->getAll();
 foreach ($rows as $r) {
   echo "{$r[1]} {$r[2]} {$r[3]} {$r[4]} {$r[5]}<br>";
 }

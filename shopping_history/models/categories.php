@@ -6,7 +6,7 @@ class Categories {
     $this->db = $db;
   }
 
-  public function create_table() {
+  public function createTable() {
     $sql = <<<SQL
     CREATE TABLE IF NOT EXISTS categories (
     category_id int(11) NOT NULL AUTO_INCREMENT,
@@ -27,7 +27,7 @@ SQL;
     }
   }
 
-  public function insert_data($data) {
+  public function insertData($data) {
     $sql = <<<SQL
     INSERT INTO categories (category_name)
     SELECT ? FROM dual WHERE NOT EXISTS (SELECT * FROM categories WHERE category_name=?)

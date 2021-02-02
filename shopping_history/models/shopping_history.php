@@ -16,7 +16,7 @@ class ShoppingHistory {
     $this->orders = new Orders($db);
   }
 
-  public function create_view() {
+  public function createView() {
     $sql = <<<SQL
     CREATE OR REPLACE VIEW shopping_history AS
     SELECT a.order_id, a.purchase_date, b.category_name, a.product_name, c.shop_name, a.price
@@ -37,18 +37,18 @@ SQL;
     }
   }
 
-  public function insert_data($data) {
-    $this->categories->insert_data($data['category_name']);
-    $this->shops->insert_data($data['shop_name']);
-    $this->orders->insert_data($data);
+  public function insertData($data) {
+    $this->categories->insertData($data['category_name']);
+    $this->shops->insertData($data['shop_name']);
+    $this->orders->insertData($data);
   }
 
-  public function import_csv($file) {
+  public function importCsv($file) {
     if (($handle = fopen($file, "r")) != false) {
       $keys = ['purchase_date', 'category_name', 'product_name', 'shop_name', 'price'];
       while (($values = fgetcsv($handle, 1000, ",")) != false) {
         $data = array_combine($keys, $values);
-        $this->insert_data($data);
+        $this->insertData($data);
       }
       fclose($handle);
     } else {
@@ -57,7 +57,7 @@ SQL;
     }
   }
 
-  public function get_all() {
+  public function getAll() {
     $sql = <<<SQL
     SELECT order_id, purchase_date, category_name, product_name, shop_name, price
     FROM shopping_history

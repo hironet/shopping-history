@@ -14,5 +14,5 @@ try {
 }
 
 $sh = new ShoppingHistory($db);
-$sh->import_csv('sample.csv');
+$sh->importCsv('sample.csv');
 ?>

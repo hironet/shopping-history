@@ -17,14 +17,14 @@ try {
 }
 
 $categories = new Categories($db);
-$categories->create_table();
+$categories->createTable();
 
 $shops = new Shops($db);
-$shops->create_table();
+$shops->createTable();
 
 $orders = new Orders($db);
-$orders->create_table();
+$orders->createTable();
 
 $sh = new ShoppingHistory($db);
-$sh->create_view();
+$sh->createView();
 ?>

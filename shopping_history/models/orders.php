@@ -6,7 +6,7 @@ class Orders {
     $this->db = $db;
   }
 
-  public function create_table() {
+  public function createTable() {
     $sql = <<<SQL
     CREATE TABLE IF NOT EXISTS `orders` (
     order_id int(11) NOT NULL AUTO_INCREMENT,
@@ -33,7 +33,7 @@ SQL;
     }
   }
 
-  public function insert_data($data) {
+  public function insertData($data) {
     $sql = <<<SQL
     INSERT INTO orders (purchase_date, category_id, product_name, shop_id, price)
     VALUES (
