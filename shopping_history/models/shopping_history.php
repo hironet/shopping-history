@@ -43,6 +43,20 @@ SQL;
     $this->orders->insert_data($data);
   }
 
+  public function import_csv($file) {
+    if (($handle = fopen($file, "r")) != false) {
+      $keys = ['purchase_date', 'category_name', 'product_name', 'shop_name', 'price'];
+      while (($values = fgetcsv($handle, 1000, ",")) != false) {
+        $data = array_combine($keys, $values);
+        $this->insert_data($data);
+      }
+      fclose($handle);
+    } else {
+      echo "{$file}を開けませんでした。<br>";
+      exit(1);
+    }
+  }
+
   public function get_all() {
     $sql = <<<SQL
     SELECT order_id, purchase_date, category_name, product_name, shop_name, price
