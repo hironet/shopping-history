@@ -47,6 +47,12 @@ SQL;
     if (($handle = fopen($file, "r")) != false) {
       $keys = ['purchase_date', 'category_name', 'product_name', 'shop_name', 'price'];
       while (($values = fgetcsv($handle, 1000, ",")) != false) {
+        if ($values === [null] || count($values) != 5) continue;
+        foreach ($values as &$value) {
+          $value = htmlspecialchars(trim($value));
+        }
+        $values[0] = preg_replace('/[^0-9]/', '', $values[0]);
+        $values[4] = preg_replace('/[^0-9]/', '', $values[4]);
         $data = array_combine($keys, $values);
         $this->insertData($data);
       }
