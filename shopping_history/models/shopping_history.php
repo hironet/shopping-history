@@ -47,7 +47,7 @@ SQL;
     if (($handle = fopen($file, "r")) != false) {
       $keys = ['purchase_date', 'category_name', 'product_name', 'shop_name', 'price'];
       while (($values = fgetcsv($handle, 1000, ",")) != false) {
-        if ($values === [null] || count($values) != 5) continue;
+        if (count($values) != 5) continue;
         foreach ($values as &$value) {
           $value = htmlspecialchars(trim($value));
         }
