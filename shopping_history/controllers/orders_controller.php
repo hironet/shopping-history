@@ -16,5 +16,5 @@ try {
 $sh = new ShoppingHistory($db);
 $shopping_histories = $sh->getAll();
 
-include_once('../views/shopping_history_list.php');
+include_once('../views/list.php');
 ?>
