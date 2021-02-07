@@ -59,5 +59,21 @@ SQL;
       echo $e->getMessage();
     }
   }
+
+  public function deleteData($order_id) {
+    $sql = 'DELETE FROM orders WHERE order_id = ?';
+
+    try {
+      $q = $this->db->prepare($sql);
+      if ($q->execute(array($order_id)) === true) {
+        echo 'ordersテーブルからのDELETEが成功しました。<br>';
+      } else {
+        echo 'ordersテーブルからのDELETEが失敗しました。<br>';
+        exit(1);
+      }
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+    }
+  }
 }
 ?>

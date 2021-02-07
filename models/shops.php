@@ -27,7 +27,7 @@ SQL;
     }
   }
 
-  public function insertData($data) {
+  public function insertData($shop_name) {
     $sql = <<<SQL
     INSERT INTO shops (shop_name)
     SELECT ? FROM dual WHERE NOT EXISTS (SELECT * FROM shops WHERE shop_name=?)
@@ -35,7 +35,7 @@ SQL;
 
     try {
       $q = $this->db->prepare($sql);
-      if ($q->execute(array($data, $data)) === true) {
+      if ($q->execute(array($shop_name, $shop_name)) === true) {
         echo 'shopsテーブルへのINSERTが成功しました。<br>';
       } else {
         echo 'shopsテーブルへのINSERTが失敗しました。<br>';

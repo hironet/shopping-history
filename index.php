@@ -13,13 +13,18 @@ try {
   echo $e->getMessage();
 }
 
+$sh = new ShoppingHistory($db);
+
 if (isset($_POST['operation'])) {
   $oper = explode(',', $_POST['operation']);
-  echo $oper[0] . '<br>';
-  echo $oper[1] . '<br>';
+  if (strcmp($oper[0], 'update') === 0) {
+    echo $oper[0] . '<br>';
+    echo $oper[1] . '<br>';
+  } elseif (strcmp($oper[0], 'delete') === 0) {
+    $sh->deleteData($oper[1]);
+  }
 }
 
-$sh = new ShoppingHistory($db);
 $shopping_histories = $sh->getAll();
 
 include_once(__DIR__ . '/views/list.php');

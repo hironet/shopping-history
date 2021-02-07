@@ -56,8 +56,8 @@
               <td class="text-nowrap"><?php echo $sh[4]; ?></td>
               <td class="text-end text-nowrap"><?php echo number_format($sh[5]) . " 円"; ?></td>
               <td class="text-nowrap">
-                <button class="btn btn-primary btn-sm" type="submit" name="operation" value="<?php echo $sh[0]; ?>,modify">変更</button>
-                <button class="btn btn-danger btn-sm" type="submit" name="operation" value="<?php echo $sh[0]; ?>,remove">削除</button>
+                <button class="btn btn-primary btn-sm" type="submit" name="operation" value="update,<?php echo $sh[0]; ?>">変更</button>
+                <button class="btn btn-danger btn-sm" type="submit" name="operation" value="delete,<?php echo $sh[0]; ?>">削除</button>
               </td>
             </tr>
 <?php } ?>

@@ -43,6 +43,10 @@ SQL;
     $this->orders->insertData($data);
   }
 
+  public function deleteData($order_id) {
+    $this->orders->deleteData($order_id);
+  }
+
   public function importCsv($file) {
     if (($handle = fopen($file, "r")) != false) {
       $keys = ['purchase_date', 'category_name', 'product_name', 'shop_name', 'price'];
