@@ -48,19 +48,29 @@
             </tr>
           </thead>
           <tbody>
-<?php foreach ($shopping_histories as $sh) { ?>
+          <?php
+          foreach ($shopping_histories as $sh) {
+            $order_id = $sh[0];
+            $purchase_date = $sh[1];
+            $category_name = $sh[2];
+            $product_name = $sh[3];
+            $shop_name = $sh[4];
+            $price = $sh[5];
+          ?>
             <tr>
-              <td class="text-nowrap"><?php echo date('Y/m/d(D)', strtotime($sh[1])); ?></td>
-              <td class="text-nowrap"><?php echo $sh[2]; ?></td>
-              <td><?php echo $sh[3]; ?></td>
-              <td class="text-nowrap"><?php echo $sh[4]; ?></td>
-              <td class="text-end text-nowrap"><?php echo number_format($sh[5]) . " 円"; ?></td>
+              <td class="text-nowrap"><?php echo date('Y/m/d(D)', strtotime($purchase_date)); ?></td>
+              <td class="text-nowrap"><?php echo $category_name; ?></td>
+              <td><?php echo $product_name; ?></td>
+              <td class="text-nowrap"><?php echo $shop_name ?></td>
+              <td class="text-end text-nowrap"><?php echo number_format($price) . " 円"; ?></td>
               <td class="text-nowrap">
-                <button class="btn btn-primary btn-sm" type="submit" name="operation" value="update,<?php echo $sh[0]; ?>">変更</button>
-                <button class="btn btn-danger btn-sm" type="submit" name="operation" value="delete,<?php echo $sh[0]; ?>">削除</button>
+                <button class="btn btn-primary btn-sm" type="submit" name="operation" value="update,<?php echo $order_id; ?>">変更</button>
+                <button class="btn btn-danger btn-sm" type="submit" name="operation" value="delete,<?php echo $order_id; ?>">削除</button>
               </td>
             </tr>
-<?php } ?>
+          <?php
+          }
+          ?>
           </tbody>
         </table>
       </form>
