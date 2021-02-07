@@ -45,6 +45,12 @@ SQL;
     )
 SQL;
 
+    foreach ($data as &$d) {
+      $d = htmlspecialchars(trim($d));
+    }
+    $data['purchase_date'] = preg_replace('/[^0-9]/', '', $data['purchase_date']);
+    $data['price'] = preg_replace('/[^0-9]/', '', $data['price']);
+
     try {
       $q = $this->db->prepare($sql);
       if ($q->execute(array(

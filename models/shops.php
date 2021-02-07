@@ -33,6 +33,8 @@ SQL;
     SELECT ? FROM dual WHERE NOT EXISTS (SELECT * FROM shops WHERE shop_name=?)
 SQL;
 
+    $shop_name = htmlspecialchars(trim($shop_name));
+
     try {
       $q = $this->db->prepare($sql);
       if ($q->execute(array($shop_name, $shop_name)) === true) {

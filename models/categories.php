@@ -33,6 +33,8 @@ SQL;
     SELECT ? FROM dual WHERE NOT EXISTS (SELECT * FROM categories WHERE category_name=?)
 SQL;
 
+    $category_name = htmlspecialchars(trim($category_name));
+
     try {
       $q = $this->db->prepare($sql);
       if ($q->execute(array($category_name, $category_name)) === true) {
