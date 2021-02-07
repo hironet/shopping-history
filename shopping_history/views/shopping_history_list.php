@@ -34,28 +34,30 @@
     </nav>
   </header>
   <main>
-    <table class="table table-striped table-bordered">
-      <thead>
-        <tr class="text-center">
-          <th>日付</th>
-          <th>分類</th>
-          <th>商品名</th>
-          <th>店</th>
-          <th>価格</th>
-        </tr>
-      </thead>
-      <tbody>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr class="text-center">
+            <th>日付</th>
+            <th>分類</th>
+            <th>商品名</th>
+            <th>店</th>
+            <th>価格</th>
+          </tr>
+        </thead>
+        <tbody>
 <?php foreach ($shopping_histories as $sh) { ?>
-        <tr>
-          <td><?php echo "{$sh[1]}"; ?></td>
-          <td><?php echo "{$sh[2]}"; ?></td>
-          <td><?php echo "{$sh[3]}"; ?></td>
-          <td><?php echo "{$sh[4]}"; ?></td>
-          <td class="text-end"><?php echo number_format($sh[5]) . " 円"; ?></td>
-        </tr>
+          <tr>
+            <td><?php echo "{$sh[1]}"; ?></td>
+            <td><?php echo "{$sh[2]}"; ?></td>
+            <td><?php echo "{$sh[3]}"; ?></td>
+            <td><?php echo "{$sh[4]}"; ?></td>
+            <td class="text-end"><?php echo number_format($sh[5]) . " 円"; ?></td>
+          </tr>
 <?php } ?>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </main>
 </body>
 </html>
