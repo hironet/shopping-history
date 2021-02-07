@@ -82,5 +82,13 @@ SQL;
       echo $e->getMessage();
     }
   }
+
+  public function getAllCategories() {
+    return $this->categories->getAll();
+  }
+
+  public function getAllShops() {
+    return $this->shops->getAll();
+  }
 }
 ?>

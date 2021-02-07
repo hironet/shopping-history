@@ -45,5 +45,21 @@ SQL;
       echo $e->getMessage();
     }
   }
+
+  public function getAll() {
+    $sql = <<<SQL
+    SELECT category_id, category_name
+    FROM categories
+    ORDER BY category_id
+SQL;
+
+    try {
+      $q = $this->db->query($sql);
+      $rows = $q->fetchAll();
+      return $rows;
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+    }
+  }
 }
 ?>

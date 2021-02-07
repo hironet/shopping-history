@@ -17,16 +17,25 @@ $sh = new ShoppingHistory($db);
 
 if (isset($_POST['operation'])) {
   $oper = explode(',', $_POST['operation']);
-  $type = $oper[0];
-  $order_id = $oper[1];
-  if (strcmp($type, 'update') === 0) {
-    echo $oper[0] . '<br>';
-    echo $oper[1] . '<br>';
-  } elseif (strcmp($type, 'delete') === 0) {
-    $sh->deleteData($order_id);
+  switch ($oper[0]) {
+    case 'insert':
+      $keys = ['purchase_date', 'category_name', 'product_name', 'shop_name', 'price'];
+      $data = array_combine($keys, $_POST['insert_data']);
+      $sh->insertData($data);
+      break;
+    case 'update':
+      echo $type . '<br>';
+      echo $oper[1] . '<br>';
+      break;
+    case 'delete':
+      $order_id = $oper[1];
+      $sh->deleteData($order_id);
+      break;
   }
 }
 
+$categories = $sh->getAllCategories();
+$shops = $sh->getAllShops();
 $shopping_histories = $sh->getAll();
 include_once(__DIR__ . '/views/list.php');
 ?>

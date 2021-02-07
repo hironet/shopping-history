@@ -48,15 +48,52 @@
             </tr>
           </thead>
           <tbody>
-          <?php
-          foreach ($shopping_histories as $sh) {
-            $order_id = $sh[0];
-            $purchase_date = $sh[1];
-            $category_name = $sh[2];
-            $product_name = $sh[3];
-            $shop_name = $sh[4];
-            $price = $sh[5];
-          ?>
+            <tr>
+              <td>
+                <input type="date" name="insert_data[]">
+              </td>
+              <td>
+                <input type="text" name="insert_data[]" autocomplete="on" list="category_name">
+                <datalist id="category_name">
+<?php
+foreach ($categories as $category) {
+  $category_name = $category[1];
+  echo '<option value="' . $category_name . '">';
+}
+?>
+                </datalist>
+              </td>
+              <td>
+                <input type="text" name="insert_data[]" style="width: 100%;">
+              </td>
+              <td>
+                <input type="text" name="insert_data[]" autocomplete="on" list="shop_name">
+                <datalist id="shop_name">
+<?php
+foreach ($shops as $shop) {
+  $shop_name = $shop[1];
+  echo '<option value="' . $shop_name . '">';
+}
+?>
+                </datalist>
+              </td>
+              <td>
+                <input type="number" name="insert_data[]" name="price">
+              </td>
+              <td>
+                <button class="btn btn-primary btn-sm" type="submit" name="operation" value="insert">登録</button>
+                <button class="btn btn-secondary btn-sm" type="reset">取消</button>
+              </td>
+            </tr>
+<?php
+foreach ($shopping_histories as $sh) {
+  $order_id = $sh[0];
+  $purchase_date = $sh[1];
+  $category_name = $sh[2];
+  $product_name = $sh[3];
+  $shop_name = $sh[4];
+  $price = $sh[5];
+?>
             <tr>
               <td class="text-nowrap"><?php echo date('Y/m/d(D)', strtotime($purchase_date)); ?></td>
               <td class="text-nowrap"><?php echo $category_name; ?></td>
@@ -64,13 +101,13 @@
               <td class="text-nowrap"><?php echo $shop_name ?></td>
               <td class="text-end text-nowrap"><?php echo number_format($price) . " 円"; ?></td>
               <td class="text-nowrap">
-                <button class="btn btn-primary btn-sm" type="submit" name="operation" value="update,<?php echo $order_id; ?>">変更</button>
+                <button class="btn btn-success btn-sm" type="submit" name="operation" value="update,<?php echo $order_id; ?>">変更</button>
                 <button class="btn btn-danger btn-sm" type="submit" name="operation" value="delete,<?php echo $order_id; ?>">削除</button>
               </td>
             </tr>
-          <?php
-          }
-          ?>
+<?php
+}
+?>
           </tbody>
         </table>
       </form>
