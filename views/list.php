@@ -53,8 +53,8 @@
                 <input type="date" name="insert_data[]">
               </td>
               <td>
-                <input type="text" name="insert_data[]" autocomplete="on" list="category_name">
-                <datalist id="category_name">
+                <input type="text" name="insert_data[]" autocomplete="on" list="category_name_list">
+                <datalist id="category_name_list">
 <?php
 foreach ($categories as $category) {
   $category_name = $category[1];
@@ -67,8 +67,8 @@ foreach ($categories as $category) {
                 <input type="text" name="insert_data[]" style="width: 100%;">
               </td>
               <td>
-                <input type="text" name="insert_data[]" autocomplete="on" list="shop_name">
-                <datalist id="shop_name">
+                <input type="text" name="insert_data[]" autocomplete="on" list="shop_name_list">
+                <datalist id="shop_name_list">
 <?php
 foreach ($shops as $shop) {
   $shop_name = $shop[1];
@@ -78,7 +78,7 @@ foreach ($shops as $shop) {
                 </datalist>
               </td>
               <td>
-                <input type="number" name="insert_data[]" name="price">
+                <input type="number" name="insert_data[]">
               </td>
               <td>
                 <button class="btn btn-primary btn-sm" type="submit" name="operation" value="insert">登録</button>
