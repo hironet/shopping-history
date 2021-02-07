@@ -13,6 +13,12 @@ try {
   echo $e->getMessage();
 }
 
+if (isset($_POST['operation'])) {
+  $oper = explode(',', $_POST['operation']);
+  echo $oper[0] . '<br>';
+  echo $oper[1] . '<br>';
+}
+
 $sh = new ShoppingHistory($db);
 $shopping_histories = $sh->getAll();
 

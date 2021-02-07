@@ -35,28 +35,35 @@
   </header>
   <main>
     <div class="table-responsive">
-      <table class="table table-striped table-bordered">
-        <thead>
-          <tr class="text-center text-nowrap">
-            <th>日付</th>
-            <th>分類</th>
-            <th>商品名</th>
-            <th>店</th>
-            <th>価格</th>
-          </tr>
-        </thead>
-        <tbody>
+      <form action="#" method="POST">
+        <table class="table table-striped table-bordered align-middle">
+          <thead>
+            <tr class="text-center text-nowrap">
+              <th>日付</th>
+              <th>分類</th>
+              <th>商品名</th>
+              <th>店</th>
+              <th>価格</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
 <?php foreach ($shopping_histories as $sh) { ?>
-          <tr>
-            <td class="text-nowrap"><?php echo date('Y/m/d(D)', strtotime($sh[1])); ?></td>
-            <td class="text-nowrap"><?php echo $sh[2]; ?></td>
-            <td><?php echo $sh[3]; ?></td>
-            <td class="text-nowrap"><?php echo $sh[4]; ?></td>
-            <td class="text-end text-nowrap"><?php echo number_format($sh[5]) . " 円"; ?></td>
-          </tr>
+            <tr>
+              <td class="text-nowrap"><?php echo date('Y/m/d(D)', strtotime($sh[1])); ?></td>
+              <td class="text-nowrap"><?php echo $sh[2]; ?></td>
+              <td><?php echo $sh[3]; ?></td>
+              <td class="text-nowrap"><?php echo $sh[4]; ?></td>
+              <td class="text-end text-nowrap"><?php echo number_format($sh[5]) . " 円"; ?></td>
+              <td class="text-nowrap">
+                <button class="btn btn-primary btn-sm" type="submit" name="operation" value="<?php echo $sh[0]; ?>,modify">変更</button>
+                <button class="btn btn-danger btn-sm" type="submit" name="operation" value="<?php echo $sh[0]; ?>,remove">削除</button>
+              </td>
+            </tr>
 <?php } ?>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </form>
     </div>
   </main>
 </body>
