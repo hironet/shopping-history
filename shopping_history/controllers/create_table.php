@@ -1,5 +1,5 @@
 <?php
-require_once('/var/www/config/my-sys/shopping_history/db_info.php');
+require_once('/var/www/config/shopping_history/db_info.php');
 require_once(dirname(__DIR__) . '/models/categories.php');
 require_once(dirname(__DIR__) . '/models/shops.php');
 require_once(dirname(__DIR__) . '/models/orders.php');

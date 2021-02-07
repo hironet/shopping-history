@@ -1,5 +1,5 @@
 <?php
-require_once('/var/www/config/my-sys/shopping_history/db_info.php');
+require_once('/var/www/config/shopping_history/db_info.php');
 require_once(dirname(__DIR__) . '/models/shopping_history.php');
 
 $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
