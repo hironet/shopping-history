@@ -1,7 +1,7 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/my-sys/shopping_history/models/categories.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/my-sys/shopping_history/models/shops.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/my-sys/shopping_history/models/orders.php');
+require_once(__DIR__ . '/categories.php');
+require_once(__DIR__ . '/shops.php');
+require_once(__DIR__ . '/orders.php');
 
 class ShoppingHistory {
   private $db;
