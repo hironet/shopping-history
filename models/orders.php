@@ -54,8 +54,12 @@ SQL;
     try {
       $q = $this->db->prepare($sql);
       if ($q->execute(array(
-        $data['purchase_date'], $data['category_name'],
-        $data['product_name'], $data['shop_name'], $data['price'])) === true) {
+        $data['purchase_date'],
+        $data['category_name'],
+        $data['product_name'],
+        $data['shop_name'],
+        $data['price']
+        )) === true) {
         echo 'ordersテーブルへのINSERTが成功しました。<br>';
       } else {
         echo 'ordersテーブルへのINSERTが失敗しました。<br>';
