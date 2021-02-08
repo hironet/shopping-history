@@ -62,15 +62,28 @@ SQL;
     }
   }
 
-  public function getAll() {
+  public function getData($keyword) {
     $sql = <<<SQL
     SELECT order_id, purchase_date, category_name, product_name, shop_name, price
     FROM shopping_history
+    WHERE
+      purchase_date LIKE ? AND
+      category_name LIKE ? AND
+      product_name LIKE ? AND
+      shop_name LIKE ? AND
+      price LIKE ?
     ORDER BY order_id
 SQL;
 
     try {
-      $q = $this->db->query($sql);
+      $q = $this->db->prepare($sql);
+      $q->execute(array(
+        '%' . $keyword['purchase_date'] . '%',
+        '%' . $keyword['category_name'] . '%',
+        '%' . $keyword['product_name'] . '%',
+        '%' . $keyword['shop_name'] . '%',
+        '%' . $keyword['price'] . '%'
+      ));
       $rows = $q->fetchAll();
       return $rows;
     } catch (PDOException $e) {

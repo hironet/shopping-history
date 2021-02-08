@@ -15,13 +15,18 @@ try {
 
 $sh = new ShoppingHistory($db);
 
+$keys = ['purchase_date', 'category_name', 'product_name', 'shop_name', 'price'];
+$keyword = array_combine($keys, [null, null, null, null, null]);
+
 if (isset($_POST['operation'])) {
   $oper = explode(',', $_POST['operation']);
   switch ($oper[0]) {
+    case 'search':
+      $keyword = array_combine($keys, $_POST['keyword']);
+      break;
     case 'insert':
-      $keys = ['purchase_date', 'category_name', 'product_name', 'shop_name', 'price'];
-      $data = array_combine($keys, $_POST['insert_data']);
-      $sh->insertData($data);
+      $insert_data = array_combine($keys, $_POST['insert_data']);
+      $sh->insertData($insert_data);
       break;
     case 'update':
       echo $type . '<br>';
@@ -36,6 +41,6 @@ if (isset($_POST['operation'])) {
 
 $categories = $sh->getAllCategories();
 $shops = $sh->getAllShops();
-$shopping_histories = $sh->getAll();
+$shopping_histories = $sh->getData($keyword);
 include_once(__DIR__ . '/views/list.php');
 ?>

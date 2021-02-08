@@ -46,6 +46,42 @@
               <th>価格</th>
               <th>操作</th>
             </tr>
+            <tr>
+              <th>
+                <input class="form-control" type="date" name="keyword[]" placeholder="検索">
+              </th>
+              <th>
+                <input class="form-control" type="text" name="keyword[]" autocomplete="on" list="category_name_list" placeholder="検索">
+                <datalist id="category_name_list">
+<?php
+foreach ($categories as $category) {
+  $category_name = $category[1];
+  echo '<option value="' . $category_name . '">';
+}
+?>
+              </th>
+              <th>
+                <input class="form-control" type="text" name="keyword[]" placeholder="検索">
+              </th>
+              <th>
+                <!-- <input class="form-control" type="text" name="keyword[]" placeholder="検索"> -->
+                <input class="form-control" type="text" name="keyword[]" autocomplete="on" list="shop_name_list" placeholder="検索">
+                <datalist id="shop_name_list">
+<?php
+foreach ($shops as $shop) {
+  $shop_name = $shop[1];
+  echo '<option value="' . $shop_name . '">';
+}
+?>
+              </th>
+              <th>
+                <input class="form-control" type="number" name="keyword[]" placeholder="検索">
+              </th>
+              <th>
+                <button class="btn btn-primary btn-sm" type="submit" name="operation" value="search">検索</button>
+                <button class="btn btn-secondary btn-sm" type="reset">取消</button>
+              </th>
+            </tr>
           </thead>
           <tbody>
             <tr>
@@ -54,28 +90,12 @@
               </td>
               <td>
                 <input class="form-control" type="text" name="insert_data[]" autocomplete="on" list="category_name_list">
-                <datalist id="category_name_list">
-<?php
-foreach ($categories as $category) {
-  $category_name = $category[1];
-  echo '<option value="' . $category_name . '">';
-}
-?>
-                </datalist>
               </td>
               <td>
                 <input class="form-control" type="text" name="insert_data[]">
               </td>
               <td>
                 <input class="form-control" type="text" name="insert_data[]" autocomplete="on" list="shop_name_list">
-                <datalist id="shop_name_list">
-<?php
-foreach ($shops as $shop) {
-  $shop_name = $shop[1];
-  echo '<option value="' . $shop_name . '">';
-}
-?>
-                </datalist>
               </td>
               <td>
                 <input class="form-control" type="number" name="insert_data[]">
