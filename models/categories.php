@@ -48,7 +48,7 @@ SQL;
     }
   }
 
-  public function getData() {
+  public function selectData() {
     $sql = <<<SQL
     SELECT category_id, category_name
     FROM categories

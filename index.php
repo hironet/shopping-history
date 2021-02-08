@@ -39,8 +39,8 @@ if (isset($_POST['operation'])) {
   }
 }
 
-$categories = $sh->getAllCategories();
-$shops = $sh->getAllShops();
-$shopping_histories = $sh->getData($keyword);
+$categories = $sh->selectAllCategories();
+$shops = $sh->selectAllShops();
+$shopping_histories = $sh->selectData($keyword);
 include_once(__DIR__ . '/views/list.php');
 ?>

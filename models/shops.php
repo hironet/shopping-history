@@ -48,7 +48,7 @@ SQL;
     }
   }
 
-  public function getData() {
+  public function selectData() {
     $sql = <<<SQL
     SELECT shop_id, shop_name
     FROM shops
