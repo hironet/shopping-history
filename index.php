@@ -16,13 +16,18 @@ try {
 $sh = new ShoppingHistory($db);
 
 $keys = ['purchase_date', 'category_name', 'product_name', 'shop_name', 'price'];
-$keyword = array_combine($keys, [null, null, null, null, null]);
+$keyword = array_combine($keys, ['%', '%', '%', '%', '%']);
 
 if (isset($_POST['operation'])) {
   $oper = explode(',', $_POST['operation']);
   switch ($oper[0]) {
     case 'search':
       $keyword = array_combine($keys, $_POST['keyword']);
+      foreach ($keyword as &$k) {
+        if (!$k) {
+          $k = '%';
+        }
+      }
       break;
     case 'insert':
       $insert_data = array_combine($keys, $_POST['insert_data']);
