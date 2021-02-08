@@ -51,28 +51,29 @@
                 <input class="form-control" type="date" name="keyword[]" placeholder="検索">
               </th>
               <th>
-                <input class="form-control" type="text" name="keyword[]" autocomplete="on" list="category_name_list" placeholder="検索">
-                <datalist id="category_name_list">
+                <select class="form-control" name="keyword[]">
+                  <option value="" selected></option>
 <?php
 foreach ($categories as $category) {
   $category_name = $category[1];
-  echo '<option value="' . $category_name . '">';
+  echo '<option value="' . $category_name . '">' . $category_name . '</option>';
 }
 ?>
+                </select>
               </th>
               <th>
                 <input class="form-control" type="text" name="keyword[]" placeholder="検索">
               </th>
               <th>
-                <!-- <input class="form-control" type="text" name="keyword[]" placeholder="検索"> -->
-                <input class="form-control" type="text" name="keyword[]" autocomplete="on" list="shop_name_list" placeholder="検索">
-                <datalist id="shop_name_list">
+                <select class="form-control" name="keyword[]">
+                  <option value="" selected></option>
 <?php
 foreach ($shops as $shop) {
   $shop_name = $shop[1];
-  echo '<option value="' . $shop_name . '">';
+  echo '<option value="' . $shop_name . '">' . $shop_name . '</option>';
 }
 ?>
+                </select>
               </th>
               <th>
                 <input class="form-control" type="number" name="keyword[]" placeholder="検索">
@@ -90,12 +91,28 @@ foreach ($shops as $shop) {
               </td>
               <td>
                 <input class="form-control" type="text" name="insert_data[]" autocomplete="on" list="category_name_list">
+                <datalist id="category_name_list">
+<?php
+foreach ($categories as $category) {
+  $category_name = $category[1];
+  echo '<option value="' . $category_name . '">';
+}
+?>
+                </datalist>
               </td>
               <td>
                 <input class="form-control" type="text" name="insert_data[]">
               </td>
               <td>
                 <input class="form-control" type="text" name="insert_data[]" autocomplete="on" list="shop_name_list">
+                <datalist id="shop_name_list">
+<?php
+foreach ($shops as $shop) {
+  $shop_name = $shop[1];
+  echo '<option value="' . $shop_name . '">';
+}
+?>
+                </datalist>
               </td>
               <td>
                 <input class="form-control" type="number" name="insert_data[]">
