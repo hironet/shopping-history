@@ -92,11 +92,11 @@ SQL;
   }
 
   public function getAllCategories() {
-    return $this->categories->getAll();
+    return $this->categories->getData();
   }
 
   public function getAllShops() {
-    return $this->shops->getAll();
+    return $this->shops->getData();
   }
 }
 ?>

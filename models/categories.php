@@ -48,11 +48,11 @@ SQL;
     }
   }
 
-  public function getAll() {
+  public function getData() {
     $sql = <<<SQL
     SELECT category_id, category_name
     FROM categories
-    ORDER BY category_id
+    ORDER BY category_name
 SQL;
 
     try {
