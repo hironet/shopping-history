@@ -48,7 +48,7 @@
             </tr>
             <tr>
               <th>
-                <input class="form-control" type="date" name="keyword[]" placeholder="検索">
+                <input class="form-control" type="text" name="keyword[]" placeholder="検索">
               </th>
               <th>
                 <select class="form-control" name="keyword[]">
