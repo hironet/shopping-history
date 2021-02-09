@@ -34,7 +34,7 @@ if (isset($_POST['operation'])) {
       $sh->insertData($insert_data);
       break;
     case 'update':
-      echo $type . '<br>';
+      echo $oper[0] . '<br>';
       echo $oper[1] . '<br>';
       break;
     case 'delete':

@@ -48,7 +48,7 @@
             </tr>
             <tr>
               <th>
-                <input class="form-control" type="text" name="keyword[]" placeholder="検索">
+                <input class="form-control" type="text" name="keyword[]" placeholder="検索" value="<?php echo $keyword['purchase_date'] === '%' ? '' : $keyword['purchase_date'] ?>">
               </th>
               <th>
                 <select class="form-control" name="keyword[]">
@@ -62,7 +62,7 @@ foreach ($categories as $category) {
                 </select>
               </th>
               <th>
-                <input class="form-control" type="text" name="keyword[]" placeholder="検索">
+                <input class="form-control" type="text" name="keyword[]" placeholder="検索" value="<?php echo $keyword['product_name'] === '%' ? '' : $keyword['product_name'] ?>">
               </th>
               <th>
                 <select class="form-control" name="keyword[]">
@@ -76,7 +76,7 @@ foreach ($shops as $shop) {
                 </select>
               </th>
               <th>
-                <input class="form-control" type="number" name="keyword[]" placeholder="検索">
+                <input class="form-control" type="number" name="keyword[]" placeholder="検索" value="<?php echo $keyword['price'] === '%' ? '' : $keyword['price'] ?>">
               </th>
               <th>
                 <button class="btn btn-primary btn-sm" type="submit" name="operation" value="search">検索</button>
