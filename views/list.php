@@ -52,11 +52,11 @@
               </th>
               <th>
                 <select class="form-control" name="keyword[]">
-                  <option value="" selected></option>
+                  <option value=""<?php echo $keyword['category_name'] === '%' ? ' selected' : '' ?>></option>
 <?php
 foreach ($categories as $category) {
   $category_name = $category[1];
-  echo '<option value="' . $category_name . '">' . $category_name . '</option>';
+  echo '<option value="' . $category_name . '"' . ($category_name === $keyword['category_name'] ? ' selected' : '') . '>' . $category_name . '</option>';
 }
 ?>
                 </select>
@@ -66,11 +66,11 @@ foreach ($categories as $category) {
               </th>
               <th>
                 <select class="form-control" name="keyword[]">
-                  <option value="" selected></option>
+                  <option value=""<?php echo $keyword['shop_name'] === '%' ? ' selected' : '' ?>></option>
 <?php
 foreach ($shops as $shop) {
   $shop_name = $shop[1];
-  echo '<option value="' . $shop_name . '">' . $shop_name . '</option>';
+  echo '<option value="' . $shop_name . '"' . ($shop_name === $keyword['shop_name'] ? ' selected' : '') . '>' . $shop_name . '</option>';
 }
 ?>
                 </select>
