@@ -48,49 +48,10 @@
             </tr>
             <tr>
               <th>
-                <input class="form-control" type="text" name="keyword[]" placeholder="検索" value="<?php echo $keyword['purchase_date'] === '%' ? '' : $keyword['purchase_date'] ?>">
+                <input class="form-control" type="text" name="keyword[]" value="<?php echo $keyword['purchase_date'] === '%' ? '' : $keyword['purchase_date'] ?>" placeholder="検索・登録・変更">
               </th>
               <th>
-                <select class="form-control" name="keyword[]">
-                  <option value=""<?php echo $keyword['category_name'] === '%' ? ' selected' : '' ?>></option>
-<?php
-foreach ($categories as $category) {
-  $category_name = $category[1];
-  echo '<option value="' . $category_name . '"' . ($category_name === $keyword['category_name'] ? ' selected' : '') . '>' . $category_name . '</option>';
-}
-?>
-                </select>
-              </th>
-              <th>
-                <input class="form-control" type="text" name="keyword[]" placeholder="検索" value="<?php echo $keyword['product_name'] === '%' ? '' : $keyword['product_name'] ?>">
-              </th>
-              <th>
-                <select class="form-control" name="keyword[]">
-                  <option value=""<?php echo $keyword['shop_name'] === '%' ? ' selected' : '' ?>></option>
-<?php
-foreach ($shops as $shop) {
-  $shop_name = $shop[1];
-  echo '<option value="' . $shop_name . '"' . ($shop_name === $keyword['shop_name'] ? ' selected' : '') . '>' . $shop_name . '</option>';
-}
-?>
-                </select>
-              </th>
-              <th>
-                <input class="form-control" type="number" name="keyword[]" placeholder="検索" value="<?php echo $keyword['price'] === '%' ? '' : $keyword['price'] ?>">
-              </th>
-              <th>
-                <button class="btn btn-primary btn-sm" type="submit" name="operation" value="search">検索</button>
-                <button class="btn btn-secondary btn-sm" type="reset">取消</button>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <input class="form-control" type="date" name="insert_data[]">
-              </td>
-              <td>
-                <input class="form-control" type="text" name="insert_data[]" autocomplete="on" list="category_name_list">
+                <input class="form-control" type="text" name="keyword[]" autocomplete="on" list="category_name_list" value="<?php echo $keyword['category_name'] === '%' ? '' : $keyword['category_name'] ?>" placeholder="検索・登録・変更">
                 <datalist id="category_name_list">
 <?php
 foreach ($categories as $category) {
@@ -99,12 +60,12 @@ foreach ($categories as $category) {
 }
 ?>
                 </datalist>
-              </td>
-              <td>
-                <input class="form-control" type="text" name="insert_data[]">
-              </td>
-              <td>
-                <input class="form-control" type="text" name="insert_data[]" autocomplete="on" list="shop_name_list">
+              </th>
+              <th>
+                <input class="form-control" type="text" name="keyword[]" value="<?php echo $keyword['product_name'] === '%' ? '' : $keyword['product_name'] ?>" placeholder="検索・登録・変更">
+              </th>
+              <th>
+                <input class="form-control" type="text" name="keyword[]" autocomplete="on" list="shop_name_list" value="<?php echo $keyword['shop_name'] === '%' ? '' : $keyword['shop_name'] ?>" placeholder="検索・登録・変更">
                 <datalist id="shop_name_list">
 <?php
 foreach ($shops as $shop) {
@@ -113,15 +74,17 @@ foreach ($shops as $shop) {
 }
 ?>
                 </datalist>
-              </td>
-              <td>
-                <input class="form-control" type="number" name="insert_data[]">
-              </td>
-              <td>
-                <button class="btn btn-primary btn-sm" type="submit" name="operation" value="insert">登録</button>
-                <button class="btn btn-secondary btn-sm" type="reset">取消</button>
-              </td>
+              </th>
+              <th>
+                <input class="form-control" type="text" name="keyword[]" value="<?php echo $keyword['price'] === '%' ? '' : $keyword['price'] ?>" placeholder="検索・登録・変更">
+              </th>
+              <th>
+                <button class="btn btn-primary btn-sm" type="submit" name="operation" value="search">検索</button>
+                <button class="btn btn-dark btn-sm" type="submit" name="operation" value="insert">登録</button>
+              </th>
             </tr>
+          </thead>
+          <tbody>
 <?php
 foreach ($shopping_histories as $sh) {
   $order_id = $sh[0];

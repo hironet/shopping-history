@@ -30,7 +30,7 @@ if (isset($_POST['operation'])) {
       }
       break;
     case 'insert':
-      $insert_data = array_combine($keys, $_POST['insert_data']);
+      $insert_data = array_combine($keys, $_POST['keyword']);
       $sh->insertData($insert_data);
       break;
     case 'update':
