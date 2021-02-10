@@ -26,6 +26,7 @@
 <body>
   <header>
     <nav id="nav" class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+      <span class="navbar-brand">買い物履歴管理システム</span>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
