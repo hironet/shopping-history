@@ -21,18 +21,18 @@ if (isset($_POST['operation'])) {
   $oper = explode(',', $_POST['operation']);
   switch ($oper[0]) {
     case 'search':
-      $keyword = $sh->makeData($_POST['keyword']);
+      $keyword = $sh->makeData($_POST['input_data']);
       foreach ($keyword as &$k) {
         if (!$k) $k = '%';  // 検索キーワードが空であれば%に置き換える
       }
       break;
     case 'insert':
-      $data = $sh->makeData($_POST['keyword']);
+      $data = $sh->makeData($_POST['input_data']);
       $sh->insertData($data);
       break;
     case 'update':
       $order_id = $oper[1];
-      $data = $sh->makeData($_POST['keyword']);
+      $data = $sh->makeData($_POST['input_data']);
       $sh->updateData($order_id, $data);
       break;
     case 'delete':
