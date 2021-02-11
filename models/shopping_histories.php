@@ -3,7 +3,7 @@ require_once(__DIR__ . '/categories.php');
 require_once(__DIR__ . '/shops.php');
 require_once(__DIR__ . '/orders.php');
 
-class ShoppingHistory {
+class ShoppingHistories {
   private $db;
   private $categories;
   private $shops;

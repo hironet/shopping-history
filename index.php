@@ -1,6 +1,6 @@
 <?php
 require_once('/var/www/config/shopping_history/db_info.php');
-require_once(__DIR__ . '/models/shopping_history.php');
+require_once(__DIR__ . '/models/shopping_histories.php');
 
 $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
 $user = DB_USER;
@@ -13,7 +13,7 @@ try {
   echo $e->getMessage();
 }
 
-$sh = new ShoppingHistory($db);
+$sh = new ShoppingHistories($db);
 
 $keyword = $sh->makeData(['%', '%', '%', '%', '%']);
 
