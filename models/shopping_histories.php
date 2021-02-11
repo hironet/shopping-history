@@ -123,7 +123,7 @@ SQL;
         $keyword['shop_name'],
         $keyword['price']
       ]);
-      return $q->fetch();
+      return $q->fetch()[0];
     } catch (PDOException $e) {
       echo $e->getMessage();
     }

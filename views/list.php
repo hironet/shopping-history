@@ -34,6 +34,7 @@
         <div class="navbar-nav">
           <a class="nav-link" href=".">買い物履歴一覧</a>
           <a class="nav-link" href=".">インポート</a>
+          <span class="navbar-text">合計金額：<?php echo number_format($sum_price) . ' 円' ?></span>
         </div>
       </div>
     </nav>
@@ -106,7 +107,7 @@ foreach ($shopping_histories as $sh) {
               <td class="text-nowrap"><?php echo $category_name; ?></td>
               <td><?php echo $product_name; ?></td>
               <td class="text-nowrap"><?php echo $shop_name ?></td>
-              <td class="text-end text-nowrap"><?php echo number_format($price) . " 円"; ?></td>
+              <td class="text-end text-nowrap"><?php echo number_format($price) . ' 円'; ?></td>
               <td class="text-nowrap">
                 <button class="btn btn-success btn-sm" type="submit" name="operation" value="update,<?php echo $order_id; ?>">変更</button>
                 <button class="btn btn-danger btn-sm" type="submit" name="operation" value="delete,<?php echo $order_id; ?>">削除</button>
