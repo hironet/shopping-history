@@ -24,8 +24,8 @@ if (isset($_POST['operation'])) {
       break;
     case 'search':
       $keyword = $sh->makeData($_POST['input_data']);
-      foreach ($keyword as &$k) {
-        if (!$k) $k = '%';  // 検索キーワードが空であれば%に置き換える
+      foreach ($keyword as &$value) {
+        if (!$value) $value = '%';  // 検索キーワードが空であれば%に置き換える
       }
       break;
     case 'insert':

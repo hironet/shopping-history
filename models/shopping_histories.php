@@ -78,7 +78,7 @@ SQL;
   }
 
   public function updateData($order_id, $old_data, $new_data) {
-    $this->orders->updateData($order_id, $new_data);
+    $this->orders->updateData($order_id, $old_data, $new_data);
     if ($this->checkUsedCategory($old_data['category_name']) === false) {
       $this->categories->deleteData($old_data['category_name']);
     }

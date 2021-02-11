@@ -70,71 +70,40 @@ SQL;
     }
   }
 
-  public function updateData($order_id, $data) {
-    foreach ($data as &$d) {
+  public function updateData($order_id, $old_data, $new_data) {
+    foreach ($new_data as &$d) {
       $d = htmlspecialchars(trim($d));
     }
-    $data['purchase_date'] = preg_replace('/[^0-9]/', '', $data['purchase_date']);
-    $data['price'] = preg_replace('/[^0-9]/', '', $data['price']);
+    $new_data['purchase_date'] = preg_replace('/[^0-9]/', '', $new_data['purchase_date']);
+    $new_data['price'] = preg_replace('/[^0-9]/', '', $new_data['price']);
 
-    $sql_1 = 'UPDATE orders SET purchase_date = ? WHERE order_id = ?';
+    // 更新されないカラムは現在のデータに置き換える
+    foreach ($new_data as $key => &$value) {
+      $value = ($value === '' ? $old_data[$key] : $value);
+    }
 
-    $sql_2 = <<<SQL
+    $sql = <<<SQL
     UPDATE orders
-    SET category_id = (SELECT category_id FROM categories WHERE category_name = ?)
+    SET
+      purchase_date = ?,
+      category_id = (SELECT category_id FROM categories WHERE category_name = ?),
+      product_name = ?,
+      shop_id = (SELECT shop_id FROM shops WHERE shop_name = ?),
+      price = ?
     WHERE order_id = ?
 SQL;
-
-    $sql_3 = 'UPDATE orders SET product_name = ? WHERE order_id = ?';
-
-    $sql_4 = <<<SQL
-    UPDATE orders
-    SET shop_id = (SELECT shop_id FROM shops WHERE shop_name = ?)
-    WHERE order_id = ?
-SQL;
-
-    $sql_5 = 'UPDATE orders SET price = ? WHERE order_id = ?';
 
     try {
-      if ($data['purchase_date'] !== '') {
-        $q_1 = $this->db->prepare($sql_1);
-        if ($q_1->execute([$data['purchase_date'], $order_id]) === true) {
-          echo 'ordersテーブルのUPDATEが成功しました。<br>';
-        } else {
-          echo 'ordersテーブルのUPDATEが失敗しました。<br>';
-          exit(1);
-        }
-      }
-      if ($data['category_name'] !== '') {
-        $q_2 = $this->db->prepare($sql_2);
-        if ($q_2->execute([$data['category_name'], $order_id]) === true) {
-          echo 'ordersテーブルのUPDATEが成功しました。<br>';
-        } else {
-          echo 'ordersテーブルのUPDATEが失敗しました。<br>';
-          exit(1);
-        }
-      }
-      if ($data['product_name'] !== '') {
-        $q_3 = $this->db->prepare($sql_3);
-        if ($q_3->execute([$data['product_name'], $order_id]) === true) {
-          echo 'ordersテーブルのUPDATEが成功しました。<br>';
-        } else {
-          echo 'ordersテーブルのUPDATEが失敗しました。<br>';
-          exit(1);
-        }
-      }
-      if ($data['shop_name'] !== '') {
-        $q_4 = $this->db->prepare($sql_4);
-        if ($q_4->execute([$data['shop_name'], $order_id]) === true) {
-          echo 'ordersテーブルのUPDATEが成功しました。<br>';
-        } else {
-          echo 'ordersテーブルのUPDATEが失敗しました。<br>';
-          exit(1);
-        }
-      }
-      if ($data['price'] !== '') {
-        $q_5 = $this->db->prepare($sql_5);
-        if ($q_5->execute([$data['price'], $order_id]) === true) {
+      if ($new_data['purchase_date'] !== '') {
+        $q_1 = $this->db->prepare($sql);
+        if ($q_1->execute([
+          $new_data['purchase_date'],
+          $new_data['category_name'],
+          $new_data['product_name'],
+          $new_data['shop_name'],
+          $new_data['price'],
+          $order_id
+          ]) === true) {
           echo 'ordersテーブルのUPDATEが成功しました。<br>';
         } else {
           echo 'ordersテーブルのUPDATEが失敗しました。<br>';
