@@ -75,7 +75,7 @@ SQL;
     }
   }
 
-  public function selectData($keyword) {
+  public function getData($keyword) {
     $sql = <<<SQL
     SELECT order_id, purchase_date, category_name, product_name, shop_name, price
     FROM shopping_histories
@@ -129,12 +129,12 @@ SQL;
     }
   }
 
-  public function selectAllCategories() {
-    return $this->categories->selectData();
+  public function getAllCategories() {
+    return $this->categories->getAllData();
   }
 
-  public function selectAllShops() {
-    return $this->shops->selectData();
+  public function getAllShops() {
+    return $this->shops->getAllData();
   }
 }
 ?>

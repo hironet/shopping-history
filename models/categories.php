@@ -48,7 +48,7 @@ SQL;
     }
   }
 
-  public function selectData() {
+  public function getAllData() {
     $sql = 'SELECT category_id, category_name FROM categories ORDER BY category_name';
 
     try {

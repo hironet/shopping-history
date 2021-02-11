@@ -48,7 +48,7 @@ SQL;
     }
   }
 
-  public function selectData() {
+  public function getAllData() {
     $sql = 'SELECT shop_id, shop_name FROM shops ORDER BY shop_name';
 
     try {
