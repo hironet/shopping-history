@@ -20,6 +20,8 @@ $keyword = $sh->makeData(['%', '%', '%', '%', '%']);
 if (isset($_POST['operation'])) {
   $oper = explode(',', $_POST['operation']);
   switch ($oper[0]) {
+    case 'reset':
+      break;
     case 'search':
       $keyword = $sh->makeData($_POST['input_data']);
       foreach ($keyword as &$k) {

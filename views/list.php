@@ -45,7 +45,9 @@
               <th>商品名</th>
               <th>店</th>
               <th>価格</th>
-              <th>操作</th>
+              <th>
+                <button class="btn btn-secondary btn-sm" type="submit" name="operation" value="reset">リセット</button>
+              </th>
             </tr>
             <tr>
               <th>
