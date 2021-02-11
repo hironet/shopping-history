@@ -75,8 +75,14 @@ SQL;
     $this->orders->insertData($data);
   }
 
-  public function updateData($order_id, $data) {
-    $this->orders->updateData($order_id, $data);
+  public function updateData($order_id, $old_data, $new_data) {
+    $this->orders->updateData($order_id, $new_data);
+    if ($this->checkUsedCategory($old_data['category_name']) === false) {
+      $this->categories->deleteData($old_data['category_name']);
+    }
+    if ($this->checkUsedShop($old_data['shop_name']) === false) {
+      $this->shops->deleteData($old_data['shop_name']);
+    }
   }
 
   public function deleteData($order_id, $data) {
