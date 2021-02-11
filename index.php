@@ -15,14 +15,13 @@ try {
 
 $sh = new ShoppingHistory($db);
 
-$keys = ['purchase_date', 'category_name', 'product_name', 'shop_name', 'price'];
-$keyword = array_combine($keys, ['%', '%', '%', '%', '%']);
+$keyword = array_combine(ShoppingHistory::KEYS, ['%', '%', '%', '%', '%']);
 
 if (isset($_POST['operation'])) {
   $oper = explode(',', $_POST['operation']);
   switch ($oper[0]) {
     case 'search':
-      $keyword = array_combine($keys, $_POST['keyword']);
+      $keyword = array_combine(ShoppingHistory::KEYS, $_POST['keyword']);
       foreach ($keyword as &$k) {
         if (!$k) {
           $k = '%';
@@ -30,12 +29,12 @@ if (isset($_POST['operation'])) {
       }
       break;
     case 'insert':
-      $insert_data = array_combine($keys, $_POST['keyword']);
+      $insert_data = array_combine(ShoppingHistory::KEYS, $_POST['keyword']);
       $sh->insertData($insert_data);
       break;
     case 'update':
       $order_id = $oper[1];
-      $update_data = array_combine($keys, $_POST['keyword']);
+      $update_data = array_combine(ShoppingHistory::KEYS, $_POST['keyword']);
       $sh->updateData($order_id, $update_data);
       break;
     case 'delete':

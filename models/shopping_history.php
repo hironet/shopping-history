@@ -9,6 +9,8 @@ class ShoppingHistory {
   private $shops;
   private $orders;
 
+  const KEYS = ['purchase_date', 'category_name', 'product_name', 'shop_name', 'price'];
+
   function __construct($db) {
     $this->db = $db;
     $this->categories = new Categories($db);
@@ -53,10 +55,9 @@ SQL;
 
   public function importCsv($file) {
     if (($handle = fopen($file, "r")) != false) {
-      $keys = ['purchase_date', 'category_name', 'product_name', 'shop_name', 'price'];
       while (($values = fgetcsv($handle, 1000, ",")) != false) {
         if (count($values) != 5) continue;
-        $data = array_combine($keys, $values);
+        $data = array_combine(self::KEYS, $values);
         $this->insertData($data);
       }
       fclose($handle);
