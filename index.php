@@ -39,7 +39,8 @@ if (isset($_POST['operation'])) {
       break;
     case 'delete':
       $order_id = $oper[1];
-      $sh->deleteData($order_id);
+      $data = $sh->getDataByOrderID($order_id);
+      $sh->deleteData($order_id, $data);
       break;
   }
 }

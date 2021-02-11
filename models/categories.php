@@ -48,6 +48,22 @@ SQL;
     }
   }
 
+  public function deleteData($category_name) {
+    $sql = 'DELETE FROM categories WHERE category_name = ?';
+
+    try {
+      $q = $this->db->prepare($sql);
+      if ($q->execute([$category_name]) === true) {
+        echo 'categoriesテーブルからのDELETEが成功しました。<br>';
+      } else {
+        echo 'categoriesテーブルからのDELETEが失敗しました。<br>';
+        exit(1);
+      }
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+    }
+  }
+
   public function getAllData() {
     $sql = 'SELECT category_id, category_name FROM categories ORDER BY category_name';
 

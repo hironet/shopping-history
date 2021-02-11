@@ -48,6 +48,22 @@ SQL;
     }
   }
 
+  public function deleteData($shop_name) {
+    $sql = 'DELETE FROM shops WHERE shop_name = ?';
+
+    try {
+      $q = $this->db->prepare($sql);
+      if ($q->execute([$shop_name]) === true) {
+        echo 'shopsテーブルからのDELETEが成功しました。<br>';
+      } else {
+        echo 'shopsテーブルからのDELETEが失敗しました。<br>';
+        exit(1);
+      }
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+    }
+  }
+
   public function getAllData() {
     $sql = 'SELECT shop_id, shop_name FROM shops ORDER BY shop_name';
 

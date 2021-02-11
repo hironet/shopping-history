@@ -39,6 +39,28 @@ SQL;
     }
   }
 
+  private function checkUsedCategory($category_name) {
+    $sql = 'SELECT count(*) FROM shopping_histories WHERE category_name = ?';
+    try {
+      $q = $this->db->prepare($sql);
+      $q->execute([$category_name]);
+      return ($q->fetch()[0] > 0) ? true : false;
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+    }
+  }
+
+  private function checkUsedShop($shop_name) {
+    $sql = 'SELECT count(*) FROM shopping_histories WHERE shop_name = ?';
+    try {
+      $q = $this->db->prepare($sql);
+      $q->execute([$shop_name]);
+      return ($q->fetch()[0] > 0) ? true : false;
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+    }
+  }
+
   public function makeData($data) {
     if (count($data) === 5) {
       return array_combine(self::KEYS, $data);
@@ -57,8 +79,14 @@ SQL;
     $this->orders->updateData($order_id, $data);
   }
 
-  public function deleteData($order_id) {
+  public function deleteData($order_id, $data) {
     $this->orders->deleteData($order_id);
+    if ($this->checkUsedCategory($data['category_name']) === false) {
+      $this->categories->deleteData($data['category_name']);
+    }
+    if ($this->checkUsedShop($data['shop_name']) === false) {
+      $this->shops->deleteData($data['shop_name']);
+    }
   }
 
   public function importCsv($file) {
@@ -98,6 +126,23 @@ SQL;
         $keyword['price']
       ]);
       return $q->fetchAll();
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+    }
+  }
+
+  public function getDataByOrderID($order_id) {
+    $sql = <<<SQL
+    SELECT order_id, purchase_date, category_name, product_name, shop_name, price
+    FROM shopping_histories
+    WHERE order_id = ?
+    ORDER BY order_id
+SQL;
+
+    try {
+      $q = $this->db->prepare($sql);
+      $q->execute([$order_id]);
+      return $q->fetch();
     } catch (PDOException $e) {
       echo $e->getMessage();
     }
