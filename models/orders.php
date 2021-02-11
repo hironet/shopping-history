@@ -53,13 +53,13 @@ SQL;
 
     try {
       $q = $this->db->prepare($sql);
-      if ($q->execute(array(
+      if ($q->execute([
         $data['purchase_date'],
         $data['category_name'],
         $data['product_name'],
         $data['shop_name'],
         $data['price']
-        )) === true) {
+        ]) === true) {
         echo 'ordersテーブルへのINSERTが成功しました。<br>';
       } else {
         echo 'ordersテーブルへのINSERTが失敗しました。<br>';
@@ -98,7 +98,7 @@ SQL;
     try {
       if ($data['purchase_date'] !== '') {
         $q_1 = $this->db->prepare($sql_1);
-        if ($q_1->execute(array($data['purchase_date'], $order_id)) === true) {
+        if ($q_1->execute([$data['purchase_date'], $order_id]) === true) {
           echo 'ordersテーブルのUPDATEが成功しました。<br>';
         } else {
           echo 'ordersテーブルのUPDATEが失敗しました。<br>';
@@ -107,7 +107,7 @@ SQL;
       }
       if ($data['category_name'] !== '') {
         $q_2 = $this->db->prepare($sql_2);
-        if ($q_2->execute(array($data['category_name'], $order_id)) === true) {
+        if ($q_2->execute([$data['category_name'], $order_id]) === true) {
           echo 'ordersテーブルのUPDATEが成功しました。<br>';
         } else {
           echo 'ordersテーブルのUPDATEが失敗しました。<br>';
@@ -116,7 +116,7 @@ SQL;
       }
       if ($data['product_name'] !== '') {
         $q_3 = $this->db->prepare($sql_3);
-        if ($q_3->execute(array($data['product_name'], $order_id)) === true) {
+        if ($q_3->execute([$data['product_name'], $order_id]) === true) {
           echo 'ordersテーブルのUPDATEが成功しました。<br>';
         } else {
           echo 'ordersテーブルのUPDATEが失敗しました。<br>';
@@ -125,7 +125,7 @@ SQL;
       }
       if ($data['shop_name'] !== '') {
         $q_4 = $this->db->prepare($sql_4);
-        if ($q_4->execute(array($data['shop_name'], $order_id)) === true) {
+        if ($q_4->execute([$data['shop_name'], $order_id]) === true) {
           echo 'ordersテーブルのUPDATEが成功しました。<br>';
         } else {
           echo 'ordersテーブルのUPDATEが失敗しました。<br>';
@@ -134,7 +134,7 @@ SQL;
       }
       if ($data['price'] !== '') {
         $q_5 = $this->db->prepare($sql_5);
-        if ($q_5->execute(array($data['price'], $order_id)) === true) {
+        if ($q_5->execute([$data['price'], $order_id]) === true) {
           echo 'ordersテーブルのUPDATEが成功しました。<br>';
         } else {
           echo 'ordersテーブルのUPDATEが失敗しました。<br>';
@@ -151,7 +151,7 @@ SQL;
 
     try {
       $q = $this->db->prepare($sql);
-      if ($q->execute(array($order_id)) === true) {
+      if ($q->execute([$order_id]) === true) {
         echo 'ordersテーブルからのDELETEが成功しました。<br>';
       } else {
         echo 'ordersテーブルからのDELETEが失敗しました。<br>';

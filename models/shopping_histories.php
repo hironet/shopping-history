@@ -90,13 +90,13 @@ SQL;
 
     try {
       $q = $this->db->prepare($sql);
-      $q->execute(array(
+      $q->execute([
         $keyword['purchase_date'],
         $keyword['category_name'],
         $keyword['product_name'],
         $keyword['shop_name'],
         $keyword['price']
-      ));
+      ]);
       $rows = $q->fetchAll();
       return $rows;
     } catch (PDOException $e) {

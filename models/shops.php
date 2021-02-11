@@ -37,7 +37,7 @@ SQL;
 
     try {
       $q = $this->db->prepare($sql);
-      if ($q->execute(array($shop_name, $shop_name)) === true) {
+      if ($q->execute([$shop_name, $shop_name]) === true) {
         echo 'shopsテーブルへのINSERTが成功しました。<br>';
       } else {
         echo 'shopsテーブルへのINSERTが失敗しました。<br>';

@@ -37,7 +37,7 @@ SQL;
 
     try {
       $q = $this->db->prepare($sql);
-      if ($q->execute(array($category_name, $category_name)) === true) {
+      if ($q->execute([$category_name, $category_name]) === true) {
         echo 'categoriesテーブルへのINSERTが成功しました。<br>';
       } else {
         echo 'categoriesテーブルへのINSERTが失敗しました。<br>';
