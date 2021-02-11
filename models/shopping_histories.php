@@ -41,6 +41,7 @@ SQL;
 
   private function checkUsedCategory($category_name) {
     $sql = 'SELECT count(*) FROM shopping_histories WHERE category_name = ?';
+
     try {
       $q = $this->db->prepare($sql);
       $q->execute([$category_name]);
@@ -52,6 +53,7 @@ SQL;
 
   private function checkUsedShop($shop_name) {
     $sql = 'SELECT count(*) FROM shopping_histories WHERE shop_name = ?';
+
     try {
       $q = $this->db->prepare($sql);
       $q->execute([$shop_name]);
@@ -109,7 +111,7 @@ SQL;
     }
   }
 
-  public function getData($keyword) {
+  public function getDataByKeyword($keyword) {
     $sql = <<<SQL
     SELECT order_id, purchase_date, category_name, product_name, shop_name, price
     FROM shopping_histories
@@ -165,6 +167,7 @@ SQL;
       shop_name LIKE ? AND
       price LIKE ?
 SQL;
+
     try {
       $q = $this->db->prepare($sql);
       $q->execute([

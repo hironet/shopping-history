@@ -48,7 +48,8 @@ if (isset($_POST['operation'])) {
 
 $categories = $sh->getAllCategories();
 $shops = $sh->getAllShops();
-$shopping_histories = $sh->getData($keyword);
+$shopping_histories = $sh->getDataByKeyword($keyword);
 $sum_price = $sh->getSumPrice($keyword);
+
 include_once(__DIR__ . '/views/list.php');
 ?>
