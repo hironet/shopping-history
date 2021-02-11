@@ -103,6 +103,32 @@ SQL;
     }
   }
 
+  public function getSumPrice($keyword) {
+    $sql = <<<SQL
+    SELECT sum(price)
+    FROM shopping_histories
+    WHERE
+      purchase_date LIKE ? AND
+      category_name LIKE ? AND
+      product_name LIKE ? AND
+      shop_name LIKE ? AND
+      price LIKE ?
+SQL;
+    try {
+      $q = $this->db->prepare($sql);
+      $q->execute([
+        $keyword['purchase_date'],
+        $keyword['category_name'],
+        $keyword['product_name'],
+        $keyword['shop_name'],
+        $keyword['price']
+      ]);
+      return $q->fetch();
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+    }
+  }
+
   public function selectAllCategories() {
     return $this->categories->selectData();
   }
