@@ -95,8 +95,8 @@ SQL;
 
     try {
       if ($new_data['purchase_date'] !== '') {
-        $q_1 = $this->db->prepare($sql);
-        if ($q_1->execute([
+        $q = $this->db->prepare($sql);
+        if ($q->execute([
           $new_data['purchase_date'],
           $new_data['category_name'],
           $new_data['product_name'],
