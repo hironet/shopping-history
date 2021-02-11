@@ -20,7 +20,7 @@ class ShoppingHistories {
 
   public function createView() {
     $sql = <<<SQL
-    CREATE OR REPLACE VIEW shopping_history AS
+    CREATE OR REPLACE VIEW shopping_histories AS
     SELECT a.order_id, a.purchase_date, b.category_name, a.product_name, c.shop_name, a.price
     FROM orders AS a
     JOIN categories AS b USING(category_id)
@@ -29,10 +29,10 @@ SQL;
 
     try {
       if ($this->db->query($sql) === false) {
-        echo 'shopping_historyビューの作成が失敗しました。<br>';
+        echo 'shopping_historiesビューの作成が失敗しました。<br>';
         exit(1);
       } else {
-        echo 'shopping_historyビューの作成が成功しました。<br>';
+        echo 'shopping_historiesビューの作成が成功しました。<br>';
       }
     } catch (PDOException $e) {
       echo $e->getMessage();
@@ -78,7 +78,7 @@ SQL;
   public function selectData($keyword) {
     $sql = <<<SQL
     SELECT order_id, purchase_date, category_name, product_name, shop_name, price
-    FROM shopping_history
+    FROM shopping_histories
     WHERE
       purchase_date LIKE ? AND
       category_name LIKE ? AND

@@ -3,7 +3,7 @@ require_once('/var/www/config/shopping_history/db_info.php');
 require_once(dirname(__DIR__) . '/models/categories.php');
 require_once(dirname(__DIR__) . '/models/shops.php');
 require_once(dirname(__DIR__) . '/models/orders.php');
-require_once(dirname(__DIR__) . '/models/shopping_history.php');
+require_once(dirname(__DIR__) . '/models/shopping_histories.php');
 
 $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
 $user = DB_USER;
@@ -25,6 +25,6 @@ $shops->createTable();
 $orders = new Orders($db);
 $orders->createTable();
 
-$sh = new ShoppingHistory($db);
+$sh = new ShoppingHistories($db);
 $sh->createView();
 ?>
