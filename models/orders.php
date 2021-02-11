@@ -34,12 +34,6 @@ SQL;
   }
 
   public function insertData($data) {
-    foreach ($data as &$value) {
-      $value = htmlspecialchars(trim($value));
-    }
-    $data['purchase_date'] = preg_replace('/[^0-9]/', '', $data['purchase_date']);
-    $data['price'] = preg_replace('/[^0-9]/', '', $data['price']);
-
     $sql = <<<SQL
     INSERT INTO orders (purchase_date, category_id, product_name, shop_id, price)
     VALUES (
@@ -71,12 +65,6 @@ SQL;
   }
 
   public function updateData($order_id, $old_data, $new_data) {
-    foreach ($new_data as &$value) {
-      $value = htmlspecialchars(trim($value));
-    }
-    $new_data['purchase_date'] = preg_replace('/[^0-9]/', '', $new_data['purchase_date']);
-    $new_data['price'] = preg_replace('/[^0-9]/', '', $new_data['price']);
-
     // 更新されないカラムは現在のデータに置き換える
     foreach ($new_data as $key => &$value) {
       $value = ($value === '' ? $old_data[$key] : $value);

@@ -39,6 +39,41 @@ SQL;
     }
   }
 
+  private function checkInsertData($data) {
+    // product_name以外のいずれかが空であればfalse
+    if (!$data['purchase_date'] ||
+        !$data['category_name'] ||
+        !$data['shop_name'] ||
+        !$data['price']) {
+      return false;
+    }
+
+    foreach ($data as &$value) {
+      $value = htmlspecialchars(trim($value));
+    }
+    $data['purchase_date'] = preg_replace('/[^0-9]/', '', $data['purchase_date']);
+    $data['price'] = preg_replace('/[^0-9]/', '', $data['price']);
+    return true;
+  }
+
+  private function checkUpdateData($data) {
+    // 全て空であればfalse
+    if (!$data['purchase_date'] &&
+        !$data['category_name'] &&
+        !$data['product_name'] &&
+        !$data['shop_name'] &&
+        !$data['price']) {
+      return false;
+    }
+
+    foreach ($data as &$value) {
+      $value = htmlspecialchars(trim($value));
+    }
+    $data['purchase_date'] = preg_replace('/[^0-9]/', '', $data['purchase_date']);
+    $data['price'] = preg_replace('/[^0-9]/', '', $data['price']);
+    return true;
+  }
+
   private function checkUsedCategory($category_name) {
     $sql = 'SELECT count(*) FROM shopping_histories WHERE category_name = ?';
 
@@ -72,28 +107,32 @@ SQL;
   }
 
   public function insertData($data) {
-    $this->categories->insertData($data['category_name']);
-    $this->shops->insertData($data['shop_name']);
-    $this->orders->insertData($data);
+    if ($this->checkInsertData($data)) {
+      $this->categories->insertData($data['category_name']);
+      $this->shops->insertData($data['shop_name']);
+      $this->orders->insertData($data);
+    }
   }
 
   public function updateData($order_id, $old_data, $new_data) {
-    $this->orders->updateData($order_id, $old_data, $new_data);
+    if ($this->checkUpdateData($new_data)) {
+      $this->orders->updateData($order_id, $old_data, $new_data);
+      if ($this->checkUsedCategory($old_data['category_name']) === false) {
+        $this->categories->deleteData($old_data['category_name']);
+      }
+      if ($this->checkUsedShop($old_data['shop_name']) === false) {
+        $this->shops->deleteData($old_data['shop_name']);
+      }
+    }
+  }
+
+  public function deleteData($order_id, $old_data) {
+    $this->orders->deleteData($order_id);
     if ($this->checkUsedCategory($old_data['category_name']) === false) {
       $this->categories->deleteData($old_data['category_name']);
     }
     if ($this->checkUsedShop($old_data['shop_name']) === false) {
       $this->shops->deleteData($old_data['shop_name']);
-    }
-  }
-
-  public function deleteData($order_id, $data) {
-    $this->orders->deleteData($order_id);
-    if ($this->checkUsedCategory($data['category_name']) === false) {
-      $this->categories->deleteData($data['category_name']);
-    }
-    if ($this->checkUsedShop($data['shop_name']) === false) {
-      $this->shops->deleteData($data['shop_name']);
     }
   }
 

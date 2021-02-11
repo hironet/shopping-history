@@ -18,8 +18,8 @@ $sh = new ShoppingHistories($db);
 $keyword = $sh->makeData(['%', '%', '%', '%', '%']);
 
 if (isset($_POST['operation'])) {
-  $oper = explode(',', $_POST['operation']);
-  switch ($oper[0]) {
+  $operation = explode(',', $_POST['operation']);
+  switch ($operation[0]) {
     case 'reset':
       break;
     case 'search':
@@ -33,15 +33,15 @@ if (isset($_POST['operation'])) {
       $sh->insertData($data);
       break;
     case 'update':
-      $order_id = $oper[1];
+      $order_id = $operation[1];
       $old_data = $sh->getDataByOrderID($order_id);
       $new_data = $sh->makeData($_POST['input_data']);
       $sh->updateData($order_id, $old_data, $new_data);
       break;
     case 'delete':
-      $order_id = $oper[1];
-      $data = $sh->getDataByOrderID($order_id);
-      $sh->deleteData($order_id, $data);
+      $order_id = $operation[1];
+      $old_data = $sh->getDataByOrderID($order_id);
+      $sh->deleteData($order_id, $old_data);
       break;
   }
 }
