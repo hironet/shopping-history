@@ -15,27 +15,25 @@ try {
 
 $sh = new ShoppingHistory($db);
 
-$keyword = array_combine(ShoppingHistory::KEYS, ['%', '%', '%', '%', '%']);
+$keyword = $sh->makeData(['%', '%', '%', '%', '%']);
 
 if (isset($_POST['operation'])) {
   $oper = explode(',', $_POST['operation']);
   switch ($oper[0]) {
     case 'search':
-      $keyword = array_combine(ShoppingHistory::KEYS, $_POST['keyword']);
+      $keyword = $sh->makeData($_POST['keyword']);
       foreach ($keyword as &$k) {
-        if (!$k) {
-          $k = '%';
-        }
+        if (!$k) $k = '%';  // 検索キーワードが空であれば%に置き換える
       }
       break;
     case 'insert':
-      $insert_data = array_combine(ShoppingHistory::KEYS, $_POST['keyword']);
-      $sh->insertData($insert_data);
+      $data = $sh->makeData($_POST['keyword']);
+      $sh->insertData($data);
       break;
     case 'update':
       $order_id = $oper[1];
-      $update_data = array_combine(ShoppingHistory::KEYS, $_POST['keyword']);
-      $sh->updateData($order_id, $update_data);
+      $data = $sh->makeData($_POST['keyword']);
+      $sh->updateData($order_id, $data);
       break;
     case 'delete':
       $order_id = $oper[1];

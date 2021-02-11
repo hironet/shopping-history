@@ -39,6 +39,14 @@ SQL;
     }
   }
 
+  public function makeData($data) {
+    if (count($data) === 5) {
+      return array_combine(self::KEYS, $data);
+    } else {
+      return array_combine(self::KEYS, ['', '', '', '', '']);
+    }
+  }
+
   public function insertData($data) {
     $this->categories->insertData($data['category_name']);
     $this->shops->insertData($data['shop_name']);
