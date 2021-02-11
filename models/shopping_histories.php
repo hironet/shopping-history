@@ -39,6 +39,14 @@ SQL;
     }
   }
 
+  public function makeData($data) {
+    if (count($data) === 5) {
+      return array_combine(self::KEYS, $data);
+    } else {
+      return array_combine(self::KEYS, ['', '', '', '', '']);
+    }
+  }
+
   private function checkInsertData($data) {
     // product_name以外のいずれかが空であればfalse
     if (!$data['purchase_date'] ||
@@ -98,14 +106,6 @@ SQL;
     }
   }
 
-  public function makeData($data) {
-    if (count($data) === 5) {
-      return array_combine(self::KEYS, $data);
-    } else {
-      return array_combine(self::KEYS, ['', '', '', '', '']);
-    }
-  }
-
   public function insertData($data) {
     if ($this->checkInsertData($data)) {
       $this->categories->insertData($data['category_name']);
@@ -114,23 +114,33 @@ SQL;
     }
   }
 
-  public function updateData($order_id, $old_data, $new_data) {
+  public function updateData($order_id, $new_data) {
     if ($this->checkUpdateData($new_data)) {
+      $old_data = $this->getDataByOrderID($order_id);
       $this->orders->updateData($order_id, $old_data, $new_data);
+
+      // 未使用のcategory_nameがあれば削除
       if ($this->checkUsedCategory($old_data['category_name']) === false) {
         $this->categories->deleteData($old_data['category_name']);
       }
+
+      // 未使用のshop_nameがあれば削除
       if ($this->checkUsedShop($old_data['shop_name']) === false) {
         $this->shops->deleteData($old_data['shop_name']);
       }
     }
   }
 
-  public function deleteData($order_id, $old_data) {
+  public function deleteData($order_id) {
+    $old_data = $this->getDataByOrderID($order_id);
     $this->orders->deleteData($order_id);
+
+    // 未使用のcategory_nameがあれば削除
     if ($this->checkUsedCategory($old_data['category_name']) === false) {
       $this->categories->deleteData($old_data['category_name']);
     }
+
+    // 未使用のshop_nameがあれば削除
     if ($this->checkUsedShop($old_data['shop_name']) === false) {
       $this->shops->deleteData($old_data['shop_name']);
     }
@@ -178,7 +188,7 @@ SQL;
     }
   }
 
-  public function getDataByOrderID($order_id) {
+  private function getDataByOrderID($order_id) {
     $sql = <<<SQL
     SELECT order_id, purchase_date, category_name, product_name, shop_name, price
     FROM shopping_histories

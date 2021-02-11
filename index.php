@@ -34,14 +34,12 @@ if (isset($_POST['operation'])) {
       break;
     case 'update':
       $order_id = $operation[1];
-      $old_data = $sh->getDataByOrderID($order_id);
-      $new_data = $sh->makeData($_POST['input_data']);
-      $sh->updateData($order_id, $old_data, $new_data);
+      $data = $sh->makeData($_POST['input_data']);
+      $sh->updateData($order_id, $data);
       break;
     case 'delete':
       $order_id = $operation[1];
-      $old_data = $sh->getDataByOrderID($order_id);
-      $sh->deleteData($order_id, $old_data);
+      $sh->deleteData($order_id);
       break;
   }
 }
