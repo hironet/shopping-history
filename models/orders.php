@@ -34,8 +34,8 @@ SQL;
   }
 
   public function insertData($data) {
-    foreach ($data as &$d) {
-      $d = htmlspecialchars(trim($d));
+    foreach ($data as &$value) {
+      $value = htmlspecialchars(trim($value));
     }
     $data['purchase_date'] = preg_replace('/[^0-9]/', '', $data['purchase_date']);
     $data['price'] = preg_replace('/[^0-9]/', '', $data['price']);
@@ -71,8 +71,8 @@ SQL;
   }
 
   public function updateData($order_id, $old_data, $new_data) {
-    foreach ($new_data as &$d) {
-      $d = htmlspecialchars(trim($d));
+    foreach ($new_data as &$value) {
+      $value = htmlspecialchars(trim($value));
     }
     $new_data['purchase_date'] = preg_replace('/[^0-9]/', '', $new_data['purchase_date']);
     $new_data['price'] = preg_replace('/[^0-9]/', '', $new_data['price']);
