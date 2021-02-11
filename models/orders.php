@@ -33,7 +33,7 @@ SQL;
     }
   }
 
-  public function insertData($data) {
+  public function insertData($input) {
     $sql = <<<SQL
     INSERT INTO orders (purchase_date, category_id, product_name, shop_id, price)
     VALUES (
@@ -48,11 +48,11 @@ SQL;
     try {
       $q = $this->db->prepare($sql);
       if ($q->execute([
-        $data['purchase_date'],
-        $data['category_name'],
-        $data['product_name'],
-        $data['shop_name'],
-        $data['price']
+        $input['purchase_date'],
+        $input['category_name'],
+        $input['product_name'],
+        $input['shop_name'],
+        $input['price']
         ]) === true) {
         echo 'ordersテーブルへのINSERTが成功しました。<br>';
       } else {
@@ -64,9 +64,9 @@ SQL;
     }
   }
 
-  public function updateData($order_id, $old_data, $new_data) {
+  public function updateData($order_id, $old_data, $input) {
     // 更新されないカラムは現在のデータに置き換える
-    foreach ($new_data as $key => &$value) {
+    foreach ($input as $key => &$value) {
       $value = ($value === '' ? $old_data[$key] : $value);
     }
 
@@ -82,14 +82,14 @@ SQL;
 SQL;
 
     try {
-      if ($new_data['purchase_date'] !== '') {
+      if ($input['purchase_date'] !== '') {
         $q = $this->db->prepare($sql);
         if ($q->execute([
-          $new_data['purchase_date'],
-          $new_data['category_name'],
-          $new_data['product_name'],
-          $new_data['shop_name'],
-          $new_data['price'],
+          $input['purchase_date'],
+          $input['category_name'],
+          $input['product_name'],
+          $input['shop_name'],
+          $input['price'],
           $order_id
           ]) === true) {
           echo 'ordersテーブルのUPDATEが成功しました。<br>';

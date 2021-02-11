@@ -39,46 +39,46 @@ SQL;
     }
   }
 
-  public function makeData($data) {
-    if (count($data) === 5) {
-      return array_combine(self::KEYS, $data);
+  public function makeData($input) {
+    if (count($input) === 5) {
+      return array_combine(self::KEYS, $input);
     } else {
       return array_combine(self::KEYS, ['', '', '', '', '']);
     }
   }
 
-  private function checkInsertData($data) {
+  private function checkInsertData($input) {
     // product_name以外のいずれかが空であればfalse
-    if (!$data['purchase_date'] ||
-        !$data['category_name'] ||
-        !$data['shop_name'] ||
-        !$data['price']) {
+    if (!$input['purchase_date'] ||
+        !$input['category_name'] ||
+        !$input['shop_name'] ||
+        !$input['price']) {
       return false;
     }
 
-    foreach ($data as &$value) {
+    foreach ($input as &$value) {
       $value = htmlspecialchars(trim($value));
     }
-    $data['purchase_date'] = preg_replace('/[^0-9]/', '', $data['purchase_date']);
-    $data['price'] = preg_replace('/[^0-9]/', '', $data['price']);
+    $input['purchase_date'] = preg_replace('/[^0-9]/', '', $input['purchase_date']);
+    $input['price'] = preg_replace('/[^0-9]/', '', $input['price']);
     return true;
   }
 
-  private function checkUpdateData($data) {
+  private function checkUpdateData($input) {
     // 全て空であればfalse
-    if (!$data['purchase_date'] &&
-        !$data['category_name'] &&
-        !$data['product_name'] &&
-        !$data['shop_name'] &&
-        !$data['price']) {
+    if (!$input['purchase_date'] &&
+        !$input['category_name'] &&
+        !$input['product_name'] &&
+        !$input['shop_name'] &&
+        !$input['price']) {
       return false;
     }
 
-    foreach ($data as &$value) {
+    foreach ($input as &$value) {
       $value = htmlspecialchars(trim($value));
     }
-    $data['purchase_date'] = preg_replace('/[^0-9]/', '', $data['purchase_date']);
-    $data['price'] = preg_replace('/[^0-9]/', '', $data['price']);
+    $input['purchase_date'] = preg_replace('/[^0-9]/', '', $input['purchase_date']);
+    $input['price'] = preg_replace('/[^0-9]/', '', $input['price']);
     return true;
   }
 
@@ -106,18 +106,18 @@ SQL;
     }
   }
 
-  public function insertData($data) {
-    if ($this->checkInsertData($data)) {
-      $this->categories->insertData($data['category_name']);
-      $this->shops->insertData($data['shop_name']);
-      $this->orders->insertData($data);
+  public function insertData($input) {
+    if ($this->checkInsertData($input)) {
+      $this->categories->insertData($input['category_name']);
+      $this->shops->insertData($input['shop_name']);
+      $this->orders->insertData($input);
     }
   }
 
-  public function updateData($order_id, $new_data) {
-    if ($this->checkUpdateData($new_data)) {
+  public function updateData($order_id, $input) {
+    if ($this->checkUpdateData($input)) {
       $old_data = $this->getDataByOrderID($order_id);
-      $this->orders->updateData($order_id, $old_data, $new_data);
+      $this->orders->updateData($order_id, $old_data, $input);
 
       // 未使用のcategory_nameがあれば削除
       if ($this->checkUsedCategory($old_data['category_name']) === false) {
@@ -150,8 +150,8 @@ SQL;
     if (($handle = fopen($file, "r")) != false) {
       while (($values = fgetcsv($handle, 1000, ",")) != false) {
         if (count($values) != 5) continue;
-        $data = array_combine(self::KEYS, $values);
-        $this->insertData($data);
+        $input = array_combine(self::KEYS, $values);
+        $this->insertData($input);
       }
       fclose($handle);
     } else {

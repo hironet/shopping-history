@@ -23,19 +23,19 @@ if (isset($_POST['operation'])) {
     case 'reset':
       break;
     case 'search':
-      $keyword = $sh->makeData($_POST['input_data']);
+      $keyword = $sh->makeData($_POST['input']);
       foreach ($keyword as &$value) {
         if (!$value) $value = '%';  // 検索キーワードが空であれば%に置き換える
       }
       break;
     case 'insert':
-      $data = $sh->makeData($_POST['input_data']);
-      $sh->insertData($data);
+      $input = $sh->makeData($_POST['input']);
+      $sh->insertData($input);
       break;
     case 'update':
       $order_id = $operation[1];
-      $data = $sh->makeData($_POST['input_data']);
-      $sh->updateData($order_id, $data);
+      $input = $sh->makeData($_POST['input']);
+      $sh->updateData($order_id, $input);
       break;
     case 'delete':
       $order_id = $operation[1];

@@ -56,10 +56,10 @@
             </tr>
             <tr>
               <th>
-                <input class="form-control" type="text" name="input_data[]" value="<?php echo $keyword['purchase_date'] === '%' ? '' : $keyword['purchase_date'] ?>" placeholder="検索・登録・変更">
+                <input class="form-control" type="text" name="input[]" value="<?php echo $keyword['purchase_date'] === '%' ? '' : $keyword['purchase_date'] ?>" placeholder="検索・登録・変更">
               </th>
               <th>
-                <input class="form-control" type="text" name="input_data[]" value="<?php echo $keyword['category_name'] === '%' ? '' : $keyword['category_name'] ?>" autocomplete="on" list="category_name_list" placeholder="検索・登録・変更">
+                <input class="form-control" type="text" name="input[]" value="<?php echo $keyword['category_name'] === '%' ? '' : $keyword['category_name'] ?>" autocomplete="on" list="category_name_list" placeholder="検索・登録・変更">
                 <datalist id="category_name_list">
 <?php
 foreach ($categories as $category) {
@@ -70,10 +70,10 @@ foreach ($categories as $category) {
                 </datalist>
               </th>
               <th>
-                <input class="form-control" type="text" name="input_data[]" value="<?php echo $keyword['product_name'] === '%' ? '' : $keyword['product_name'] ?>" placeholder="検索・登録・変更">
+                <input class="form-control" type="text" name="input[]" value="<?php echo $keyword['product_name'] === '%' ? '' : $keyword['product_name'] ?>" placeholder="検索・登録・変更">
               </th>
               <th>
-                <input class="form-control" type="text" name="input_data[]" value="<?php echo $keyword['shop_name'] === '%' ? '' : $keyword['shop_name'] ?>" autocomplete="on" list="shop_name_list" placeholder="検索・登録・変更">
+                <input class="form-control" type="text" name="input[]" value="<?php echo $keyword['shop_name'] === '%' ? '' : $keyword['shop_name'] ?>" autocomplete="on" list="shop_name_list" placeholder="検索・登録・変更">
                 <datalist id="shop_name_list">
 <?php
 foreach ($shops as $shop) {
@@ -84,7 +84,7 @@ foreach ($shops as $shop) {
                 </datalist>
               </th>
               <th>
-                <input class="form-control" type="text" name="input_data[]" value="<?php echo $keyword['price'] === '%' ? '' : $keyword['price'] ?>" placeholder="検索・登録・変更">
+                <input class="form-control" type="text" name="input[]" value="<?php echo $keyword['price'] === '%' ? '' : $keyword['price'] ?>" placeholder="検索・登録・変更">
               </th>
               <th>
                 <button class="btn btn-primary btn-sm" type="submit" name="operation" value="search">検索</button>
