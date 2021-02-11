@@ -77,11 +77,7 @@ SQL;
     $data['purchase_date'] = preg_replace('/[^0-9]/', '', $data['purchase_date']);
     $data['price'] = preg_replace('/[^0-9]/', '', $data['price']);
 
-    $sql_1 = <<<SQL
-    UPDATE orders
-    SET purchase_date = ?
-    WHERE order_id = ?
-SQL;
+    $sql_1 = 'UPDATE orders SET purchase_date = ? WHERE order_id = ?';
 
     $sql_2 = <<<SQL
     UPDATE orders
@@ -89,11 +85,7 @@ SQL;
     WHERE order_id = ?
 SQL;
 
-    $sql_3 = <<<SQL
-    UPDATE orders
-    SET product_name = ?
-    WHERE order_id = ?
-SQL;
+    $sql_3 = 'UPDATE orders SET product_name = ? WHERE order_id = ?';
 
     $sql_4 = <<<SQL
     UPDATE orders
@@ -101,11 +93,7 @@ SQL;
     WHERE order_id = ?
 SQL;
 
-    $sql_5 = <<<SQL
-    UPDATE orders
-    SET price = ?
-    WHERE order_id = ?
-SQL;
+    $sql_5 = 'UPDATE orders SET price = ? WHERE order_id = ?';
 
     try {
       if ($data['purchase_date'] !== '') {
