@@ -34,8 +34,9 @@ if (isset($_POST['operation'])) {
       $sh->insertData($insert_data);
       break;
     case 'update':
-      echo $oper[0] . '<br>';
-      echo $oper[1] . '<br>';
+      $order_id = $oper[1];
+      $update_data = array_combine($keys, $_POST['keyword']);
+      $sh->updateData($order_id, $update_data);
       break;
     case 'delete':
       $order_id = $oper[1];

@@ -43,6 +43,10 @@ SQL;
     $this->orders->insertData($data);
   }
 
+  public function updateData($order_id, $data) {
+    $this->orders->updateData($order_id, $data);
+  }
+
   public function deleteData($order_id) {
     $this->orders->deleteData($order_id);
   }
