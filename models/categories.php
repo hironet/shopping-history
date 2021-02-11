@@ -28,12 +28,12 @@ SQL;
   }
 
   public function insertData($category_name) {
+    $category_name = htmlspecialchars(trim($category_name));
+
     $sql = <<<SQL
     INSERT INTO categories (category_name)
     SELECT ? FROM dual WHERE NOT EXISTS (SELECT * FROM categories WHERE category_name=?)
 SQL;
-
-    $category_name = htmlspecialchars(trim($category_name));
 
     try {
       $q = $this->db->prepare($sql);
@@ -49,16 +49,11 @@ SQL;
   }
 
   public function selectData() {
-    $sql = <<<SQL
-    SELECT category_id, category_name
-    FROM categories
-    ORDER BY category_name
-SQL;
+    $sql = 'SELECT category_id, category_name FROM categories ORDER BY category_name';
 
     try {
       $q = $this->db->query($sql);
-      $rows = $q->fetchAll();
-      return $rows;
+      return $q->fetchAll();
     } catch (PDOException $e) {
       echo $e->getMessage();
     }

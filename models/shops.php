@@ -28,12 +28,12 @@ SQL;
   }
 
   public function insertData($shop_name) {
+    $shop_name = htmlspecialchars(trim($shop_name));
+
     $sql = <<<SQL
     INSERT INTO shops (shop_name)
     SELECT ? FROM dual WHERE NOT EXISTS (SELECT * FROM shops WHERE shop_name=?)
 SQL;
-
-    $shop_name = htmlspecialchars(trim($shop_name));
 
     try {
       $q = $this->db->prepare($sql);
@@ -49,16 +49,11 @@ SQL;
   }
 
   public function selectData() {
-    $sql = <<<SQL
-    SELECT shop_id, shop_name
-    FROM shops
-    ORDER BY shop_name
-SQL;
+    $sql = 'SELECT shop_id, shop_name FROM shops ORDER BY shop_name';
 
     try {
       $q = $this->db->query($sql);
-      $rows = $q->fetchAll();
-      return $rows;
+      return $q->fetchAll();
     } catch (PDOException $e) {
       echo $e->getMessage();
     }

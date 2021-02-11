@@ -97,8 +97,7 @@ SQL;
         $keyword['shop_name'],
         $keyword['price']
       ]);
-      $rows = $q->fetchAll();
-      return $rows;
+      return $q->fetchAll();
     } catch (PDOException $e) {
       echo $e->getMessage();
     }
