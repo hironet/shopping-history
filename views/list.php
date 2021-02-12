@@ -103,7 +103,13 @@ foreach ($shopping_histories as $sh) {
   $price = $sh[5];
 ?>
             <tr>
-              <td class="text-nowrap"><?php echo date('Y/m/d(D)', strtotime($purchase_date)); ?></td>
+              <td class="text-nowrap">
+<?php
+$week_name = ['日', '月', '火', '水', '木', '金', '土'];
+$w = date('w', strtotime($purchase_date));
+echo date('Y/m/d', strtotime($purchase_date)) . "({$week_name[$w]})";
+?>
+              </td>
               <td class="text-nowrap"><?php echo $category_name; ?></td>
               <td><?php echo $product_name; ?></td>
               <td class="text-nowrap"><?php echo $shop_name ?></td>
