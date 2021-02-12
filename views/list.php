@@ -21,6 +21,18 @@
     #nav {
       opacity: 0.9;
     }
+
+    .col12-nowrap td:nth-of-type(-n+2) {
+      white-space: nowrap;
+    }
+
+    .col456-nowrap td:nth-of-type(n+4) {
+      white-space: nowrap;
+    }
+
+    .col5-align td:nth-of-type(5) {
+      text-align: right;
+    }
   </style>
 </head>
 <body>
@@ -42,9 +54,9 @@
     <p class="text-end">表示件数：<span class="fw-bold text-danger"><?php echo number_format($displayed_results)?></span> 件 / 合計金額：<span class="fw-bold text-danger"><?php echo number_format($sum_price) ?></span> 円</p>
     <div class="table-responsive">
       <form action="#" method="POST">
-        <table class="table table-striped table-bordered align-middle">
+        <table class="table table-striped table-bordered align-middle col12-nowrap col456-nowrap col5-align">
           <thead>
-            <tr class="text-center text-nowrap">
+            <tr class="text-center">
               <th>日付</th>
               <th>分類</th>
               <th>商品名</th>
@@ -103,12 +115,12 @@ foreach ($shopping_histories as $sh) {
   $price = $sh[5];
 ?>
             <tr>
-              <td class="text-nowrap"><?php echo $purchase_date; ?></td>
-              <td class="text-nowrap"><?php echo $category_name; ?></td>
+              <td><?php echo $purchase_date; ?></td>
+              <td><?php echo $category_name; ?></td>
               <td><?php echo $product_name; ?></td>
-              <td class="text-nowrap"><?php echo $shop_name; ?></td>
-              <td class="text-end text-nowrap"><?php echo number_format($price); ?> 円</td>
-              <td class="text-nowrap">
+              <td><?php echo $shop_name; ?></td>
+              <td><?php echo number_format($price); ?> 円</td>
+              <td>
                 <button class="btn btn-success btn-sm" type="submit" name="operation" value="update,<?php echo $order_id; ?>">変更</button>
                 <button class="btn btn-danger btn-sm" type="submit" name="operation" value="delete,<?php echo $order_id; ?>">削除</button>
               </td>
