@@ -34,12 +34,12 @@
         <div class="navbar-nav">
           <a class="nav-link" href=".">買い物履歴一覧</a>
           <a class="nav-link" href=".">インポート</a>
-          <span class="navbar-text">合計金額：<?php echo number_format($sum_price) . ' 円' ?></span>
         </div>
       </div>
     </nav>
   </header>
   <main>
+    <p class="text-end">表示件数：<span class="fw-bold text-danger"><?php echo number_format($displayed_results)?></span> 件 / 合計金額：<span class="fw-bold text-danger"><?php echo number_format($sum_price) ?></span> 円</p>
     <div class="table-responsive">
       <form action="#" method="POST">
         <table class="table table-striped table-bordered align-middle">
