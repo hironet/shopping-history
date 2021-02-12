@@ -103,17 +103,11 @@ foreach ($shopping_histories as $sh) {
   $price = $sh[5];
 ?>
             <tr>
-              <td class="text-nowrap">
-<?php
-$week_name = ['日', '月', '火', '水', '木', '金', '土'];
-$w = date('w', strtotime($purchase_date));
-echo date('Y/m/d', strtotime($purchase_date)) . "({$week_name[$w]})";
-?>
-              </td>
+              <td class="text-nowrap"><?php echo $purchase_date; ?></td>
               <td class="text-nowrap"><?php echo $category_name; ?></td>
               <td><?php echo $product_name; ?></td>
-              <td class="text-nowrap"><?php echo $shop_name ?></td>
-              <td class="text-end text-nowrap"><?php echo number_format($price) . ' 円'; ?></td>
+              <td class="text-nowrap"><?php echo $shop_name; ?></td>
+              <td class="text-end text-nowrap"><?php echo number_format($price); ?> 円</td>
               <td class="text-nowrap">
                 <button class="btn btn-success btn-sm" type="submit" name="operation" value="update,<?php echo $order_id; ?>">変更</button>
                 <button class="btn btn-danger btn-sm" type="submit" name="operation" value="delete,<?php echo $order_id; ?>">削除</button>
