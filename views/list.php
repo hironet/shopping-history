@@ -51,7 +51,7 @@
     </nav>
   </header>
   <main>
-    <p class="text-end">表示件数：<span class="fw-bold text-danger"><?php echo number_format($displayed_results)?></span> 件 / 合計金額：<span class="fw-bold text-danger"><?php echo number_format($sum_price) ?></span> 円</p>
+    <p class="text-end">データ件数：<span class="fw-bold text-danger"><?php echo number_format($number_of_data)?></span> 件 / 合計金額：<span class="fw-bold text-danger"><?php echo number_format($sum_price) ?></span> 円</p>
     <div class="table-responsive">
       <form action="#" method="POST">
         <table class="table table-striped table-bordered align-middle col12-nowrap col456-nowrap col5-align">
