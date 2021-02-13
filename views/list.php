@@ -45,10 +45,32 @@
       <div id="navbarNavAltMarkup" class="collapse navbar-collapse justify-content-center">
         <div class="navbar-nav">
           <a class="nav-link" href=".">買い物履歴一覧</a>
-          <a class="nav-link" href=".">インポート</a>
+          <a class="nav-link" href="." data-bs-toggle="modal" data-bs-target="#import-file-modal">インポート</a>
         </div>
       </div>
     </nav>
+    <form action="#" method="POST" enctype="multipart/form-data">
+      <!-- Modal -->
+      <div class="modal fade" id="import-file-modal" tabindex="-1" aria-labelledby="import-file-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="import-file-modal-label">CSVファイルのインポート</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>インポートするCSVファイルを選択して下さい。</p>
+              <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+              <input type="file" name="import-file" size="200">
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">キャンセル</button>
+              <button class="btn btn-primary" type="submit" name="operation" value="import">インポート</button>
+            </div>
+          </div>
+        </div>
+      </div>  <!-- Modal -->
+    </form>
   </header>
   <main>
     <p class="text-end">データ件数：<span class="fw-bold text-danger"><?php echo number_format($number_of_data)?></span> 件 / 合計金額：<span class="fw-bold text-danger"><?php echo number_format($sum_price) ?></span> 円</p>
