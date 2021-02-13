@@ -46,8 +46,8 @@ if (isset($_POST['operation'])) {
 
 $categories = $sh->getAllCategories();
 $shops = $sh->getAllShops();
-$shopping_histories = $sh->getDataByKeyword($keyword);
-$number_of_data = count($shopping_histories);  // データ件数
+$data = $sh->getDataByKeyword($keyword);
+$number_of_data = count($data);  // データ件数
 $sum_price = $sh->getSumPrice($keyword);  // 合計金額
 
 include_once(__DIR__ . '/views/list.php');

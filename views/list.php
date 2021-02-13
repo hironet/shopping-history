@@ -106,23 +106,17 @@ foreach ($shops as $shop) {
           </thead>
           <tbody>
 <?php
-foreach ($shopping_histories as $sh) {
-  $order_id = $sh[0];
-  $purchase_date = $sh[1];
-  $category_name = $sh[2];
-  $product_name = $sh[3];
-  $shop_name = $sh[4];
-  $price = $sh[5];
+foreach ($data as $d) {
 ?>
             <tr>
-              <td><?php echo $purchase_date; ?></td>
-              <td><?php echo $category_name; ?></td>
-              <td><?php echo $product_name; ?></td>
-              <td><?php echo $shop_name; ?></td>
-              <td><?php echo number_format($price); ?> 円</td>
+              <td><?php echo $d['purchase_date']; ?></td>
+              <td><?php echo $d['category_name']; ?></td>
+              <td><?php echo $d['product_name']; ?></td>
+              <td><?php echo $d['shop_name']; ?></td>
+              <td><?php echo number_format($d['price']); ?> 円</td>
               <td>
-                <button class="btn btn-success btn-sm" type="submit" name="operation" value="update,<?php echo $order_id; ?>">変更</button>
-                <button class="btn btn-danger btn-sm" type="submit" name="operation" value="delete,<?php echo $order_id; ?>">削除</button>
+                <button class="btn btn-success btn-sm" type="submit" name="operation" value="update,<?php echo $d['order_id']; ?>">変更</button>
+                <button class="btn btn-danger btn-sm" type="submit" name="operation" value="delete,<?php echo $d['order_id']; ?>">削除</button>
               </td>
             </tr>
 <?php
