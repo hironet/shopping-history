@@ -151,7 +151,7 @@ foreach ($data as $d) {
   </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
   <script>
-    window.onload = function() {
+    window.addEventListener('DOMContentLoaded', function() {
       // テキストボックスでEnterキーを押すと検索実行する処理
       document.querySelectorAll('input').forEach(function (input) {
         input.addEventListener('keydown', function(e) {
@@ -173,7 +173,7 @@ foreach ($data as $d) {
           btn.dispatchEvent(event);
         }
       });
-    }
+    });
   </script>
 </body>
 </html>
