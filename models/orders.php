@@ -21,15 +21,8 @@ class Orders {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin
 SQL;
 
-    try {
-      if ($this->db->query($sql) === false) {
-        echo 'ordersテーブルの作成が失敗しました。<br>';
-        exit(1);
-      } else {
-        echo 'ordersテーブルの作成が成功しました。<br>';
-      }
-    } catch (PDOException $e) {
-      echo $e->getMessage();
+    if ($this->db->query($sql) === false) {
+      throw new RuntimeException('ordersテーブルの作成が失敗しました。');
     }
   }
 
@@ -45,7 +38,6 @@ SQL;
     )
 SQL;
 
-    try {
       $q = $this->db->prepare($sql);
       if ($q->execute([
         $input['purchase_date'],
@@ -53,15 +45,9 @@ SQL;
         $input['product_name'],
         $input['shop_name'],
         $input['price']
-        ]) === true) {
-        echo 'ordersテーブルへのINSERTが成功しました。<br>';
-      } else {
-        echo 'ordersテーブルへのINSERTが失敗しました。<br>';
-        exit(1);
+        ]) === false) {
+        throw new RuntimeException('ordersテーブルへのINSERTが失敗しました。');
       }
-    } catch (PDOException $e) {
-      echo $e->getMessage();
-    }
   }
 
   public function updateData($order_id, $old_data, $input) {
@@ -81,41 +67,27 @@ SQL;
     WHERE order_id = ?
 SQL;
 
-    try {
-      if ($input['purchase_date'] !== '') {
-        $q = $this->db->prepare($sql);
-        if ($q->execute([
-          $input['purchase_date'],
-          $input['category_name'],
-          $input['product_name'],
-          $input['shop_name'],
-          $input['price'],
-          $order_id
-          ]) === true) {
-          echo 'ordersテーブルのUPDATEが成功しました。<br>';
-        } else {
-          echo 'ordersテーブルのUPDATEが失敗しました。<br>';
-          exit(1);
-        }
+    if ($input['purchase_date'] !== '') {
+      $q = $this->db->prepare($sql);
+      if ($q->execute([
+        $input['purchase_date'],
+        $input['category_name'],
+        $input['product_name'],
+        $input['shop_name'],
+        $input['price'],
+        $order_id
+        ]) === false) {
+        throw new RuntimeException('ordersテーブルのUPDATEが失敗しました。');
       }
-    } catch (PDOException $e) {
-      echo $e->getMessage();
     }
   }
 
   public function deleteData($order_id) {
     $sql = 'DELETE FROM orders WHERE order_id = ?';
 
-    try {
-      $q = $this->db->prepare($sql);
-      if ($q->execute([$order_id]) === true) {
-        echo 'ordersテーブルからのDELETEが成功しました。<br>';
-      } else {
-        echo 'ordersテーブルからのDELETEが失敗しました。<br>';
-        exit(1);
-      }
-    } catch (PDOException $e) {
-      echo $e->getMessage();
+    $q = $this->db->prepare($sql);
+    if ($q->execute([$order_id]) === false) {
+      throw new RuntimeException('ordersテーブルからのDELETEが失敗しました。');
     }
   }
 }

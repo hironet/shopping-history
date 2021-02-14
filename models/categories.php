@@ -15,15 +15,8 @@ class Categories {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin
 SQL;
 
-    try {
-      if ($this->db->query($sql) === false) {
-        echo 'categoriesテーブルの作成が失敗しました。<br>';
-        exit(1);
-      } else {
-        echo 'categoriesテーブルの作成が成功しました。<br>';
-      }
-    } catch (PDOException $e) {
-      echo $e->getMessage();
+    if ($this->db->query($sql) === false) {
+      throw new RuntimeException('categoriesテーブルの作成が失敗しました。');
     }
   }
 
@@ -35,32 +28,18 @@ SQL;
     SELECT ? FROM dual WHERE NOT EXISTS (SELECT * FROM categories WHERE category_name=?)
 SQL;
 
-    try {
-      $q = $this->db->prepare($sql);
-      if ($q->execute([$category_name, $category_name]) === true) {
-        echo 'categoriesテーブルへのINSERTが成功しました。<br>';
-      } else {
-        echo 'categoriesテーブルへのINSERTが失敗しました。<br>';
-        exit(1);
-      }
-    } catch (PDOException $e) {
-      echo $e->getMessage();
+    $q = $this->db->prepare($sql);
+    if ($q->execute([$category_name, $category_name]) === false) {
+      throw new RuntimeException('categoriesテーブルへのINSERTが失敗しました。');
     }
   }
 
   public function deleteData($category_name) {
     $sql = 'DELETE FROM categories WHERE category_name = ?';
 
-    try {
-      $q = $this->db->prepare($sql);
-      if ($q->execute([$category_name]) === true) {
-        echo 'categoriesテーブルからのDELETEが成功しました。<br>';
-      } else {
-        echo 'categoriesテーブルからのDELETEが失敗しました。<br>';
-        exit(1);
-      }
-    } catch (PDOException $e) {
-      echo $e->getMessage();
+    $q = $this->db->prepare($sql);
+    if ($q->execute([$category_name]) === false) {
+      throw new RuntimeException('categoriesテーブルからのDELETEが失敗しました。');
     }
   }
 

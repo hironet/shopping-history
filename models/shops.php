@@ -15,15 +15,8 @@ class Shops {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin
 SQL;
 
-    try {
-      if ($this->db->query($sql) === false) {
-        echo 'shopsテーブルの作成が失敗しました。<br>';
-        exit(1);
-      } else {
-        echo 'shopsテーブルの作成が成功しました。<br>';
-      }
-    } catch (PDOException $e) {
-      echo $e->getMessage();
+    if ($this->db->query($sql) === false) {
+      throw new RuntimeException('shopsテーブルの作成が失敗しました。');
     }
   }
 
@@ -35,32 +28,18 @@ SQL;
     SELECT ? FROM dual WHERE NOT EXISTS (SELECT * FROM shops WHERE shop_name=?)
 SQL;
 
-    try {
-      $q = $this->db->prepare($sql);
-      if ($q->execute([$shop_name, $shop_name]) === true) {
-        echo 'shopsテーブルへのINSERTが成功しました。<br>';
-      } else {
-        echo 'shopsテーブルへのINSERTが失敗しました。<br>';
-        exit(1);
-      }
-    } catch (PDOException $e) {
-      echo $e->getMessage();
+    $q = $this->db->prepare($sql);
+    if ($q->execute([$shop_name, $shop_name]) === false) {
+      throw new RuntimeException('shopsテーブルへのINSERTが失敗しました。');
     }
   }
 
   public function deleteData($shop_name) {
     $sql = 'DELETE FROM shops WHERE shop_name = ?';
 
-    try {
-      $q = $this->db->prepare($sql);
-      if ($q->execute([$shop_name]) === true) {
-        echo 'shopsテーブルからのDELETEが成功しました。<br>';
-      } else {
-        echo 'shopsテーブルからのDELETEが失敗しました。<br>';
-        exit(1);
-      }
-    } catch (PDOException $e) {
-      echo $e->getMessage();
+    $q = $this->db->prepare($sql);
+    if ($q->execute([$shop_name]) === false) {
+      throw new RuntimeException('shopsテーブルからのDELETEが失敗しました。');
     }
   }
 

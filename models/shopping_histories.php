@@ -27,15 +27,8 @@ class ShoppingHistories {
     JOIN shops AS c USING(shop_id)
 SQL;
 
-    try {
-      if ($this->db->query($sql) === false) {
-        echo 'shopping_historiesビューの作成が失敗しました。<br>';
-        exit(1);
-      } else {
-        echo 'shopping_historiesビューの作成が成功しました。<br>';
-      }
-    } catch (PDOException $e) {
-      echo $e->getMessage();
+    if ($this->db->query($sql) === false) {
+      throw new RuntimeException('shopping_historiesビューの作成が失敗しました。');
     }
   }
 
@@ -147,36 +140,33 @@ SQL;
   }
 
   public function importCsv($file) {
-    try {
-      switch ($file['error']) {
-        case UPLOAD_ERR_OK:
-          break;
-        case UPLOAD_ERR_NO_FILE:
-          throw new RuntimeException('ファイルが選択されていません。');
-        case UPLOAD_ERR_INI_SIZE:
-        case UPLOAD_ERR_FORM_SIZE:
-          throw new RuntimeException('ファイルサイズが大きすぎます。');
-        default:
-          throw new RuntimeException('その他のエラーが発生しました。');
-      }
-
-      if (is_uploaded_file($file['tmp_name'])) {
-        if (($handle = fopen($file['tmp_name'], "r")) != false) {
+    switch ($file['error']) {
+      case UPLOAD_ERR_OK:
+        break;
+      case UPLOAD_ERR_NO_FILE:
+        throw new RuntimeException('ファイルが選択されていません。');
+      case UPLOAD_ERR_INI_SIZE:
+      case UPLOAD_ERR_FORM_SIZE:
+        throw new RuntimeException('ファイルサイズが大きすぎます。');
+      default:
+        throw new RuntimeException('その他のエラーが発生しました。');
+    }
+    if (is_uploaded_file($file['tmp_name'])) {
+      if (($handle = fopen($file['tmp_name'], "r")) != false) {
+        try {
           while (($values = fgetcsv($handle, 1000, ",")) != false) {
             if (count($values) != 5) continue;
             $input = array_combine(self::KEYS, $values);
             $this->insertData($input);
           }
+        } finally {
           fclose($handle);
-        } else {
-          throw new RuntimeException('ファイルを開けません。');
-          exit(1);
         }
       } else {
-        throw new RuntimeException('ファイルはHTTP POST以外の方法でアップロードされました。');
+        throw new RuntimeException('ファイルを開けません。');
       }
-    } catch (RuntimeException $e) {
-      echo $e->getMessage(), PHP_EOL;
+    } else {
+      throw new RuntimeException('ファイルはHTTP POST以外の方法でアップロードされました。');
     }
   }
 
