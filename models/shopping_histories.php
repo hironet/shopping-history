@@ -78,25 +78,17 @@ SQL;
   private function checkUsedCategory($category_name) {
     $sql = 'SELECT count(*) FROM shopping_histories WHERE category_name = ?';
 
-    try {
-      $q = $this->db->prepare($sql);
-      $q->execute([$category_name]);
-      return ($q->fetch()[0] > 0) ? true : false;
-    } catch (PDOException $e) {
-      echo $e->getMessage();
-    }
+    $q = $this->db->prepare($sql);
+    $q->execute([$category_name]);
+    return ($q->fetch()[0] > 0) ? true : false;
   }
 
   private function checkUsedShop($shop_name) {
     $sql = 'SELECT count(*) FROM shopping_histories WHERE shop_name = ?';
 
-    try {
-      $q = $this->db->prepare($sql);
-      $q->execute([$shop_name]);
-      return ($q->fetch()[0] > 0) ? true : false;
-    } catch (PDOException $e) {
-      echo $e->getMessage();
-    }
+    $q = $this->db->prepare($sql);
+    $q->execute([$shop_name]);
+    return ($q->fetch()[0] > 0) ? true : false;
   }
 
   public function insertData($input) {
@@ -183,19 +175,15 @@ SQL;
     ORDER BY order_id
 SQL;
 
-    try {
-      $q = $this->db->prepare($sql);
-      $q->execute([
-        $keyword['purchase_date'],
-        $keyword['category_name'],
-        $keyword['product_name'],
-        $keyword['shop_name'],
-        $keyword['price']
-      ]);
-      return $q->fetchAll();
-    } catch (PDOException $e) {
-      echo $e->getMessage();
-    }
+    $q = $this->db->prepare($sql);
+    $q->execute([
+      $keyword['purchase_date'],
+      $keyword['category_name'],
+      $keyword['product_name'],
+      $keyword['shop_name'],
+      $keyword['price']
+    ]);
+    return $q->fetchAll();
   }
 
   private function getDataByOrderID($order_id) {
@@ -206,13 +194,9 @@ SQL;
     ORDER BY order_id
 SQL;
 
-    try {
-      $q = $this->db->prepare($sql);
-      $q->execute([$order_id]);
-      return $q->fetch();
-    } catch (PDOException $e) {
-      echo $e->getMessage();
-    }
+    $q = $this->db->prepare($sql);
+    $q->execute([$order_id]);
+    return $q->fetch();
   }
 
   public function getSumPrice($keyword) {
@@ -227,19 +211,15 @@ SQL;
       price LIKE ?
 SQL;
 
-    try {
-      $q = $this->db->prepare($sql);
-      $q->execute([
-        $keyword['purchase_date'],
-        $keyword['category_name'],
-        $keyword['product_name'],
-        $keyword['shop_name'],
-        $keyword['price']
-      ]);
-      return $q->fetch()[0];
-    } catch (PDOException $e) {
-      echo $e->getMessage();
-    }
+    $q = $this->db->prepare($sql);
+    $q->execute([
+      $keyword['purchase_date'],
+      $keyword['category_name'],
+      $keyword['product_name'],
+      $keyword['shop_name'],
+      $keyword['price']
+    ]);
+    return $q->fetch()[0];
   }
 
   public function getAllCategories() {

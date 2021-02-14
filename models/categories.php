@@ -46,12 +46,8 @@ SQL;
   public function getAllData() {
     $sql = 'SELECT category_id, category_name FROM categories ORDER BY category_name';
 
-    try {
-      $q = $this->db->query($sql);
-      return $q->fetchAll();
-    } catch (PDOException $e) {
-      echo $e->getMessage();
-    }
+    $q = $this->db->query($sql);
+    return $q->fetchAll();
   }
 }
 ?>

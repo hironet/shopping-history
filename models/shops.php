@@ -46,12 +46,8 @@ SQL;
   public function getAllData() {
     $sql = 'SELECT shop_id, shop_name FROM shops ORDER BY shop_name';
 
-    try {
-      $q = $this->db->query($sql);
-      return $q->fetchAll();
-    } catch (PDOException $e) {
-      echo $e->getMessage();
-    }
+    $q = $this->db->query($sql);
+    return $q->fetchAll();
   }
 }
 ?>
