@@ -74,7 +74,7 @@ SQL;
     }
 
     foreach ($input as &$value) {
-      $value = htmlspecialchars(trim($value));
+      $value = trim($value);
     }
     $input['purchase_date'] = preg_replace('/[^0-9]/', '', $input['purchase_date']);
     $input['price'] = preg_replace('/[^0-9]/', '', $input['price']);
@@ -95,7 +95,7 @@ SQL;
     }
 
     foreach ($input as &$value) {
-      $value = htmlspecialchars(trim($value));
+      $value = trim($value);
     }
     $input['purchase_date'] = preg_replace('/[^0-9]/', '', $input['purchase_date']);
     $input['price'] = preg_replace('/[^0-9]/', '', $input['price']);

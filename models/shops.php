@@ -21,7 +21,7 @@ SQL;
   }
 
   public function insertData($shop_name) {
-    $shop_name = htmlspecialchars(trim($shop_name));
+    $shop_name = trim($shop_name);
 
     $sql = <<<SQL
     INSERT INTO shops (shop_name)
