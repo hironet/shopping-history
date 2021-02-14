@@ -50,7 +50,9 @@ SQL;
   public function getAllData() {
     $sql = 'SELECT category_id, category_name FROM categories ORDER BY category_name';
 
-    $stmt = $this->db->query($sql);
+    if (($stmt = $this->db->query($sql)) === false) {
+      throw new RuntimeException('categoriesテーブルからのSELECTでエラーが発生しました。');
+    }
     return $stmt->fetchAll();
   }
 }
