@@ -61,7 +61,7 @@
             <div class="modal-body">
               <p>インポートするCSVファイルを選択して下さい。</p>
               <input type="hidden" name="MAX_FILE_SIZE" value="2097152" />
-              <input type="file" name="import-file" size="200">
+              <input type="file" name="csv-file" size="200">
             </div>
             <div class="modal-footer">
               <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">キャンセル</button>
