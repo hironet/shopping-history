@@ -40,41 +40,6 @@ SQL;
     }
   }
 
-  private function checkInsertData(&$input) {
-    // product_name以外のいずれかが空であればfalse
-    if (!$input['purchase_date'] ||
-        !$input['category_name'] ||
-        !$input['shop_name'] ||
-        !$input['price']) {
-      return false;
-    }
-
-    foreach ($input as &$value) {
-      $value = htmlspecialchars(trim($value));
-    }
-    $input['purchase_date'] = preg_replace('/[^0-9]/', '', $input['purchase_date']);
-    $input['price'] = preg_replace('/[^0-9]/', '', $input['price']);
-    return true;
-  }
-
-  private function checkUpdateData(&$input) {
-    // 全て空であればfalse
-    if (!$input['purchase_date'] &&
-        !$input['category_name'] &&
-        !$input['product_name'] &&
-        !$input['shop_name'] &&
-        !$input['price']) {
-      return false;
-    }
-
-    foreach ($input as &$value) {
-      $value = htmlspecialchars(trim($value));
-    }
-    $input['purchase_date'] = preg_replace('/[^0-9]/', '', $input['purchase_date']);
-    $input['price'] = preg_replace('/[^0-9]/', '', $input['price']);
-    return true;
-  }
-
   private function checkUsedCategory($category_name) {
     $sql = 'SELECT count(*) FROM shopping_histories WHERE category_name = ?';
 
@@ -100,27 +65,52 @@ SQL;
   }
 
   public function insertData($input) {
-    if ($this->checkInsertData($input)) {
-      $this->categories->insertData($input['category_name']);
-      $this->shops->insertData($input['shop_name']);
-      $this->orders->insertData($input);
+    // product_name以外のいずれかが空であればfalse
+    if (!$input['purchase_date'] ||
+        !$input['category_name'] ||
+        !$input['shop_name'] ||
+        !$input['price']) {
+      throw new RuntimeException('商品名以外の全ての項目を入力する必要があります。');
     }
+
+    foreach ($input as &$value) {
+      $value = htmlspecialchars(trim($value));
+    }
+    $input['purchase_date'] = preg_replace('/[^0-9]/', '', $input['purchase_date']);
+    $input['price'] = preg_replace('/[^0-9]/', '', $input['price']);
+
+    $this->categories->insertData($input['category_name']);
+    $this->shops->insertData($input['shop_name']);
+    $this->orders->insertData($input);
   }
 
   public function updateData($order_id, $input) {
-    if ($this->checkUpdateData($input)) {
-      $old_data = $this->getDataByOrderID($order_id);
-      $this->orders->updateData($order_id, $old_data, $input);
+    // 全て空であればfalse
+    if (!$input['purchase_date'] &&
+        !$input['category_name'] &&
+        !$input['product_name'] &&
+        !$input['shop_name'] &&
+        !$input['price']) {
+      throw new RuntimeException('いずれかの項目を入力する必要があります。');
+    }
 
-      // 未使用のcategory_nameがあれば削除
-      if ($this->checkUsedCategory($old_data['category_name']) === false) {
-        $this->categories->deleteData($old_data['category_name']);
-      }
+    foreach ($input as &$value) {
+      $value = htmlspecialchars(trim($value));
+    }
+    $input['purchase_date'] = preg_replace('/[^0-9]/', '', $input['purchase_date']);
+    $input['price'] = preg_replace('/[^0-9]/', '', $input['price']);
 
-      // 未使用のshop_nameがあれば削除
-      if ($this->checkUsedShop($old_data['shop_name']) === false) {
-        $this->shops->deleteData($old_data['shop_name']);
-      }
+    $old_data = $this->getDataByOrderID($order_id);
+    $this->orders->updateData($order_id, $old_data, $input);
+
+    // 未使用のcategory_nameがあれば削除
+    if ($this->checkUsedCategory($old_data['category_name']) === false) {
+      $this->categories->deleteData($old_data['category_name']);
+    }
+
+    // 未使用のshop_nameがあれば削除
+    if ($this->checkUsedShop($old_data['shop_name']) === false) {
+      $this->shops->deleteData($old_data['shop_name']);
     }
   }
 
