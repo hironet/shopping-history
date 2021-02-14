@@ -21,8 +21,6 @@ SQL;
   }
 
   public function insertData($category_name) {
-    $category_name = trim($category_name);
-
     $sql = <<<SQL
     INSERT INTO categories (category_name)
     SELECT ? FROM dual WHERE NOT EXISTS (SELECT * FROM categories WHERE category_name=?)

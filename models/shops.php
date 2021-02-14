@@ -21,8 +21,6 @@ SQL;
   }
 
   public function insertData($shop_name) {
-    $shop_name = trim($shop_name);
-
     $sql = <<<SQL
     INSERT INTO shops (shop_name)
     SELECT ? FROM dual WHERE NOT EXISTS (SELECT * FROM shops WHERE shop_name=?)
