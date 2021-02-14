@@ -85,7 +85,7 @@
               <th>店</th>
               <th>価格</th>
               <th>
-                <button class="btn btn-secondary btn-sm" type="submit" name="operation" value="reset">リセット</button>
+                <button id="reset-btn" class="btn btn-secondary btn-sm" type="submit" name="operation" value="reset">リセット</button>
               </th>
             </tr>
             <tr>
@@ -121,7 +121,7 @@ foreach ($shops as $shop) {
                 <input class="form-control" type="text" name="input[]" value="<?php echo $keyword['price'] === '%' ? '' : $keyword['price'] ?>" placeholder="検索・登録・変更">
               </th>
               <th>
-                <button class="btn btn-primary btn-sm" type="submit" name="operation" value="search">検索</button>
+                <button id="search-btn" class="btn btn-primary btn-sm" type="submit" name="operation" value="search">検索</button>
                 <button class="btn btn-dark btn-sm" type="submit" name="operation" value="insert">登録</button>
               </th>
             </tr>
@@ -150,5 +150,30 @@ foreach ($data as $d) {
     </div>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  <script>
+    window.onload = function() {
+      // テキストボックスでEnterキーを押すと検索実行する処理
+      document.querySelectorAll('input').forEach(function (input) {
+        input.addEventListener('keydown', function(e) {
+          if (e.keyCode === 13) {
+            e.preventDefault();
+            let btn = document.getElementById('search-btn');
+            let event = new Event('click');
+            btn.dispatchEvent(event);
+          }
+        });
+      });
+
+      // Rキーを押すとリセット実行する処理
+      window.addEventListener('keydown', function(e) {
+        if (e.keyCode === 82) {
+          e.preventDefault();
+          let btn = document.getElementById('reset-btn');
+          let event = new Event('click');
+          btn.dispatchEvent(event);
+        }
+      });
+    }
+  </script>
 </body>
 </html>
