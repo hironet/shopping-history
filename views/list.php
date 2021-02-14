@@ -50,7 +50,7 @@
       </div>
     </nav>
     <form action="#" method="POST" enctype="multipart/form-data">
-      <!-- Modal -->
+      <!-- ファイルインポートモーダル -->
       <div class="modal fade" id="import-file-modal" tabindex="-1" aria-labelledby="import-file-modal-label" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -60,7 +60,7 @@
             </div>
             <div class="modal-body">
               <p>インポートするCSVファイルを選択して下さい。</p>
-              <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+              <input type="hidden" name="MAX_FILE_SIZE" value="2097152" />
               <input type="file" name="import-file" size="200">
             </div>
             <div class="modal-footer">
@@ -69,7 +69,7 @@
             </div>
           </div>
         </div>
-      </div>  <!-- Modal -->
+      </div><!-- ファイルインポートモーダル -->
     </form>
   </header>
   <main>
@@ -98,7 +98,7 @@
 <?php
 foreach ($categories as $category) {
   $category_name = $category[1];
-  echo '<option value="' . $category_name . '">';
+  echo '<option value="' . $category_name . '">', PHP_EOL;
 }
 ?>
                 </datalist>
@@ -112,7 +112,7 @@ foreach ($categories as $category) {
 <?php
 foreach ($shops as $shop) {
   $shop_name = $shop[1];
-  echo '<option value="' . $shop_name . '">';
+  echo '<option value="' . $shop_name . '">', PHP_EOL;
 }
 ?>
                 </datalist>

@@ -147,18 +147,36 @@ SQL;
   }
 
   public function importCsv($file) {
-    if (is_uploaded_file($file)) {
-      if (($handle = fopen($file, "r")) != false) {
-        while (($values = fgetcsv($handle, 1000, ",")) != false) {
-          if (count($values) != 5) continue;
-          $input = array_combine(self::KEYS, $values);
-          $this->insertData($input);
-        }
-        fclose($handle);
-      } else {
-        echo "{$file}を開けませんでした。<br>";
-        exit(1);
+    try {
+      switch ($file['error']) {
+        case UPLOAD_ERR_OK:
+          break;
+        case UPLOAD_ERR_NO_FILE:
+          throw new RuntimeException('ファイルが選択されていません。');
+        case UPLOAD_ERR_INI_SIZE:
+        case UPLOAD_ERR_FORM_SIZE:
+          throw new RuntimeException('ファイルサイズが大きすぎます。');
+        default:
+          throw new RuntimeException('その他のエラーが発生しました。');
       }
+
+      if (is_uploaded_file($file['tmp_name'])) {
+        if (($handle = fopen($file['tmp_name'], "r")) != false) {
+          while (($values = fgetcsv($handle, 1000, ",")) != false) {
+            if (count($values) != 5) continue;
+            $input = array_combine(self::KEYS, $values);
+            $this->insertData($input);
+          }
+          fclose($handle);
+        } else {
+          throw new RuntimeException('ファイルを開けません。');
+          exit(1);
+        }
+      } else {
+        throw new RuntimeException('ファイルはHTTP POST以外の方法でアップロードされました。');
+      }
+    } catch (RuntimeException $e) {
+      echo $e->getMessage(), PHP_EOL;
     }
   }
 
