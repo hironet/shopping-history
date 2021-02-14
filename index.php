@@ -2,18 +2,13 @@
 require_once('/var/www/config/shopping_history/db_info.php');
 require_once(__DIR__ . '/models/shopping_histories.php');
 
-$dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
-$user = DB_USER;
-$pass = DB_PASS;
-
 try {
+  $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
+  $user = DB_USER;
+  $pass = DB_PASS;
   $db = new PDO($dsn, $user, $pass);
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-  echo $e->getMessage(), PHP_EOL;
-}
 
-try {
   $sh = new ShoppingHistories($db);
 
   $keyword = $sh->makeData(['%', '%', '%', '%', '%']);
