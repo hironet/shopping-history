@@ -40,7 +40,7 @@ SQL;
     }
   }
 
-  private function checkUsedCategory($category_name) {
+  private function checkExistsCategory($category_name) {
     $sql = 'SELECT count(*) FROM shopping_histories WHERE category_name = ?';
 
     try {
@@ -52,7 +52,7 @@ SQL;
     return ($stmt->fetch()[0] > 0) ? true : false;
   }
 
-  private function checkUsedShop($shop_name) {
+  private function checkExistsShop($shop_name) {
     $sql = 'SELECT count(*) FROM shopping_histories WHERE shop_name = ?';
 
     try {
@@ -100,16 +100,26 @@ SQL;
     $input['purchase_date'] = preg_replace('/[^0-9]/', '', $input['purchase_date']);
     $input['price'] = preg_replace('/[^0-9]/', '', $input['price']);
 
+    // 変更後のcategory_nameが存在しなければ追加
+    if ($this->checkExistsCategory($input['category_name']) === false) {
+      $this->categories->insertData($input['category_name']);
+    }
+
+    // 変更後のshop_nameが存在しなければ追加
+    if ($this->checkExistsShop($input['shop_name']) === false) {
+      $this->shops->insertData($input['shop_name']);
+    }
+
     $old_data = $this->getDataByOrderID($order_id);
     $this->orders->updateData($order_id, $old_data, $input);
 
-    // 未使用のcategory_nameがあれば削除
-    if ($this->checkUsedCategory($old_data['category_name']) === false) {
+    // 変更前のcategory_nameが未使用であれば削除
+    if ($this->checkExistsCategory($old_data['category_name']) === false) {
       $this->categories->deleteData($old_data['category_name']);
     }
 
-    // 未使用のshop_nameがあれば削除
-    if ($this->checkUsedShop($old_data['shop_name']) === false) {
+    // 変更前のshop_nameが未使用であれば削除
+    if ($this->checkExistsShop($old_data['shop_name']) === false) {
       $this->shops->deleteData($old_data['shop_name']);
     }
   }
@@ -118,13 +128,13 @@ SQL;
     $old_data = $this->getDataByOrderID($order_id);
     $this->orders->deleteData($order_id);
 
-    // 未使用のcategory_nameがあれば削除
-    if ($this->checkUsedCategory($old_data['category_name']) === false) {
+    // category_nameが未使用であれば削除
+    if ($this->checkExistsCategory($old_data['category_name']) === false) {
       $this->categories->deleteData($old_data['category_name']);
     }
 
-    // 未使用のshop_nameがあれば削除
-    if ($this->checkUsedShop($old_data['shop_name']) === false) {
+    // shop_nameが未使用であれば削除
+    if ($this->checkExistsShop($old_data['shop_name']) === false) {
       $this->shops->deleteData($old_data['shop_name']);
     }
   }
