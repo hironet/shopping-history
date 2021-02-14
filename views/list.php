@@ -1,3 +1,8 @@
+<?php
+function h($str) {
+  return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+}
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -98,7 +103,7 @@
 <?php
 foreach ($categories as $category) {
   $category_name = $category[1];
-  echo '<option value="' . htmlspecialchars($category_name, ENT_QUOTES, 'UTF-8') . '">', PHP_EOL;
+  echo '<option value="' . h($category_name) . '">', PHP_EOL;
 }
 ?>
                 </datalist>
@@ -112,7 +117,7 @@ foreach ($categories as $category) {
 <?php
 foreach ($shops as $shop) {
   $shop_name = $shop[1];
-  echo '<option value="' . htmlspecialchars($shop_name, ENT_QUOTES, 'UTF-8') . '">', PHP_EOL;
+  echo '<option value="' . h($shop_name) . '">', PHP_EOL;
 }
 ?>
                 </datalist>
@@ -131,11 +136,11 @@ foreach ($shops as $shop) {
 foreach ($data as $d) {
 ?>
             <tr>
-              <td><?php echo htmlspecialchars($d['purchase_date'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td><?php echo htmlspecialchars($d['category_name'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td><?php echo htmlspecialchars($d['product_name'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td><?php echo htmlspecialchars($d['shop_name'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td><?php echo number_format(htmlspecialchars($d['price'], ENT_QUOTES, 'UTF-8')); ?> 円</td>
+              <td><?php echo h($d['purchase_date']); ?></td>
+              <td><?php echo h($d['category_name']); ?></td>
+              <td><?php echo h($d['product_name']); ?></td>
+              <td><?php echo h($d['shop_name']); ?></td>
+              <td><?php echo number_format(h($d['price'])); ?> 円</td>
               <td>
                 <button class="btn btn-success btn-sm" type="submit" name="operation" value="update,<?php echo $d['order_id']; ?>">変更</button>
                 <button class="btn btn-danger btn-sm" type="submit" name="operation" value="delete,<?php echo $d['order_id']; ?>">削除</button>
