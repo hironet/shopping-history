@@ -16,7 +16,7 @@ class Shops {
 SQL;
 
     if ($this->db->query($sql) === false) {
-      throw new RuntimeException('shopsテーブルの作成が失敗しました。');
+      throw new RuntimeException('shopsテーブルの作成でエラーが発生しました。');
     }
   }
 
@@ -28,26 +28,30 @@ SQL;
     SELECT ? FROM dual WHERE NOT EXISTS (SELECT * FROM shops WHERE shop_name=?)
 SQL;
 
-    $q = $this->db->prepare($sql);
-    if ($q->execute([$shop_name, $shop_name]) === false) {
-      throw new RuntimeException('shopsテーブルへのINSERTが失敗しました。');
+    try {
+      $stmt = $this->db->prepare($sql);
+      $stmt->execute([$shop_name, $shop_name]);
+    } catch (PDOException $e) {
+      throw new RuntimeException('shopsテーブルへのINSERTでエラーが発生しました。');
     }
   }
 
   public function deleteData($shop_name) {
     $sql = 'DELETE FROM shops WHERE shop_name = ?';
 
-    $q = $this->db->prepare($sql);
-    if ($q->execute([$shop_name]) === false) {
-      throw new RuntimeException('shopsテーブルからのDELETEが失敗しました。');
+    try {
+      $stmt = $this->db->prepare($sql);
+      $stmt->execute([$shop_name]);
+    } catch (PDOException $e) {
+      throw new RuntimeException('shopsテーブルからのDELETEでエラーが発生しました。');
     }
   }
 
   public function getAllData() {
     $sql = 'SELECT shop_id, shop_name FROM shops ORDER BY shop_name';
 
-    $q = $this->db->query($sql);
-    return $q->fetchAll();
+    $stmt = $this->db->query($sql);
+    return $stmt->fetchAll();
   }
 }
 ?>

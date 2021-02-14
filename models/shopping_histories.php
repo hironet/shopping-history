@@ -28,7 +28,7 @@ class ShoppingHistories {
 SQL;
 
     if ($this->db->query($sql) === false) {
-      throw new RuntimeException('shopping_historiesビューの作成が失敗しました。');
+      throw new RuntimeException('shopping_historiesビューの作成でエラーが発生しました。');
     }
   }
 
@@ -78,17 +78,25 @@ SQL;
   private function checkUsedCategory($category_name) {
     $sql = 'SELECT count(*) FROM shopping_histories WHERE category_name = ?';
 
-    $q = $this->db->prepare($sql);
-    $q->execute([$category_name]);
-    return ($q->fetch()[0] > 0) ? true : false;
+    try {
+      $stmt = $this->db->prepare($sql);
+      $stmt->execute([$category_name]);
+    } catch (PDOException $e) {
+      throw new RuntimeException('shopping_historiesビューからのSELECTでエラーが発生しました。');
+    }
+    return ($stmt->fetch()[0] > 0) ? true : false;
   }
 
   private function checkUsedShop($shop_name) {
     $sql = 'SELECT count(*) FROM shopping_histories WHERE shop_name = ?';
 
-    $q = $this->db->prepare($sql);
-    $q->execute([$shop_name]);
-    return ($q->fetch()[0] > 0) ? true : false;
+    try {
+      $stmt = $this->db->prepare($sql);
+      $stmt->execute([$shop_name]);
+    } catch (PDOException $e) {
+      throw new RuntimeException('shopping_historiesビューからのSELECTでエラーが発生しました。');
+    }
+    return ($stmt->fetch()[0] > 0) ? true : false;
   }
 
   public function insertData($input) {
@@ -175,15 +183,19 @@ SQL;
     ORDER BY order_id
 SQL;
 
-    $q = $this->db->prepare($sql);
-    $q->execute([
-      $keyword['purchase_date'],
-      $keyword['category_name'],
-      $keyword['product_name'],
-      $keyword['shop_name'],
-      $keyword['price']
-    ]);
-    return $q->fetchAll();
+    try {
+      $stmt = $this->db->prepare($sql);
+      $stmt->execute([
+        $keyword['purchase_date'],
+        $keyword['category_name'],
+        $keyword['product_name'],
+        $keyword['shop_name'],
+        $keyword['price']
+      ]);
+    } catch (PDOException $e) {
+      throw new RuntimeException('shopping_historiesビューからのSELECTでエラーが発生しました。');
+    }
+    return $stmt->fetchAll();
   }
 
   private function getDataByOrderID($order_id) {
@@ -194,9 +206,13 @@ SQL;
     ORDER BY order_id
 SQL;
 
-    $q = $this->db->prepare($sql);
-    $q->execute([$order_id]);
-    return $q->fetch();
+    try {
+      $stmt = $this->db->prepare($sql);
+      $stmt->execute([$order_id]);
+    } catch (PDOException $e) {
+      throw new RuntimeException('shopping_historiesビューからのSELECTでエラーが発生しました。');
+    }
+    return $stmt->fetch();
   }
 
   public function getSumPrice($keyword) {
@@ -211,15 +227,19 @@ SQL;
       price LIKE ?
 SQL;
 
-    $q = $this->db->prepare($sql);
-    $q->execute([
-      $keyword['purchase_date'],
-      $keyword['category_name'],
-      $keyword['product_name'],
-      $keyword['shop_name'],
-      $keyword['price']
-    ]);
-    return $q->fetch()[0];
+    try {
+      $stmt = $this->db->prepare($sql);
+      $stmt->execute([
+        $keyword['purchase_date'],
+        $keyword['category_name'],
+        $keyword['product_name'],
+        $keyword['shop_name'],
+        $keyword['price']
+      ]);
+    } catch (PDOException $e) {
+      throw new RuntimeException('shopping_historiesビューからのSELECTでエラーが発生しました。');
+    }
+    return $stmt->fetch()[0];
   }
 
   public function getAllCategories() {

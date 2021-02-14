@@ -22,7 +22,7 @@ class Orders {
 SQL;
 
     if ($this->db->query($sql) === false) {
-      throw new RuntimeException('ordersテーブルの作成が失敗しました。');
+      throw new RuntimeException('ordersテーブルの作成でエラーが発生しました。');
     }
   }
 
@@ -38,16 +38,18 @@ SQL;
     )
 SQL;
 
-      $q = $this->db->prepare($sql);
-      if ($q->execute([
+    try {
+      $stmt = $this->db->prepare($sql);
+      $stmt->execute([
         $input['purchase_date'],
         $input['category_name'],
         $input['product_name'],
         $input['shop_name'],
         $input['price']
-        ]) === false) {
-        throw new RuntimeException('ordersテーブルへのINSERTが失敗しました。');
-      }
+      ]);
+    } catch (PDOException $e) {
+      throw new RuntimeException('ordersテーブルへのINSERTでエラーが発生しました。');
+    }
   }
 
   public function updateData($order_id, $old_data, $input) {
@@ -68,16 +70,18 @@ SQL;
 SQL;
 
     if ($input['purchase_date'] !== '') {
-      $q = $this->db->prepare($sql);
-      if ($q->execute([
-        $input['purchase_date'],
-        $input['category_name'],
-        $input['product_name'],
-        $input['shop_name'],
-        $input['price'],
-        $order_id
-        ]) === false) {
-        throw new RuntimeException('ordersテーブルのUPDATEが失敗しました。');
+      try {
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+          $input['purchase_date'],
+          $input['category_name'],
+          $input['product_name'],
+          $input['shop_name'],
+          $input['price'],
+          $order_id
+        ]);
+      } catch (PDOException $e) {
+        throw new RuntimeException('ordersテーブルのUPDATEでエラーが発生しました。');
       }
     }
   }
@@ -85,9 +89,11 @@ SQL;
   public function deleteData($order_id) {
     $sql = 'DELETE FROM orders WHERE order_id = ?';
 
-    $q = $this->db->prepare($sql);
-    if ($q->execute([$order_id]) === false) {
-      throw new RuntimeException('ordersテーブルからのDELETEが失敗しました。');
+    try {
+      $stmt = $this->db->prepare($sql);
+      $stmt->execute([$order_id]);
+    } catch (PDOException $e) {
+      throw new RuntimeException('ordersテーブルからのDELETEでエラーが発生しました。');
     }
   }
 }

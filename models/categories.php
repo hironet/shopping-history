@@ -16,7 +16,7 @@ class Categories {
 SQL;
 
     if ($this->db->query($sql) === false) {
-      throw new RuntimeException('categoriesテーブルの作成が失敗しました。');
+      throw new RuntimeException('categoriesテーブルの作成でエラーが発生しました。');
     }
   }
 
@@ -28,26 +28,30 @@ SQL;
     SELECT ? FROM dual WHERE NOT EXISTS (SELECT * FROM categories WHERE category_name=?)
 SQL;
 
-    $q = $this->db->prepare($sql);
-    if ($q->execute([$category_name, $category_name]) === false) {
-      throw new RuntimeException('categoriesテーブルへのINSERTが失敗しました。');
+    try {
+      $stmt = $this->db->prepare($sql);
+      $stmt->execute([$category_name, $category_name]);
+    } catch (PDOException $e) {
+      throw new RuntimeException('categoriesテーブルへのINSERTでエラーが発生しました。');
     }
   }
 
   public function deleteData($category_name) {
     $sql = 'DELETE FROM categories WHERE category_name = ?';
 
-    $q = $this->db->prepare($sql);
-    if ($q->execute([$category_name]) === false) {
-      throw new RuntimeException('categoriesテーブルからのDELETEが失敗しました。');
+    try {
+      $stmt = $this->db->prepare($sql);
+      $stmt->execute([$category_name]);
+    } catch (PDOException $e) {
+      throw new RuntimeException('categoriesテーブルからのDELETEでエラーが発生しました。');
     }
   }
 
   public function getAllData() {
     $sql = 'SELECT category_id, category_name FROM categories ORDER BY category_name';
 
-    $q = $this->db->query($sql);
-    return $q->fetchAll();
+    $stmt = $this->db->query($sql);
+    return $stmt->fetchAll();
   }
 }
 ?>
