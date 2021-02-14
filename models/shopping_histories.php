@@ -47,7 +47,7 @@ SQL;
     }
   }
 
-  private function checkInsertData($input) {
+  private function checkInsertData(&$input) {
     // product_name以外のいずれかが空であればfalse
     if (!$input['purchase_date'] ||
         !$input['category_name'] ||
@@ -64,7 +64,7 @@ SQL;
     return true;
   }
 
-  private function checkUpdateData($input) {
+  private function checkUpdateData(&$input) {
     // 全て空であればfalse
     if (!$input['purchase_date'] &&
         !$input['category_name'] &&
@@ -147,16 +147,18 @@ SQL;
   }
 
   public function importCsv($file) {
-    if (($handle = fopen($file, "r")) != false) {
-      while (($values = fgetcsv($handle, 1000, ",")) != false) {
-        if (count($values) != 5) continue;
-        $input = array_combine(self::KEYS, $values);
-        $this->insertData($input);
+    if (is_uploaded_file($file)) {
+      if (($handle = fopen($file, "r")) != false) {
+        while (($values = fgetcsv($handle, 1000, ",")) != false) {
+          if (count($values) != 5) continue;
+          $input = array_combine(self::KEYS, $values);
+          $this->insertData($input);
+        }
+        fclose($handle);
+      } else {
+        echo "{$file}を開けませんでした。<br>";
+        exit(1);
       }
-      fclose($handle);
-    } else {
-      echo "{$file}を開けませんでした。<br>";
-      exit(1);
     }
   }
 

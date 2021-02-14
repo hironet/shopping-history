@@ -42,10 +42,7 @@ if (isset($_POST['operation'])) {
       $sh->deleteData($order_id);
       break;
     case 'import':
-      if (is_uploaded_file($_FILES['import-file']['tmp_name'])) {
-          echo $_FILES['import-file']['tmp_name'], '<br>';
-          echo $_FILES['import-file']['size'], '<br>';
-      }
+      $sh->importCsv($_FILES['import-file']['tmp_name']);
       break;
   }
 }
