@@ -127,7 +127,7 @@ foreach ($shops as $shop) {
               </th>
               <th>
                 <button id="search-btn" class="btn btn-primary btn-sm" type="submit" name="operation" value="search">検索</button>
-                <button class="btn btn-dark btn-sm" type="submit" name="operation" value="insert">登録</button>
+                <button id="insert-btn" class="btn btn-dark btn-sm" type="submit" name="operation" value="insert">登録</button>
               </th>
             </tr>
           </thead>
@@ -157,7 +157,7 @@ foreach ($data as $d) {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
   <script>
     window.addEventListener('DOMContentLoaded', function() {
-      // テキストボックスでEnterキーを押すと検索実行する処理
+      // テキストボックスでEnterキーを押すと検索ボタンを押す処理
       document.querySelectorAll('input').forEach(function (input) {
         input.addEventListener('keydown', function(e) {
           if (e.key === 'Enter') {
@@ -169,13 +169,33 @@ foreach ($data as $d) {
         });
       });
 
-      // Rキーを押すとリセット実行する処理
+      // ショートカットキー処理
       window.addEventListener('keydown', function(e) {
-        if (e.key === 'r') {
-          e.preventDefault();
-          let btn = document.getElementById('reset-btn');
-          let event = new MouseEvent('click');
-          btn.dispatchEvent(event);
+        e.preventDefault();
+
+        switch (e.key) {
+          case 'b':  // ページ最下部に移動する処理
+            let doc = document.documentElement;
+            let bottom = doc.scrollHeight - doc.clientHeight;
+            window.scroll(0, bottom);
+            break;
+          case 't':  // ページ最上部に移動する処理
+            window.scroll(0, 0);
+            break;
+        }
+
+        if (e.ctrlKey) {
+          switch (e.key) {
+            case 'r':  // リセットボタンを押す処理
+              document.getElementById('reset-btn').dispatchEvent(new MouseEvent('click'));
+              break;
+            case 's':  // 検索ボタンを押す処理
+              document.getElementById('search-btn').dispatchEvent(new MouseEvent('click'));
+              break;
+            case 'i':  // 登録ボタンを押す処理
+              document.getElementById('insert-btn').dispatchEvent(new MouseEvent('click'));
+              break;
+          }
         }
       });
     });
