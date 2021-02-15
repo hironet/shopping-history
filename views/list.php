@@ -160,10 +160,10 @@ foreach ($data as $d) {
       // テキストボックスでEnterキーを押すと検索実行する処理
       document.querySelectorAll('input').forEach(function (input) {
         input.addEventListener('keydown', function(e) {
-          if (e.keyCode === 13) {
+          if (e.key === 'Enter') {
             e.preventDefault();
             let btn = document.getElementById('search-btn');
-            let event = new Event('click');
+            let event = new MouseEvent('click');
             btn.dispatchEvent(event);
           }
         });
@@ -171,10 +171,10 @@ foreach ($data as $d) {
 
       // Rキーを押すとリセット実行する処理
       window.addEventListener('keydown', function(e) {
-        if (e.keyCode === 82) {
+        if (e.key === 'r') {
           e.preventDefault();
           let btn = document.getElementById('reset-btn');
-          let event = new Event('click');
+          let event = new MouseEvent('click');
           btn.dispatchEvent(event);
         }
       });
