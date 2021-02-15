@@ -171,8 +171,6 @@ foreach ($data as $d) {
 
       // ショートカットキー処理
       window.addEventListener('keydown', function(e) {
-        e.preventDefault();
-
         switch (e.key) {
           case 'b':  // ページ最下部に移動する処理
             let doc = document.documentElement;
@@ -187,12 +185,15 @@ foreach ($data as $d) {
         if (e.ctrlKey) {
           switch (e.key) {
             case 'r':  // リセットボタンを押す処理
+              e.preventDefault();
               document.getElementById('reset-btn').dispatchEvent(new MouseEvent('click'));
               break;
             case 's':  // 検索ボタンを押す処理
+              e.preventDefault();
               document.getElementById('search-btn').dispatchEvent(new MouseEvent('click'));
               break;
             case 'i':  // 登録ボタンを押す処理
+              e.preventDefault();
               document.getElementById('insert-btn').dispatchEvent(new MouseEvent('click'));
               break;
           }
