@@ -183,6 +183,16 @@ SQL;
     ORDER BY order_id
 SQL;
 
+    // 日付をYYYY-MM-DD形式に変換する
+    if ($keyword['purchase_date'] !== '%') {
+      try {
+        $dt = new DateTime($keyword['purchase_date']);
+        $keyword['purchase_date'] = $dt->format('Y-m-d');
+      } catch (Exception $e) {
+        throw new RuntimeException('日付の形式が誤っています。');
+      }
+    }
+
     try {
       $stmt = $this->db->prepare($sql);
       $stmt->execute([
