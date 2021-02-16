@@ -156,6 +156,14 @@ foreach ($data as $d) {
   </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
   <script>
+    // YYYY-MM-DD形式の日付を返す
+    function formatDate(dt) {
+      let y = dt.getFullYear();
+      let m = ('00' + (dt.getMonth() + 1)).slice(-2);
+      let d = ('00' + dt.getDate()).slice(-2);
+      return (y + '-' + m + '-' + d);
+    }
+
     window.addEventListener('DOMContentLoaded', function() {
       // テキストボックスでEnterキーを押すと検索ボタンを押す処理
       document.querySelectorAll('input').forEach(function (input) {
@@ -203,6 +211,10 @@ foreach ($data as $d) {
             case '5':  // 価格テキストボックスをフォーカスする処理
               e.preventDefault();
               document.getElementById('price').focus();
+              break;
+            case 'd':  // 日付テキストボックスに今日の日付を入力する処理
+              e.preventDefault();
+              document.getElementById('purchase-date').value = formatDate(new Date());
               break;
             case 'r':  // リセットボタンを押す処理
               e.preventDefault();
