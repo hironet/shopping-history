@@ -70,7 +70,7 @@ SQL;
         !$input['category_name'] ||
         !$input['shop_name'] ||
         !$input['price']) {
-      throw new RuntimeException('商品名以外の全ての項目を入力する必要があります。');
+      throw new RuntimeException('商品名以外の全てのカラムを入力する必要があります。');
     }
 
     foreach ($input as &$value) {
@@ -91,7 +91,7 @@ SQL;
         !$input['product_name'] &&
         !$input['shop_name'] &&
         !$input['price']) {
-      throw new RuntimeException('いずれかの項目を入力する必要があります。');
+      throw new RuntimeException('いずれかのカラムを入力する必要があります。');
     }
 
     foreach ($input as &$value) {
