@@ -184,7 +184,7 @@ SQL;
 SQL;
 
     // 日付をYYYY-MM-DD形式に変換する
-    if ($keyword['purchase_date'] !== '%') {
+    if (preg_match('/%|_/', $keyword['purchase_date']) === 0) {
       try {
         $dt = new DateTime($keyword['purchase_date']);
         $keyword['purchase_date'] = $dt->format('Y-m-d');
