@@ -93,7 +93,7 @@ function h($str) {
             <table class="table table-striped table-bordered align-middle">
               <thead>
                 <tr class="text-center">
-                  <th>キー</th>
+                  <th>パターン</th>
                   <th>説明</th>
                 </tr>
               </thead>
