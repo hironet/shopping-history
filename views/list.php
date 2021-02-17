@@ -51,6 +51,7 @@ function h($str) {
         <div class="navbar-nav">
           <a class="nav-link" href=".">買い物履歴一覧</a>
           <a class="nav-link" href="." data-bs-toggle="modal" data-bs-target="#import-file-modal">インポート</a>
+          <a class="nav-link" href="." data-bs-toggle="modal" data-bs-target="#help-modal">ヘルプ</a>
         </div>
       </div>
     </nav>
@@ -76,6 +77,116 @@ function h($str) {
         </div>
       </div><!-- ファイルインポートモーダル -->
     </form>
+    <!-- ヘルプモーダル -->
+    <div class="modal fade" id="help-modal" tabindex="-1" aria-labelledby="help-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="help-modal-label">ヘルプ</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h6 class="text-decoration-underline">■ 検索について</h6>
+            <ul>
+              <li>検索キーワードには以下のパターンを使用できる</li>
+            </ul>
+            <table class="table table-striped table-bordered align-middle">
+              <thead>
+                <tr class="text-center">
+                  <th>キー</th>
+                  <th>説明</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>%</td>
+                  <td>0文字以上の任意の文字列にマッチする</td>
+                </tr>
+                <tr>
+                  <td>_</td>
+                  <td>任意の1文字にマッチする</td>
+                </tr>
+              </tbody>
+            </table>
+            <h6 class="text-decoration-underline">■ 登録について</h6>
+            <ul>
+              <li>テキストボックスにデータを入力し、登録ボタンを押す</li>
+              <li>商品名の入力は任意であるが、その他のカラムは必須となる</li>
+            </ul>
+            <h6 class="text-decoration-underline">■ 変更について</h6>
+            <ul>
+              <li>変更したいカラムのテキストボックスにデータを入力し、変更したいレコードの変更ボタンを押す</li>
+              <li>最低1つのカラムには入力必須となる</li>
+            </ul>
+            <h6 class="text-decoration-underline">■ 削除について</h6>
+            <ul>
+              <li>削除したいレコードの削除ボタンを押す</li>
+            </ul>
+            <h6 class="text-decoration-underline">■ ショートカットキーについて</h6>
+            <ul>
+              <li>以下のショートカットキーを使用できる</li>
+            </ul>
+            <table class="table table-striped table-bordered align-middle">
+              <thead>
+                <tr class="text-center">
+                  <th>キー</th>
+                  <th>説明</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><kbd>Ctrl + 1</kbd></td>
+                  <td>日付テキストボックスにフォーカスする</td>
+                </tr>
+                <tr>
+                  <td><kbd>Ctrl + 2</kbd></td>
+                  <td>分類テキストボックスにフォーカスする</td>
+                </tr>
+                <tr>
+                  <td><kbd>Ctrl + 3</kbd></td>
+                  <td>商品名テキストボックスにフォーカスする</td>
+                </tr>
+                <tr>
+                  <td><kbd>Ctrl + 4</kbd></td>
+                  <td>店テキストボックスにフォーカスする</td>
+                </tr>
+                <tr>
+                  <td><kbd>Ctrl + 5</kbd></td>
+                  <td>価格テキストボックスにフォーカスする</td>
+                </tr>
+                <tr>
+                  <td><kbd>Ctrl + d</kbd></td>
+                  <td>日付テキストボックスに今日の日付を入力する</td>
+                </tr>
+                <tr>
+                  <td><kbd>Ctrl + r</kbd></td>
+                  <td>リセットボタンを押す</td>
+                </tr>
+                <tr>
+                  <td><kbd>Ctrl + s</kbd></td>
+                  <td>検索ボタンを押す</td>
+                </tr>
+                <tr>
+                  <td><kbd>Ctrl + i</kbd></td>
+                  <td>登録ボタンを押す</td>
+                </tr>
+                <tr>
+                  <td><kbd>t</kbd></td>
+                  <td>ページ最上部にスクロールする</td>
+                </tr>
+                <tr>
+                  <td><kbd>b</kbd></td>
+                  <td>ページ最下部にスクロールする</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">閉じる</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- ヘルプモーダル -->
   </header>
   <main>
     <p class="text-end">データ件数：<span class="fw-bold text-danger"><?php echo number_format($number_of_data)?></span> 件 / 合計金額：<span class="fw-bold text-danger"><?php echo number_format($sum_price) ?></span> 円</p>
@@ -180,35 +291,35 @@ foreach ($data as $d) {
       // ショートカットキー処理
       window.addEventListener('keydown', function(e) {
         switch (e.key) {
-          case 'b':  // ページ最下部に移動する処理
+          case 'b':  // ページ最下部にスクロールする処理
             let doc = document.documentElement;
             let bottom = doc.scrollHeight - doc.clientHeight;
             window.scroll(0, bottom);
             break;
-          case 't':  // ページ最上部に移動する処理
+          case 't':  // ページ最上部にスクロールする処理
             window.scroll(0, 0);
             break;
         }
 
         if (e.ctrlKey) {
           switch (e.key) {
-            case '1':  // 日付テキストボックスをフォーカスする処理
+            case '1':  // 日付テキストボックスにフォーカスする処理
               e.preventDefault();
               document.getElementById('purchase-date').focus();
               break;
-            case '2':  // 分類テキストボックスをフォーカスする処理
+            case '2':  // 分類テキストボックスにフォーカスする処理
               e.preventDefault();
               document.getElementById('category-name').focus();
               break;
-            case '3':  // 商品名テキストボックスをフォーカスする処理
+            case '3':  // 商品名テキストボックスにフォーカスする処理
               e.preventDefault();
               document.getElementById('product-name').focus();
               break;
-            case '4':  // 店テキストボックスをフォーカスする処理
+            case '4':  // 店テキストボックスにフォーカスする処理
               e.preventDefault();
               document.getElementById('shop-name').focus();
               break;
-            case '5':  // 価格テキストボックスをフォーカスする処理
+            case '5':  // 価格テキストボックスにフォーカスする処理
               e.preventDefault();
               document.getElementById('price').focus();
               break;
