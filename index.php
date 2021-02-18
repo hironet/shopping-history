@@ -12,11 +12,13 @@ try {
   $sh = new ShoppingHistories($db);
 
   $keyword = $sh->makeData(['%', '%', '%', '%', '%']);
+  $order = isset($_POST['order']) ? $_POST['order'] : '2 asc';
 
   if (isset($_POST['operation'])) {
     $operation = explode(',', $_POST['operation']);
     switch ($operation[0]) {
       case 'reset':
+        $order = '2 asc';
         break;
       case 'search':
         $keyword = $sh->makeData($_POST['input']);
@@ -45,7 +47,7 @@ try {
 
   $categories = $sh->getAllCategories();
   $shops = $sh->getAllShops();
-  $data = $sh->getDataByKeyword($keyword);
+  $data = $sh->getDataByKeyword($keyword, $order);
   $number_of_data = count($data);  // データ件数
   $sum_price = $sh->getSumPrice($keyword);  // 合計金額
 

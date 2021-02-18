@@ -170,7 +170,7 @@ SQL;
     }
   }
 
-  public function getDataByKeyword($keyword) {
+  public function getDataByKeyword($keyword, $order) {
     $sql = <<<SQL
     SELECT order_id, purchase_date, category_name, product_name, shop_name, price
     FROM shopping_histories
@@ -180,7 +180,7 @@ SQL;
       product_name LIKE ? AND
       shop_name LIKE ? AND
       price LIKE ?
-    ORDER BY order_id
+    ORDER BY $order,1
 SQL;
 
     // 日付をYYYY-MM-DD形式に変換する

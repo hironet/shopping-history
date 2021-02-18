@@ -27,11 +27,13 @@ function h($str) {
       opacity: 0.9;
     }
 
-    .col12-nowrap td:nth-of-type(-n+2) {
+    /* 先頭から2カラム目までに適用 */
+    .col12-nowrap td:nth-of-type(-n+2), th:nth-of-type(-n+2) {
       white-space: nowrap;
     }
 
-    .col456-nowrap td:nth-of-type(n+4) {
+    /* 4カラム目から最後までに適用 */
+    .col456-nowrap td:nth-of-type(n+4), th:nth-of-type(n+4) {
       white-space: nowrap;
     }
 
@@ -49,7 +51,7 @@ function h($str) {
       </button>
       <div id="navbarNavAltMarkup" class="collapse navbar-collapse justify-content-center">
         <div class="navbar-nav">
-          <a class="nav-link" href=".">買い物履歴一覧</a>
+          <a class="nav-link" href=".">一覧表示</a>
           <a class="nav-link" href="." data-bs-toggle="modal" data-bs-target="#import-file-modal">インポート</a>
           <a class="nav-link" href="." data-bs-toggle="modal" data-bs-target="#help-modal">ヘルプ</a>
         </div>
@@ -66,7 +68,7 @@ function h($str) {
             </div>
             <div class="modal-body">
               <p>インポートするCSVファイルを選択して下さい。</p>
-              <input type="hidden" name="MAX_FILE_SIZE" value="2097152" />
+              <input type="hidden" name="MAX_FILE_SIZE" value="2097152">
               <input type="file" name="csv-file" size="200">
             </div>
             <div class="modal-footer">
@@ -116,7 +118,7 @@ function h($str) {
             <h6 class="text-decoration-underline">■ 変更について</h6>
             <ul>
               <li>変更したいカラムのテキストボックスにデータを入力し、変更したいレコードの変更ボタンを押す</li>
-              <li>最低1つのカラムには入力必須となる</li>
+              <li>最低1つのカラムは入力必須となる</li>
             </ul>
             <h6 class="text-decoration-underline">■ 削除について</h6>
             <ul>
@@ -189,27 +191,57 @@ function h($str) {
     </div><!-- ヘルプモーダル -->
   </header>
   <main>
-    <p class="text-end">データ件数：<span class="fw-bold text-danger"><?php echo number_format($number_of_data)?></span> 件 / 合計金額：<span class="fw-bold text-danger"><?php echo number_format($sum_price) ?></span> 円</p>
+    <p class="text-end">データ件数：<span class="fw-bold text-danger"><?php echo number_format($number_of_data); ?></span> 件 / 合計金額：<span class="fw-bold text-danger"><?php echo number_format($sum_price); ?></span> 円</p>
     <div class="table-responsive">
       <form action="." method="POST">
         <table class="table table-striped table-bordered align-middle col12-nowrap col456-nowrap col5-align">
           <thead>
             <tr class="text-center">
-              <th>日付</th>
-              <th>分類</th>
-              <th>商品名</th>
-              <th>店</th>
-              <th>価格</th>
+              <th>
+                日付
+                <input id="purchase-date-asc" class="btn-check" type="radio" name="order" value="2 asc" autocomplete="off"<?php echo $order === '2 asc' ? ' checked' : ''; ?>>
+                <label class="btn-sm btn-secondary" for="purchase-date-asc">▲</label>
+                <input id="purchase-date-desc" class="btn-check" type="radio" name="order" value="2 desc" autocomplete="off"<?php echo $order === '2 desc' ? ' checked' : ''; ?>>
+                <label class="btn-sm btn-secondary" for="purchase-date-desc">▼</label>
+              </th>
+              <th>
+                分類
+                <input id="category-name-asc" class="btn-check" type="radio" name="order" value="3 asc" autocomplete="off"<?php echo $order === '3 asc' ? ' checked' : ''; ?>>
+                <label class="btn-sm btn-secondary" for="category-name-asc">▲</label>
+                <input id="category-name-desc" class="btn-check" type="radio" name="order" value="3 desc" autocomplete="off"<?php echo $order === '3 desc' ? ' checked' : ''; ?>>
+                <label class="btn-sm btn-secondary" for="category-name-desc">▼</label>
+              </th>
+              <th>
+                商品名
+                <input id="product-name-asc" class="btn-check" type="radio" name="order" value="4 asc" autocomplete="off"<?php echo $order === '4 asc' ? ' checked' : ''; ?>>
+                <label class="btn-sm btn-secondary" for="product-name-asc">▲</label>
+                <input id="product-name-desc" class="btn-check" type="radio" name="order" value="4 desc" autocomplete="off"<?php echo $order === '4 desc' ? ' checked' : ''; ?>>
+                <label class="btn-sm btn-secondary" for="product-name-desc">▼</label>
+              </th>
+              <th>
+                店
+                <input id="shop-name-asc" class="btn-check" type="radio" name="order" value="5 asc" autocomplete="off"<?php echo $order === '5 asc' ? ' checked' : ''; ?>>
+                <label class="btn-sm btn-secondary" for="shop-name-asc">▲</label>
+                <input id="shop-name-desc" class="btn-check" type="radio" name="order" value="5 desc" autocomplete="off"<?php echo $order === '5 desc' ? ' checked' : ''; ?>>
+                <label class="btn-sm btn-secondary" for="shop-name-desc">▼</label>
+              </th>
+              <th>
+                価格
+                <input id="price-asc" class="btn-check" type="radio" name="order" value="6 asc" autocomplete="off"<?php echo $order === '6 asc' ? ' checked' : ''; ?>>
+                <label class="btn-sm btn-secondary" for="price-asc">▲</label>
+                <input id="price-desc" class="btn-check" type="radio" name="order" value="6 desc" autocomplete="off"<?php echo $order === '6 desc' ? ' checked' : ''; ?>>
+                <label class="btn-sm btn-secondary" for="price-desc">▼</label>
+              </th>
               <th>
                 <button id="reset-btn" class="btn btn-secondary btn-sm" type="submit" name="operation" value="reset">リセット</button>
               </th>
             </tr>
             <tr>
               <th>
-                <input id="purchase-date" class="form-control" type="text" name="input[]" value="<?php echo $keyword['purchase_date'] === '%' ? '' : $keyword['purchase_date'] ?>" placeholder="検索・登録・変更">
+                <input id="purchase-date-tbox" class="form-control" type="text" name="input[]" value="<?php echo $keyword['purchase_date'] === '%' ? '' : $keyword['purchase_date']; ?>" placeholder="検索・登録・変更">
               </th>
               <th>
-                <input id="category-name" class="form-control" type="text" name="input[]" value="<?php echo $keyword['category_name'] === '%' ? '' : $keyword['category_name'] ?>" autocomplete="on" list="category_name_list" placeholder="検索・登録・変更">
+                <input id="category-name-tbox" class="form-control" type="text" name="input[]" value="<?php echo $keyword['category_name'] === '%' ? '' : $keyword['category_name']; ?>" autocomplete="on" list="category_name_list" placeholder="検索・登録・変更">
                 <datalist id="category_name_list">
 <?php
 foreach ($categories as $category) {
@@ -220,10 +252,10 @@ foreach ($categories as $category) {
                 </datalist>
               </th>
               <th>
-                <input id="product-name" class="form-control" type="text" name="input[]" value="<?php echo $keyword['product_name'] === '%' ? '' : $keyword['product_name'] ?>" placeholder="検索・登録・変更">
+                <input id="product-name-tbox" class="form-control" type="text" name="input[]" value="<?php echo $keyword['product_name'] === '%' ? '' : $keyword['product_name']; ?>" placeholder="検索・登録・変更">
               </th>
               <th>
-                <input id="shop-name" class="form-control" type="text" name="input[]" value="<?php echo $keyword['shop_name'] === '%' ? '' : $keyword['shop_name'] ?>" autocomplete="on" list="shop_name_list" placeholder="検索・登録・変更">
+                <input id="shop-name-tbox" class="form-control" type="text" name="input[]" value="<?php echo $keyword['shop_name'] === '%' ? '' : $keyword['shop_name']; ?>" autocomplete="on" list="shop_name_list" placeholder="検索・登録・変更">
                 <datalist id="shop_name_list">
 <?php
 foreach ($shops as $shop) {
@@ -234,7 +266,7 @@ foreach ($shops as $shop) {
                 </datalist>
               </th>
               <th>
-                <input id="price" class="form-control" type="text" name="input[]" value="<?php echo $keyword['price'] === '%' ? '' : $keyword['price'] ?>" placeholder="検索・登録・変更">
+                <input id="price-tbox" class="form-control" type="text" name="input[]" value="<?php echo $keyword['price'] === '%' ? '' : $keyword['price']; ?>" placeholder="検索・登録・変更">
               </th>
               <th>
                 <button id="search-btn" class="btn btn-primary btn-sm" type="submit" name="operation" value="search">検索</button>
@@ -305,27 +337,27 @@ foreach ($data as $d) {
           switch (e.key) {
             case '1':  // 日付テキストボックスにフォーカスする処理
               e.preventDefault();
-              document.getElementById('purchase-date').focus();
+              document.getElementById('purchase-date-tbox').focus();
               break;
             case '2':  // 分類テキストボックスにフォーカスする処理
               e.preventDefault();
-              document.getElementById('category-name').focus();
+              document.getElementById('category-name-tbox').focus();
               break;
             case '3':  // 商品名テキストボックスにフォーカスする処理
               e.preventDefault();
-              document.getElementById('product-name').focus();
+              document.getElementById('product-name-tbox').focus();
               break;
             case '4':  // 店テキストボックスにフォーカスする処理
               e.preventDefault();
-              document.getElementById('shop-name').focus();
+              document.getElementById('shop-name-tbox').focus();
               break;
             case '5':  // 価格テキストボックスにフォーカスする処理
               e.preventDefault();
-              document.getElementById('price').focus();
+              document.getElementById('price-tbox').focus();
               break;
             case 'd':  // 日付テキストボックスに今日の日付を入力する処理
               e.preventDefault();
-              document.getElementById('purchase-date').value = formatDate(new Date());
+              document.getElementById('purchase-date-tbox').value = formatDate(new Date());
               break;
             case 'r':  // リセットボタンを押す処理
               e.preventDefault();
