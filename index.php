@@ -11,20 +11,20 @@ try {
 
   $sh = new ShoppingHistories($db);
 
-  $keyword = $sh->makeData(['%', '%', '%', '%', '%']);
+  $keyword = isset($_POST['input']) ? $sh->makeData($_POST['input']) : $sh->makeData(['%', '%', '%', '%', '%']);
+  foreach ($keyword as &$value) {
+    if (!$value) $value = '%';  // 検索キーワードが空であれば%に置き換える
+  }
   $order = isset($_POST['order']) ? $_POST['order'] : '2 asc';
 
   if (isset($_POST['operation'])) {
     $operation = explode(',', $_POST['operation']);
     switch ($operation[0]) {
       case 'reset':
+        $keyword = $sh->makeData(['%', '%', '%', '%', '%']);
         $order = '2 asc';
         break;
       case 'search':
-        $keyword = $sh->makeData($_POST['input']);
-        foreach ($keyword as &$value) {
-          if (!$value) $value = '%';  // 検索キーワードが空であれば%に置き換える
-        }
         break;
       case 'insert':
         $input = $sh->makeData($_POST['input']);
