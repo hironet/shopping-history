@@ -1,6 +1,16 @@
 <?php
+$db_host='';
+$db_name='';
+$db_user='';
+$db_pass='';
+
 require_once('/var/www/config/shopping_history/db_info.php');
 require_once(__DIR__ . '/models/shopping_histories.php');
+
+define('DB_HOST', $db_host);
+define('DB_NAME', $db_name);
+define('DB_USER', $db_user);
+define('DB_PASS', $db_pass);
 
 try {
   $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
