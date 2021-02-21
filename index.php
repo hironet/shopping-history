@@ -13,10 +13,8 @@ define('DB_USER', $db_user);
 define('DB_PASS', $db_pass);
 
 try {
-  $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
-  $user = DB_USER;
-  $pass = DB_PASS;
-  $db = new PDO($dsn, $user, $pass);
+  $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4';
+  $db = new PDO($dsn, DB_USER, DB_PASS);
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   $isDemoMode = strcmp(DB_HOST, 'hironet-db') === 0 ? true : false;
