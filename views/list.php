@@ -1,4 +1,8 @@
 <?php
+function checkDemoMode() {
+  return strcmp(DB_HOST, 'hironet-db') === 0 ? true : false;
+}
+
 function h($str) {
   return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
@@ -49,7 +53,11 @@ function h($str) {
             <a class="nav-link" href=".">月毎一覧</a>
             <a class="nav-link" href=".">年毎一覧</a>
           </div>
+<?php if (checkDemoMode() === true) { ?>
+          <button class="btn btn-outline-success mx-2" type="button" data-bs-toggle="modal" data-bs-target="#demo-mode-modal">インポート</button>
+<?php } else { ?>
           <button class="btn btn-outline-success mx-2" type="button" data-bs-toggle="modal" data-bs-target="#file-import-modal">インポート</button>
+<?php } ?>
           <button class="btn btn-outline-primary mx-2" type="button" data-bs-toggle="modal" data-bs-target="#help-modal">ヘルプ</button>
         </div>
       </div>
@@ -186,6 +194,23 @@ function h($str) {
         </div>
       </div>
     </div><!-- ヘルプモーダル -->
+    <!-- デモモードモーダル -->
+    <div class="modal fade" id="demo-mode-modal" tabindex="-1" aria-labelledby="demo-mode-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="demo-mode-modal-label">禁止されている操作</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>デモモードのため、その操作は行えません。</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">閉じる</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- デモモードモーダル -->
   </header>
   <main>
     <p class="text-end">データ件数：<span class="fw-bold text-danger"><?php echo number_format($number_of_data); ?></span> 件 / 合計金額：<span class="fw-bold text-danger"><?php echo number_format($sum_price); ?></span> 円</p>
@@ -267,7 +292,11 @@ foreach ($shops as $shop) {
               </th>
               <th>
                 <button id="search-btn" class="btn btn-primary btn-sm" type="submit" name="operation" value="search">検索</button>
+<?php if (checkDemoMode() === true) { ?>
+                <button id="insert-btn" class="btn btn-dark btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#demo-mode-modal">登録</button>
+<?php } else { ?>
                 <button id="insert-btn" class="btn btn-dark btn-sm" type="submit" name="operation" value="insert">登録</button>
+<?php } ?>
               </th>
             </tr>
           </thead>
@@ -282,8 +311,16 @@ foreach ($data as $d) {
               <td><?php echo h($d['shop_name']); ?></td>
               <td><?php echo number_format(h($d['price'])); ?> 円</td>
               <td>
+<?php if (checkDemoMode() === true) { ?>
+                <button class="btn btn-success btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#demo-mode-modal">変更</button>
+<?php } else { ?>
                 <button class="btn btn-success btn-sm" type="submit" name="operation" value="update,<?php echo $d['order_id']; ?>">変更</button>
+<?php } ?>
+<?php if (checkDemoMode() === true) { ?>
+                <button class="btn btn-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#demo-mode-modal">削除</button>
+<?php } else { ?>
                 <button class="btn btn-danger btn-sm" type="submit" name="operation" value="delete,<?php echo $d['order_id']; ?>">削除</button>
+<?php } ?>
               </td>
             </tr>
 <?php
