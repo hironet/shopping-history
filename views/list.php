@@ -1,8 +1,4 @@
 <?php
-function checkDemoMode() {
-  return strcmp(DB_HOST, 'hironet-db') === 0 ? true : false;
-}
-
 function h($str) {
   return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
@@ -53,7 +49,7 @@ function h($str) {
             <a class="nav-link" href=".">月毎一覧</a>
             <a class="nav-link" href=".">年毎一覧</a>
           </div>
-<?php if (checkDemoMode() === true) { ?>
+<?php if ($isDemoMode === true) { ?>
           <button class="btn btn-outline-success mx-2" type="button" data-bs-toggle="modal" data-bs-target="#demo-mode-modal">インポート</button>
 <?php } else { ?>
           <button class="btn btn-outline-success mx-2" type="button" data-bs-toggle="modal" data-bs-target="#file-import-modal">インポート</button>
@@ -292,7 +288,7 @@ foreach ($shops as $shop) {
               </th>
               <th>
                 <button id="search-btn" class="btn btn-primary btn-sm" type="submit" name="operation" value="search">検索</button>
-<?php if (checkDemoMode() === true) { ?>
+<?php if ($isDemoMode === true) { ?>
                 <button id="insert-btn" class="btn btn-dark btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#demo-mode-modal">登録</button>
 <?php } else { ?>
                 <button id="insert-btn" class="btn btn-dark btn-sm" type="submit" name="operation" value="insert">登録</button>
@@ -311,12 +307,12 @@ foreach ($data as $d) {
               <td><?php echo h($d['shop_name']); ?></td>
               <td><?php echo number_format(h($d['price'])); ?> 円</td>
               <td>
-<?php if (checkDemoMode() === true) { ?>
+<?php if ($isDemoMode === true) { ?>
                 <button class="btn btn-success btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#demo-mode-modal">変更</button>
 <?php } else { ?>
                 <button class="btn btn-success btn-sm" type="submit" name="operation" value="update,<?php echo $d['order_id']; ?>">変更</button>
 <?php } ?>
-<?php if (checkDemoMode() === true) { ?>
+<?php if ($isDemoMode === true) { ?>
                 <button class="btn btn-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#demo-mode-modal">削除</button>
 <?php } else { ?>
                 <button class="btn btn-danger btn-sm" type="submit" name="operation" value="delete,<?php echo $d['order_id']; ?>">削除</button>

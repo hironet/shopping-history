@@ -19,6 +19,8 @@ try {
   $db = new PDO($dsn, $user, $pass);
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+  $isDemoMode = strcmp(DB_HOST, 'hironet-db') === 0 ? true : false;
+
   $sh = new ShoppingHistories($db);
 
   $keyword = isset($_POST['input']) ? $sh->makeData($_POST['input']) : $sh->makeData(['%', '%', '%', '%', '%']);
