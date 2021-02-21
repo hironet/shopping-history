@@ -19,16 +19,17 @@ function h($str) {
       opacity: 0.9;
     }
 
-    /* 先頭から2カラム目までに適用 */
+    /* 第1から第2カラムまで適用 */
     .col12-nowrap td:nth-of-type(-n+2), th:nth-of-type(-n+2) {
       white-space: nowrap;
     }
 
-    /* 4カラム目から最後までに適用 */
+    /* 第4カラムから最後のカラムまで適用 */
     .col456-nowrap td:nth-of-type(n+4), th:nth-of-type(n+4) {
       white-space: nowrap;
     }
 
+    /* 第5カラムに適用 */
     .col5-align td:nth-of-type(5) {
       text-align: right;
     }
@@ -45,19 +46,21 @@ function h($str) {
         <div id="navbarNavAltMarkup" class="collapse navbar-collapse">
           <div class="navbar-nav me-auto">
             <a class="nav-link" href=".">日毎一覧</a>
-            <span class="nav-link" data-bs-toggle="modal" data-bs-target="#import-file-modal">インポート</span>
+            <a class="nav-link" href=".">月毎一覧</a>
+            <a class="nav-link" href=".">年毎一覧</a>
           </div>
-          <button class="btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#help-modal">ヘルプ</button>
+          <button class="btn btn-outline-success mx-2" type="button" data-bs-toggle="modal" data-bs-target="#file-import-modal">インポート</button>
+          <button class="btn btn-outline-primary mx-2" type="button" data-bs-toggle="modal" data-bs-target="#help-modal">ヘルプ</button>
         </div>
       </div>
     </nav>
     <form action="." method="POST" enctype="multipart/form-data">
       <!-- ファイルインポートモーダル -->
-      <div class="modal fade" id="import-file-modal" tabindex="-1" aria-labelledby="import-file-modal-label" aria-hidden="true">
+      <div class="modal fade" id="file-import-modal" tabindex="-1" aria-labelledby="file-import-modal-label" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="import-file-modal-label">CSVファイルのインポート</h5>
+              <h5 class="modal-title" id="file-import-modal-label">インポート</h5>
               <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
