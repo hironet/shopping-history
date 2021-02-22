@@ -16,6 +16,17 @@ define('DB_USER', $db_user);
 define('DB_PASS', $db_pass);
 
 try {
+  /* データベース作成 */
+
+  $dsn = 'mysql:host=' . DB_HOST . ';charset=utf8mb4';
+  $db = new PDO($dsn, DB_USER, DB_PASS);
+  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+  $sql = 'CREATE DATABASE IF NOT EXISTS shopping_history DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin';
+  $db->exec($sql);
+
+  /* テーブル作成 */
+
   $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4';
   $db = new PDO($dsn, DB_USER, DB_PASS);
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
