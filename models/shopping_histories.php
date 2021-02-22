@@ -155,7 +155,9 @@ SQL;
       if (($handle = fopen($file['tmp_name'], "r")) != false) {
         try {
           while (($values = fgetcsv($handle, 1000, ",")) != false) {
-            if (count($values) != 5) continue;
+            if (count($values) != 5) {
+              throw new RuntimeException('ファイルのフォーマットが正しくありません。');
+            }
             $input = array_combine(self::KEYS, $values);
             $this->insertData($input);
           }
