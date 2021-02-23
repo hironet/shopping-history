@@ -1,10 +1,10 @@
 # 買い物履歴管理システム
 
+https://hironet.org/shopping-history/
+
 ## 概要
 
 * 買い物の履歴（日付、商品名、店、価格）を残すためのシステム
-
-https://hironet.org/shopping-history/
 
 ## 機能
 
@@ -20,6 +20,6 @@ https://hironet.org/shopping-history/
 * Apache
 * MySQL
 * HTML
-* CSS (Bootstrap v5.0)
+* CSS（Bootstrap v5.0）
 * JavaScript
 * PHP
