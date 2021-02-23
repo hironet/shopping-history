@@ -4,7 +4,7 @@ $db_name='';
 $db_user='';
 $db_pass='';
 
-require_once('/var/www/config/shopping_history/db_info.php');
+require_once('/var/www/config/shopping-history/db_info.php');
 require_once(__DIR__ . '/models/shopping_histories.php');
 
 define('DB_HOST', $db_host);
