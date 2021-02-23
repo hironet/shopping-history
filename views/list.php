@@ -19,6 +19,11 @@ function h($str) {
       opacity: 0.9;
     }
 
+    /* 1行に適用 */
+    .row-nowrap {
+      white-space: nowrap;
+    }
+
     /* 第1から第2カラムまで適用 */
     .col12-nowrap td:nth-of-type(-n+2), th:nth-of-type(-n+2) {
       white-space: nowrap;
@@ -214,7 +219,7 @@ function h($str) {
       <form action="." method="POST">
         <table class="table table-striped table-bordered align-middle col12-nowrap col456-nowrap col5-align">
           <thead>
-            <tr class="text-center">
+            <tr class="text-center row-nowrap">
               <th>
                 日付
                 <input id="purchase-date-asc" class="btn-check" type="radio" name="order" value="2 asc" autocomplete="off"<?php echo $order === '2 asc' ? ' checked' : ''; ?>>
