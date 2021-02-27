@@ -12,13 +12,18 @@ define('DB_NAME', $db_name);
 define('DB_USER', $db_user);
 define('DB_PASS', $db_pass);
 
+$isDemoMode = strcmp(DB_HOST, 'hironet-db') === 0 ? true : false;
+
 try {
   $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4';
   $db = new PDO($dsn, DB_USER, DB_PASS);
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (Exception $e) {
+  echo $e->getMessage(), PHP_EOL;
+  exit(1);
+}
 
-  $isDemoMode = strcmp(DB_HOST, 'hironet-db') === 0 ? true : false;
-
+try {
   $sh = new ShoppingHistories($db);
 
   $keyword = isset($_POST['input']) ? $sh->makeData($_POST['input']) : $sh->makeData(['%', '%', '%', '%', '%']);
@@ -38,31 +43,36 @@ try {
         break;
       case 'insert':
         $input = $sh->makeData($_POST['input']);
-        $sh->insertData($input);
+        $success_message = $sh->insertData($input);
         break;
       case 'update':
         $order_id = $operation[1];
         $input = $sh->makeData($_POST['input']);
-        $sh->updateData($order_id, $input);
+        $success_message = $sh->updateData($order_id, $input);
+        $keyword = $sh->makeData(['%', '%', '%', '%', '%']);
         break;
       case 'delete':
         $order_id = $operation[1];
-        $sh->deleteData($order_id);
+        $success_message = $sh->deleteData($order_id);
         break;
       case 'import':
-        $sh->importCsv($_FILES['csv-file']);
+        $success_message = $sh->importCsv($_FILES['csv-file']);
         break;
     }
   }
+} catch (Exception $e) {
+  $error_message_1 = $e->getMessage();
+}
 
+try {
   $categories = $sh->getAllCategories();
   $shops = $sh->getAllShops();
   $data = $sh->getDataByKeyword($keyword, $order);
   $number_of_data = count($data);  // データ件数
   $sum_price = $sh->getSumPrice($keyword);  // 合計金額
-
-  include_once(__DIR__ . '/views/list.php');
 } catch (Exception $e) {
-  echo $e->getMessage(), PHP_EOL;
+  $error_message_2 = $e->getMessage();
 }
+
+include_once(__DIR__ . '/views/list.php');
 ?>

@@ -214,7 +214,27 @@ function h($str) {
     </div><!-- デモモードモーダル -->
   </header>
   <main>
+<?php if (isset($error_message_1)) { ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <?php echo $error_message_1; ?>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php } ?>
+<?php if (isset($error_message_2)) { ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <?php echo $error_message_2; ?>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php } ?>
+<?php if (isset($success_message)) { ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <?php echo $success_message; ?>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php } ?>
+<?php if (isset($number_of_data) && isset($sum_price)) { ?>
     <p class="text-end">データ件数：<span class="fw-bold text-danger"><?php echo number_format($number_of_data); ?></span> 件 / 合計金額：<span class="fw-bold text-danger"><?php echo number_format($sum_price); ?></span> 円</p>
+<?php } ?>
     <div class="table-responsive">
       <form action="." method="POST">
         <table class="table table-striped table-bordered align-middle col12-nowrap col456-nowrap col5-align">
@@ -267,7 +287,7 @@ function h($str) {
                 <input id="category-name-tbox" class="form-control" type="text" name="input[]" value="<?php echo $keyword['category_name'] === '%' ? '' : $keyword['category_name']; ?>" autocomplete="on" list="category_name_list" placeholder="検索・登録・変更">
                 <datalist id="category_name_list">
 <?php
-foreach ($categories as $category) {
+foreach ((array)$categories as $category) {
   $category_name = $category[1];
   echo '<option value="' . h($category_name) . '">', PHP_EOL;
 }
@@ -281,7 +301,7 @@ foreach ($categories as $category) {
                 <input id="shop-name-tbox" class="form-control" type="text" name="input[]" value="<?php echo $keyword['shop_name'] === '%' ? '' : $keyword['shop_name']; ?>" autocomplete="on" list="shop_name_list" placeholder="検索・登録・変更">
                 <datalist id="shop_name_list">
 <?php
-foreach ($shops as $shop) {
+foreach ((array)$shops as $shop) {
   $shop_name = $shop[1];
   echo '<option value="' . h($shop_name) . '">', PHP_EOL;
 }
@@ -303,7 +323,7 @@ foreach ($shops as $shop) {
           </thead>
           <tbody>
 <?php
-foreach ($data as $d) {
+foreach ((array)$data as $d) {
 ?>
             <tr>
               <td><?php echo h($d['purchase_date']); ?></td>

@@ -82,6 +82,8 @@ SQL;
     $this->categories->insertData($input['category_name']);
     $this->shops->insertData($input['shop_name']);
     $this->orders->insertData($input);
+
+    return '登録が完了しました。';
   }
 
   public function updateData($order_id, $input) {
@@ -122,6 +124,8 @@ SQL;
     if ($this->checkExistsShop($old_data['shop_name']) === false) {
       $this->shops->deleteData($old_data['shop_name']);
     }
+
+    return '更新が完了しました。';
   }
 
   public function deleteData($order_id) {
@@ -137,6 +141,8 @@ SQL;
     if ($this->checkExistsShop($old_data['shop_name']) === false) {
       $this->shops->deleteData($old_data['shop_name']);
     }
+
+    return '削除が完了しました。';
   }
 
   public function importCsv($file) {
@@ -170,6 +176,8 @@ SQL;
     } else {
       throw new RuntimeException('ファイルはHTTP POST以外の方法でアップロードされました。');
     }
+
+    return 'インポートが完了しました。';
   }
 
   public function getDataByKeyword($keyword, $order) {
