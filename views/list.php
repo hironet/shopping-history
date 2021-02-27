@@ -445,7 +445,7 @@ foreach ((array)$shops as $shop) {
               break;
             case 'i':  // 登録ボタンを押す処理
               e.preventDefault();
-              document.getElementById('insert-btn').dispatchEvent(new MouseEvent('click'));
+              document.getElementById('insert-btn').dispatchEvent(new MouseEvent('click', {cancelable: true}));
               break;
           }
         }
