@@ -322,9 +322,7 @@ foreach ((array)$shops as $shop) {
             </tr>
           </thead>
           <tbody>
-<?php
-foreach ((array)$data as $d) {
-?>
+<?php foreach ((array)$data as $d) { ?>
             <tr>
               <td><?php echo h($d['purchase_date']); ?></td>
               <td><?php echo h($d['category_name']); ?></td>
@@ -334,19 +332,14 @@ foreach ((array)$data as $d) {
               <td>
 <?php if ($isDemoMode === true) { ?>
                 <button class="btn btn-success btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#demo-mode-modal">変更</button>
-<?php } else { ?>
-                <button class="btn btn-success btn-sm" type="submit" name="operation" value="update,<?php echo $d['order_id']; ?>">変更</button>
-<?php } ?>
-<?php if ($isDemoMode === true) { ?>
                 <button class="btn btn-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#demo-mode-modal">削除</button>
 <?php } else { ?>
+                <button class="btn btn-success btn-sm" type="submit" name="operation" value="update,<?php echo $d['order_id']; ?>">変更</button>
                 <button class="btn btn-danger btn-sm" type="submit" name="operation" value="delete,<?php echo $d['order_id']; ?>">削除</button>
 <?php } ?>
               </td>
             </tr>
-<?php
-}
-?>
+<?php } ?>
           </tbody>
         </table>
       </form>
