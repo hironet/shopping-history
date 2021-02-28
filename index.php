@@ -25,7 +25,14 @@ try {
 
 $menu = isset($_GET['menu']) ? $_GET['menu'] : 'daily';
 switch ($menu) {
+  case 'monthly':  // 月毎一覧の処理
+    include_once(__DIR__ . '/views/monthly_list.php');
+    break;
+  case 'yearly':  // 年毎一覧の処理
+    include_once(__DIR__ . '/views/yearly_list.php');
+    break;
   case 'daily':  // 日毎一覧の処理
+  default:
     try {
       $sh = new ShoppingHistories($db);
 
@@ -78,12 +85,6 @@ switch ($menu) {
     }
 
     include_once(__DIR__ . '/views/daily_list.php');
-    break;
-  case 'monthly':  // 月毎一覧の処理
-    include_once(__DIR__ . '/views/monthly_list.php');
-    break;
-  case 'yearly':  // 年毎一覧の処理
-    include_once(__DIR__ . '/views/yearly_list.php');
     break;
 }
 ?>
