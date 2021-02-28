@@ -74,5 +74,16 @@ try {
   $error_message_2 = $e->getMessage();
 }
 
-include_once(__DIR__ . '/views/list.php');
+if (isset($_GET['menu'])) {
+  switch ($_GET['menu']) {
+    case 'monthly':
+      include_once(__DIR__ . '/views/monthly_list.php');
+      break;
+    case 'yearly':
+      include_once(__DIR__ . '/views/yearly_list.php');
+      break;
+  }
+} else {
+  include_once(__DIR__ . '/views/daily_list.php');
+}
 ?>
