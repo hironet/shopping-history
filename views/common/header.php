@@ -6,7 +6,7 @@
     </button>
     <div id="navbarNavAltMarkup" class="collapse navbar-collapse">
       <div class="navbar-nav me-auto">
-        <a class="nav-link" href=".">日毎一覧</a>
+        <a class="nav-link" href=".?menu=daily">日毎一覧</a>
         <a class="nav-link" href=".?menu=monthly">月毎一覧</a>
         <a class="nav-link" href=".?menu=yearly">年毎一覧</a>
       </div>
