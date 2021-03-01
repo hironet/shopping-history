@@ -269,5 +269,20 @@ SQL;
   public function getAllShops() {
     return $this->shops->getAllData();
   }
+
+  public function getMonthlyData() {
+    $sql = <<<SQL
+    SELECT DATE_FORMAT(purchase_date, '%Y-%m') as purchase_month, SUM(price)
+    FROM shopping_histories
+    GROUP BY purchase_month
+    ORDER BY purchase_month
+SQL;
+
+    try {
+      return $this->db->query($sql);
+    } catch (PDOException $e) {
+      throw new RuntimeException('shopping_historiesビューからのSELECTでエラーが発生しました。');
+    }
+  }
 }
 ?>
