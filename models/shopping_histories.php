@@ -279,7 +279,9 @@ SQL;
 SQL;
 
     try {
-      return $this->db->query($sql);
+      $stmt = $this->db->prepare($sql);
+      $stmt->execute();
+      return $stmt->fetchAll();
     } catch (PDOException $e) {
       throw new RuntimeException('shopping_historiesビューからのSELECTでエラーが発生しました。');
     }
