@@ -286,5 +286,22 @@ SQL;
       throw new RuntimeException('shopping_historiesビューからのSELECTでエラーが発生しました。');
     }
   }
+
+  public function getYearlyData() {
+    $sql = <<<SQL
+    SELECT DATE_FORMAT(purchase_date, '%Y') as purchase_year, SUM(price) as sum_price
+    FROM shopping_histories
+    GROUP BY purchase_year
+    ORDER BY purchase_year
+SQL;
+
+    try {
+      $stmt = $this->db->prepare($sql);
+      $stmt->execute();
+      return $stmt->fetchAll();
+    } catch (PDOException $e) {
+      throw new RuntimeException('shopping_historiesビューからのSELECTでエラーが発生しました。');
+    }
+  }
 }
 ?>
