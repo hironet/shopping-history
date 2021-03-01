@@ -159,7 +159,7 @@ foreach ((array)$shops as $shop) {
           </tbody>
         </table>
       </form>
-    </div>
+    </div><!-- table-responsive -->
   </main>
 <?php include_once(__DIR__ . '/common/script.php'); ?>
   <script>
