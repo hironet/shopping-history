@@ -26,6 +26,13 @@ try {
 $menu = isset($_GET['menu']) ? $_GET['menu'] : 'daily';
 switch ($menu) {
   case 'monthly':  // 月毎一覧の処理
+    try {
+      $sh = new ShoppingHistories($db);
+
+      $data = $sh->getMonthlyData();
+    } catch (Exception $e) {
+      $error_message_1 = $e->getMessage();
+    }
     include_once(__DIR__ . '/views/monthly_list.php');
     break;
   case 'yearly':  // 年毎一覧の処理
