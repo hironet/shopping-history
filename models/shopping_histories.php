@@ -272,7 +272,7 @@ SQL;
 
   public function getMonthlyData() {
     $sql = <<<SQL
-    SELECT DATE_FORMAT(purchase_date, '%Y-%m') as purchase_month, SUM(price)
+    SELECT DATE_FORMAT(purchase_date, '%Y-%m') as purchase_month, SUM(price) as sum_price
     FROM shopping_histories
     GROUP BY purchase_month
     ORDER BY purchase_month
