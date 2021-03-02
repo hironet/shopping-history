@@ -29,7 +29,7 @@
         <thead>
           <tr class="text-center row-nowrap">
             <th>年</th>
-            <th>個数</th>
+            <th>商品数</th>
             <th>合計金額</th>
           </tr>
         </thead>
