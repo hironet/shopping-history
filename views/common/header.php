@@ -116,7 +116,7 @@
             </tr>
             <tr>
               <td><kbd>Ctrl + 5</kbd></td>
-              <td>価格テキストボックスにフォーカスする</td>
+              <td>金額テキストボックスにフォーカスする</td>
             </tr>
             <tr>
               <td><kbd>Ctrl + d</kbd></td>

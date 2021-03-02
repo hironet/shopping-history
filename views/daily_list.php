@@ -85,7 +85,7 @@
                 <label class="btn-sm btn-secondary" for="shop-name-desc">▼</label>
               </th>
               <th>
-                価格
+                金額
                 <input id="price-asc" class="btn-check" type="radio" name="order" value="6 asc" autocomplete="off"<?php echo $order === '6 asc' ? ' checked' : ''; ?>>
                 <label class="btn-sm btn-secondary" for="price-asc">▲</label>
                 <input id="price-desc" class="btn-check" type="radio" name="order" value="6 desc" autocomplete="off"<?php echo $order === '6 desc' ? ' checked' : ''; ?>>
@@ -232,7 +232,7 @@ foreach ((array)$shops as $shop) {
               e.preventDefault();
               document.getElementById('shop-name-tbox').focus();
               break;
-            case '5':  // 価格テキストボックスにフォーカスする処理
+            case '5':  // 金額テキストボックスにフォーカスする処理
               e.preventDefault();
               document.getElementById('price-tbox').focus();
               break;
