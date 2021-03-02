@@ -270,12 +270,12 @@ SQL;
     return $this->shops->getAllData();
   }
 
-  public function getMonthlyData() {
+  public function getMonthlyData($order) {
     $sql = <<<SQL
     SELECT DATE_FORMAT(purchase_date, '%Y-%m') as purchase_month, COUNT(*) as count, SUM(price) as sum_price
     FROM shopping_histories
     GROUP BY purchase_month
-    ORDER BY purchase_month
+    ORDER BY $order
 SQL;
 
     try {
@@ -287,12 +287,12 @@ SQL;
     }
   }
 
-  public function getYearlyData() {
+  public function getYearlyData($order) {
     $sql = <<<SQL
     SELECT DATE_FORMAT(purchase_date, '%Y') as purchase_year, COUNT(*) as count, SUM(price) as sum_price, SUM(price) / 12 as ave_price
     FROM shopping_histories
     GROUP BY purchase_year
-    ORDER BY purchase_year
+    ORDER BY $order
 SQL;
 
     try {

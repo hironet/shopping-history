@@ -29,7 +29,8 @@ switch ($menu) {
     try {
       $sh = new ShoppingHistories($db);
 
-      $data = $sh->getMonthlyData();
+      $order = isset($_POST['order']) ? $_POST['order'] : '1 asc';
+      $data = $sh->getMonthlyData($order);
       $number_of_data = count($data);  // データ件数
     } catch (Exception $e) {
       $error_message_1 = $e->getMessage();
@@ -41,7 +42,8 @@ switch ($menu) {
     try {
       $sh = new ShoppingHistories($db);
 
-      $data = $sh->getYearlyData();
+      $order = isset($_POST['order']) ? $_POST['order'] : '1 asc';
+      $data = $sh->getYearlyData($order);
       $number_of_data = count($data);  // データ件数
     } catch (Exception $e) {
       $error_message_1 = $e->getMessage();
