@@ -21,6 +21,9 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <?php } ?>
+<?php if (isset($number_of_data)) { ?>
+    <p class="text-end">データ件数：<span class="fw-bold text-danger"><?php echo number_format($number_of_data); ?></span> 件</p>
+<?php } ?>
     <div class="table-responsive">
       <table class="table table-striped table-bordered align-middle col2-align">
         <thead>

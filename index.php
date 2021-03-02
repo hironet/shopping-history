@@ -30,9 +30,11 @@ switch ($menu) {
       $sh = new ShoppingHistories($db);
 
       $data = $sh->getMonthlyData();
+      $number_of_data = count($data);  // データ件数
     } catch (Exception $e) {
       $error_message_1 = $e->getMessage();
     }
+
     include_once(__DIR__ . '/views/monthly_list.php');
     break;
   case 'yearly':  // 年毎一覧の処理
@@ -40,9 +42,11 @@ switch ($menu) {
       $sh = new ShoppingHistories($db);
 
       $data = $sh->getYearlyData();
+      $number_of_data = count($data);  // データ件数
     } catch (Exception $e) {
       $error_message_1 = $e->getMessage();
     }
+
     include_once(__DIR__ . '/views/yearly_list.php');
     break;
   case 'daily':  // 日毎一覧の処理
