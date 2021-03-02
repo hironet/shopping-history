@@ -31,6 +31,7 @@
             <th>年</th>
             <th>商品数</th>
             <th>合計金額</th>
+            <th>1ヶ月あたりの平均金額</th>
           </tr>
         </thead>
         <tbody>
@@ -39,6 +40,7 @@
             <td><?php echo h($d['purchase_year']); ?></td>
             <td><?php echo h($d['count']); ?></td>
             <td><?php echo number_format(h($d['sum_price'])); ?> 円</td>
+            <td><?php echo number_format(h($d['ave_price'])); ?> 円</td>
           </tr>
 <?php } ?>
         </tbody>

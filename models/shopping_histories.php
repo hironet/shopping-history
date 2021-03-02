@@ -289,7 +289,7 @@ SQL;
 
   public function getYearlyData() {
     $sql = <<<SQL
-    SELECT DATE_FORMAT(purchase_date, '%Y') as purchase_year, COUNT(*) as count, SUM(price) as sum_price
+    SELECT DATE_FORMAT(purchase_date, '%Y') as purchase_year, COUNT(*) as count, SUM(price) as sum_price, SUM(price) / 12 as ave_price
     FROM shopping_histories
     GROUP BY purchase_year
     ORDER BY purchase_year
