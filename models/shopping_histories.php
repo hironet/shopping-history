@@ -272,7 +272,7 @@ SQL;
 
   public function getMonthlyData() {
     $sql = <<<SQL
-    SELECT DATE_FORMAT(purchase_date, '%Y-%m') as purchase_month, SUM(price) as sum_price
+    SELECT DATE_FORMAT(purchase_date, '%Y-%m') as purchase_month, SUM(price) as sum_price, COUNT(*) as count
     FROM shopping_histories
     GROUP BY purchase_month
     ORDER BY purchase_month
@@ -289,7 +289,7 @@ SQL;
 
   public function getYearlyData() {
     $sql = <<<SQL
-    SELECT DATE_FORMAT(purchase_date, '%Y') as purchase_year, SUM(price) as sum_price
+    SELECT DATE_FORMAT(purchase_date, '%Y') as purchase_year, SUM(price) as sum_price, COUNT(*) as count
     FROM shopping_histories
     GROUP BY purchase_year
     ORDER BY purchase_year

@@ -29,6 +29,7 @@
         <thead>
           <tr class="text-center row-nowrap">
             <th>年</th>
+            <th>個数</th>
             <th>合計価格</th>
           </tr>
         </thead>
@@ -36,6 +37,7 @@
 <?php foreach ((array)$data as $d) { ?>
           <tr>
             <td><?php echo h($d['purchase_year']); ?></td>
+            <td><?php echo h($d['count']); ?></td>
             <td><?php echo number_format(h($d['sum_price'])); ?> 円</td>
           </tr>
 <?php } ?>
