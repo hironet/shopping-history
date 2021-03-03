@@ -4,6 +4,11 @@
 <head>
 <?php include_once(__DIR__ . '/common/head.php'); ?>
   <style>
+    /* 1行に適用 */
+    .row-nowrap {
+      white-space: nowrap;
+    }
+
     /* 第2カラムに適用 */
     .col2-align td:nth-of-type(2) {
       text-align: right;
