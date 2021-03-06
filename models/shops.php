@@ -54,4 +54,3 @@ SQL;
     return $stmt->fetchAll();
   }
 }
-?>
