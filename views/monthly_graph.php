@@ -15,7 +15,9 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <?php } ?>
-    <canvas id="myChart"></canvas>
+    <div class="chart-container mx-auto" style="position: relative; height:40vh; width:80vw">
+      <canvas id="monthly-bar-chart"></canvas>
+    </div>
   </main>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <?php
@@ -26,7 +28,7 @@ foreach ((array)$data as $d) {
 }
 ?>
   <script>
-    let ctx = document.getElementById("myChart").getContext('2d');
+    let ctx = document.getElementById("monthly-bar-chart").getContext('2d');
     let dataset = [];
     let bgcolor = [
       'rgba(110, 167, 161, 0.5)',
