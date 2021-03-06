@@ -23,9 +23,9 @@ try {
   exit(1);
 }
 
-$menu = isset($_GET['menu']) ? $_GET['menu'] : 'daily';
+$menu = isset($_GET['menu']) ? $_GET['menu'] : 'daily-list';
 switch ($menu) {
-  case 'monthly':  // 月毎一覧の処理
+  case 'monthly-list':  // 月毎一覧の処理
     try {
       $sh = new ShoppingHistories($db);
 
@@ -38,7 +38,7 @@ switch ($menu) {
 
     include_once(__DIR__ . '/views/monthly_list.php');
     break;
-  case 'yearly':  // 年毎一覧の処理
+  case 'yearly-list':  // 年毎一覧の処理
     try {
       $sh = new ShoppingHistories($db);
 
@@ -51,7 +51,31 @@ switch ($menu) {
 
     include_once(__DIR__ . '/views/yearly_list.php');
     break;
-  case 'daily':  // 日毎一覧の処理
+  case 'monthly-graph':  // 月毎グラフの処理
+    try {
+      $sh = new ShoppingHistories($db);
+
+      $order = '1 asc';
+      $data = $sh->getMonthlyData($order);
+    } catch (Exception $e) {
+      $error_message_1 = $e->getMessage();
+    }
+
+    include_once(__DIR__ . '/views/monthly_graph.php');
+    break;
+  case 'yearly-graph':  // 年毎グラフの処理
+    try {
+      $sh = new ShoppingHistories($db);
+
+      $order = '1 asc';
+      $data = $sh->getYearlyData($order);
+    } catch (Exception $e) {
+      $error_message_1 = $e->getMessage();
+    }
+
+    include_once(__DIR__ . '/views/yearly_graph.php');
+    break;
+  case 'daily-list':  // 日毎一覧の処理
   default:
     try {
       $sh = new ShoppingHistories($db);
@@ -107,4 +131,3 @@ switch ($menu) {
     include_once(__DIR__ . '/views/daily_list.php');
     break;
 }
-?>

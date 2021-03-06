@@ -6,9 +6,11 @@
     </button>
     <div id="navbarNavAltMarkup" class="collapse navbar-collapse">
       <div class="navbar-nav me-auto">
-        <a class="nav-link" href=".?menu=daily">日毎一覧</a>
-        <a class="nav-link" href=".?menu=monthly">月毎一覧</a>
-        <a class="nav-link" href=".?menu=yearly">年毎一覧</a>
+        <a class="nav-link" href=".?menu=daily-list">日毎一覧</a>
+        <a class="nav-link" href=".?menu=monthly-list">月毎一覧</a>
+        <a class="nav-link" href=".?menu=yearly-list">年毎一覧</a>
+        <a class="nav-link" href=".?menu=monthly-graph">月毎グラフ</a>
+        <a class="nav-link" href=".?menu=yearly-graph">年毎グラフ</a>
       </div>
 <?php if ($isDemoMode === true) { ?>
       <button class="btn btn-outline-success mx-2" type="button" data-bs-toggle="modal" data-bs-target="#demo-mode-modal">インポート</button>
