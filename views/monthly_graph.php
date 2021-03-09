@@ -91,6 +91,10 @@ foreach ((array)$data as $d) {
           display: true,
           text: '月毎グラフ'
         },
+        legend: {
+          display: true,
+          position: 'bottom'
+        },
         scales: {
           xAxes: [{
             scaleLabel: {
