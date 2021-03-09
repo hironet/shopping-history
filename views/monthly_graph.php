@@ -15,7 +15,7 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <?php } ?>
-    <div class="chart-container mx-auto" style="position: relative; height:40vh; width:80vw">
+    <div class="chart-container mx-auto" style="position: relative; height:60vh; width:95vw">
       <canvas id="monthly-bar-chart"></canvas>
     </div>
   </main>
@@ -87,13 +87,28 @@ foreach ((array)$data as $d) {
         datasets: dataset,
       },
       options: {
+        title: {
+          display: true,
+          text: '月毎グラフ'
+        },
         scales: {
+          xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: '月'
+            }
+          }],
           yAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: '合計金額'
+            },
             ticks: {
-              beginAtZero:true
+              beginAtZero: true
             }
           }]
-        }
+        },
+        maintainAspectRatio: false
       }
     });
   </script>
