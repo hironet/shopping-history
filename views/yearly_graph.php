@@ -27,50 +27,31 @@ foreach ((array)$data as $d) {
 ?>
   <script>
     let ctx = document.getElementById("yearly-bar-chart").getContext('2d');
-    let dataset = [];
-    let bgcolor = [
-      'rgba(243, 112, 83, 0.5)',
-      'rgba(246, 139, 88, 0.5)',
-      'rgba(253, 191, 100, 0.5)',
-      'rgba(248, 235, 101, 0.5)',
-      'rgba(110, 167, 161, 0.5)',
-      'rgba(98, 137, 164, 0.5)',
-      'rgba(92, 115, 183, 0.5)',
-      'rgba(115, 97, 171, 0.5)',
-      'rgba(143, 100, 171, 0.5)',
-      'rgba(199, 103, 129, 0.5)',
-    ];
-    let bdcolor = [
-      'rgba(243, 112, 83, 1)',
-      'rgba(246, 139, 88, 1)',
-      'rgba(253, 191, 100, 1)',
-      'rgba(248, 235, 101, 1)',
-      'rgba(110, 167, 161, 1)',
-      'rgba(98, 137, 164, 1)',
-      'rgba(92, 115, 183, 1)',
-      'rgba(115, 97, 171, 1)',
-      'rgba(143, 100, 171, 1)',
-      'rgba(199, 103, 129, 1)',
-    ];
+    let label = [];
+    let data = [];
 <?php foreach ($data_set as $year => $price) { ?>
-    dataset.push({
-      label: '<?= $year ?>年',
-      data: [<?= $price ?>],
-      backgroundColor: bgcolor[<?= $year ?> % 10],
-      borderColor: bdcolor[<?= $year ?> % 10],
-      borderWidth: 1
-    });
+    label.push('<?= $year ?>年');
+    data.push('<?= $price ?>');
 <?php } ?>
+    let dataset = [{
+      data: data,
+      backgroundColor: 'rgba(243, 112, 83, 0.5)',
+      borderColor: 'rgba(243, 112, 83, 1)',
+      borderWidth: 1
+    }];
     let yearly_bar_chart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['年'],
+        labels: label,
         datasets: dataset,
       },
       options: {
         title: {
           display: true,
           text: '年毎グラフ'
+        },
+        legend: {
+          display: false
         },
         scales: {
           xAxes: [{
