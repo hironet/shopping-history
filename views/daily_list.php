@@ -100,8 +100,8 @@
                 <input id="purchase-date-tbox" class="form-control" type="text" name="input[]" value="<?= $keyword['purchase_date'] === '%' ? '' : $keyword['purchase_date'] ?>" placeholder="検索・登録・変更">
               </th>
               <th>
-                <input id="category-name-tbox" class="form-control" type="text" name="input[]" value="<?= $keyword['category_name'] === '%' ? '' : $keyword['category_name'] ?>" autocomplete="on" list="category_name_list" placeholder="検索・登録・変更">
-                <datalist id="category_name_list">
+                <input id="category-name-tbox" class="form-control" type="text" name="input[]" value="<?= $keyword['category_name'] === '%' ? '' : $keyword['category_name'] ?>" autocomplete="on" list="category-name-list" placeholder="検索・登録・変更">
+                <datalist id="category-name-list">
 <?php
 foreach ((array)$categories as $category) {
   $category_name = $category[1];
@@ -114,8 +114,8 @@ foreach ((array)$categories as $category) {
                 <input id="product-name-tbox" class="form-control" type="text" name="input[]" value="<?= $keyword['product_name'] === '%' ? '' : $keyword['product_name'] ?>" placeholder="検索・登録・変更">
               </th>
               <th>
-                <input id="shop-name-tbox" class="form-control" type="text" name="input[]" value="<?= $keyword['shop_name'] === '%' ? '' : $keyword['shop_name'] ?>" autocomplete="on" list="shop_name_list" placeholder="検索・登録・変更">
-                <datalist id="shop_name_list">
+                <input id="shop-name-tbox" class="form-control" type="text" name="input[]" value="<?= $keyword['shop_name'] === '%' ? '' : $keyword['shop_name'] ?>" autocomplete="on" list="shop-name-list" placeholder="検索・登録・変更">
+                <datalist id="shop-name-list">
 <?php
 foreach ((array)$shops as $shop) {
   $shop_name = $shop[1];

@@ -281,10 +281,10 @@ SQL;
     try {
       $stmt = $this->db->prepare($sql);
       $stmt->execute();
-      return $stmt->fetchAll();
     } catch (PDOException $e) {
       throw new RuntimeException('shopping_historiesビューからのSELECTでエラーが発生しました。');
     }
+    return $stmt->fetchAll();
   }
 
   public function getYearlyData($order) {
@@ -298,9 +298,9 @@ SQL;
     try {
       $stmt = $this->db->prepare($sql);
       $stmt->execute();
-      return $stmt->fetchAll();
     } catch (PDOException $e) {
       throw new RuntimeException('shopping_historiesビューからのSELECTでエラーが発生しました。');
     }
+    return $stmt->fetchAll();
   }
 }
