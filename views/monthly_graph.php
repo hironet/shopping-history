@@ -96,12 +96,6 @@ foreach ((array)$data as $d) {
           position: 'bottom'
         },
         scales: {
-          xAxes: [{
-            scaleLabel: {
-              display: true,
-              labelString: '月'
-            }
-          }],
           yAxes: [{
             scaleLabel: {
               display: true,

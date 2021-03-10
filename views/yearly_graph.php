@@ -54,12 +54,6 @@ foreach ((array)$data as $d) {
           display: false
         },
         scales: {
-          xAxes: [{
-            scaleLabel: {
-              display: true,
-              labelString: '年'
-            }
-          }],
           yAxes: [{
             scaleLabel: {
               display: true,
