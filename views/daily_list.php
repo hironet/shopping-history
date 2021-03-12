@@ -51,8 +51,8 @@
 <?php if (isset($number_of_data) && isset($sum_price)) { ?>
     <p class="text-end">データ件数：<span class="fw-bold text-danger"><?= number_format($number_of_data) ?></span> 件 / 合計金額：<span class="fw-bold text-danger"><?= number_format($sum_price) ?></span> 円</p>
 <?php } ?>
-    <div class="table-responsive">
-      <form action="." method="POST">
+    <form action="." method="POST">
+      <div class="table-responsive">
         <table class="table table-striped table-bordered align-middle col12-nowrap col456-nowrap col5-align">
           <thead>
             <tr class="text-center row-nowrap">
@@ -158,8 +158,8 @@ foreach ((array)$shops as $shop) {
 <?php } ?>
           </tbody>
         </table>
-      </form>
-    </div><!-- table-responsive -->
+      </div><!-- table-responsive -->
+    </form>
   </main>
 <?php include_once(__DIR__ . '/common/script.php'); ?>
   <script>
