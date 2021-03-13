@@ -9,8 +9,8 @@
       white-space: nowrap;
     }
 
-    /* 第2カラムに適用 */
-    .col2-align td:nth-of-type(2) {
+    /* 第2,3,4カラムに適用 */
+    .col2-align td:nth-of-type(2), td:nth-of-type(3), td:nth-of-type(4) {
       text-align: right;
     }
   </style>
